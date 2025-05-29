@@ -21,7 +21,7 @@ test('TC_001: Verify that user information is correctly shown', async () => {
     await dashboard.verifyUserInfoVisible();
 });
 
-test('TC_002: Verify that login fails with an incorrect email', async () => {
+test('TC_002:  Verify that login fails with an incorrect email', async () => {
     await login.enterUsername(Users.invalidUser);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
