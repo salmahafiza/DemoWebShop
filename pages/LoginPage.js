@@ -11,6 +11,9 @@ class LoginPage {
         this.logoutButton = page.locator("[href='/logout']");
         this.invalidLoginError = page.locator('.message-error');
         this.checkboxRememberMe = page.locator('#RememberMe');
+        this.forgetpasswordLink = page.locator('a[href="/passwordrecovery"]');
+        this.recoverButton = page.locator('.button-1.password-recovery-button');
+        this.errorMessage = page.locator('.field-validation-error');
         this.link_register = page.locator("[href='/register']");
     }
 
@@ -50,6 +53,18 @@ class LoginPage {
     async verifyRememberMeCheckboxIsTrue() {
         await expect(this.checkboxRememberMe).toBeChecked();
     }
+
+    async forgetpasswordClicked(){
+ 
+        await this.forgetpasswordLink.click()
+ 
+    }
+
+    async assertRecoveringButtonVisible() {
+    await expect(this.recoverButton).toBeVisible();
+    await this.recoverButton.click();
+    await expect(this.errorMessage).toBeVisible();
+  }
 }
 
 module.exports = { LoginPage };

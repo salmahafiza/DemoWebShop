@@ -27,3 +27,10 @@ test('TC_002:  Verify that login fails with an incorrect email', async () => {
     await login.clickLoginButton();
     await login.verifyInvalidLoginErrorMessageShouldDisplay();
 });
+
+test('TC_LOGIN_016: Forgot password -empty email', async()=>{
+ 
+        await login.forgetpasswordClicked();
+        await login.assertRecoveringButtonVisible();
+ 
+});
