@@ -46,6 +46,16 @@ class RegisterPage {
     await expect(this.registerBtn).toBeEnabled();
   }
 
+  async verifyAllFieldsAreEmpty() {
+    await expect(this.radioButtonGenderMale).not.toBeChecked();
+    await expect(this.radioButtonGenderFemale).not.toBeChecked();
+    await expect(this.field_firstName).toHaveValue('');
+    await expect(this.field_LastName).toHaveValue('');
+    await expect(this.field_registrationEmail).toHaveValue('');
+    await expect(this.field_registrationPassword).toHaveValue('');
+    await expect(this.field_confirmRegistrationPassword).toHaveValue('');
+  }
+
 
    
 

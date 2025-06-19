@@ -30,6 +30,11 @@ test('TC_REGISTER_011: Verify Existence of Clickable Fields and Titles', async()
     await register.verifyAllFieldsAreClickable();
 })
 
+test('TC_REGISTER_012: Verify that the fields are empty by default when user lands on the registration page.', async() => {
+    await register.clickRegisterationBtn();
+    await register.verifyAllFieldsAreEmpty();
+})
+
  
 
 
