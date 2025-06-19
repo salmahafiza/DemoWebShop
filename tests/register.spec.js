@@ -18,4 +18,11 @@ test('TC_REGISTER_009: Availability of Registration Page from Landing Page', asy
     await register.verifyRegisterationPage();
 });
 
+test('TC_REGISTER_010: Availability of Registration Page from Login Page', async () => {
+    await dashboard.navigateToLoginPage();
+    await register.clickRegisterationBtn();
+    await register.verifyRegisterationPage();
+});
+ 
+
 
