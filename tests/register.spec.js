@@ -23,6 +23,13 @@ test('TC_REGISTER_010: Availability of Registration Page from Login Page', async
     await register.clickRegisterationBtn();
     await register.verifyRegisterationPage();
 });
+
+
+test('TC_REGISTER_011: Verify Existence of Clickable Fields and Titles', async() => {
+    await register.clickRegisterationBtn();
+    await register.verifyAllFieldsAreClickable();
+})
+
  
 
 
