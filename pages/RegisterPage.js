@@ -34,18 +34,7 @@ class RegisterPage {
     async verifyRegisterationPage(){
         await expect(this.field_pageTitle).toBeVisible();
     }
-    async verifyAllFieldsAreClickable() {
-    await expect(this.radioButtonGenderMale).toBeEnabled();
-    await expect(this.radioButtonGenderFemale).toBeEnabled();
-    await expect(this.field_firstName).toBeEditable();
-    await expect(this.field_LastName).toBeEditable();
-    await expect(this.field_registrationEmail).toBeEditable();
-    await expect(this.field_registrationPassword).toBeEditable();
-    await expect(this.field_confirmRegistrationPassword).toBeEditable();
-    await expect(this.registerBtn).toBeEnabled();
-  }
-
-
+    
    
 
 }
