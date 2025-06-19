@@ -17,6 +17,7 @@ class RegisterPage {
         this.resultMessage = page.locator(".result");
         this.error_fieldVaildationMessage = page.locator(".field-validation-error");
         this.error_generalValidationMessage = page.locator(".validation-summary-errors");
+        this.registerBtn = page.locator('.ico-register')
 
         /** TEST DATA **/
         let firstName = "Dummy";
@@ -26,6 +27,29 @@ class RegisterPage {
         let registrationPassword = "abcd@1234";
 
     }
+
+    async clickRegisterationBtn() {
+        await this.registerBtn.click();
+    }
+    async verifyRegisterationPage(){
+        await expect(this.field_pageTitle).toBeVisible();
+    }
+    async verifyAllFieldsAreClickable() {
+    await expect(this.radioButtonGenderMale).toBeEnabled();
+    await expect(this.radioButtonGenderFemale).toBeEnabled();
+    await expect(this.field_firstName).toBeEditable();
+    await expect(this.field_LastName).toBeEditable();
+    await expect(this.field_registrationEmail).toBeEditable();
+    await expect(this.field_registrationPassword).toBeEditable();
+    await expect(this.field_confirmRegistrationPassword).toBeEditable();
+    await expect(this.registerBtn).toBeEnabled();
+  }
+
+
+   
+
 }
+
+
 
 module.exports = { RegisterPage };
