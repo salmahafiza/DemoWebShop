@@ -17,5 +17,7 @@ module.exports = {
         Password: 'abcd@1234',
         existingEmail: 'test@gmail.com',
         shortpassword: 'short',
+        InvalidFirstName: 'Dummy@123',
+        InvalidLastName: 'Tester!@#',
     }
 };

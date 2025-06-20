@@ -60,6 +60,10 @@ class DashboardPage {
         await this.page.goto('https://demowebshop.tricentis.com/login');
     }
 
+    async navigateToRegisterPage() {
+        await this.page.goto('https://demowebshop.tricentis.com/register');
+    }
+
     async verifyToLogout() {
         await this.page.logoutButton.click();
     }

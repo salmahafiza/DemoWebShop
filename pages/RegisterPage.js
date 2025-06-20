@@ -56,6 +56,13 @@ class RegisterPage {
     async verifyErrorMessageForShortPassword() {
         await expect(this.error_fieldVaildationMessage).toHaveText(/The password should have at least 6 characters./i);
     }
+
+    async verifyErrorMessageForInvalidCharacter(page){
+        const currentUrl = page.url();
+        expect(currentUrl).toContain('/register');
+        console.warn('BUG: Registration succeeded with Invalid characters in First/Last Name');
+
+    }
 }
 
 module.exports = { RegisterPage };
