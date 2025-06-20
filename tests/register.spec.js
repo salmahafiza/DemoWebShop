@@ -33,4 +33,14 @@ test('TC_REGISTER_006: Verify that registration fails if the password is too sho
     await register.verifyErrorMessageForShortPassword();
 });
 
+test('TC_REGISTER_007: Verify that registration not fails if no gender is selected', async ({ page }) => {
+    await register.EnterFirstName(Register.firstName);
+    await register.EnterLastName(Register.lastName);
+    await register.EnterEmail(Register.Email);
+    await register.EnterPassword(Register.Password);
+    await register.EnterConfirmPassword(Register.Password);
+    await register.ClickRegisterButton();
+    await register.verifySuccessfulRegistration();
+});
+
 
