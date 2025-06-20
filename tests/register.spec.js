@@ -10,7 +10,43 @@ test.beforeEach(async ({ page }) => {
     register = new RegisterPage(page);
     await dashboard.accessApplication();
     await dashboard.verifyHomePageTitle();
-    await register.navigateToRegistrationPage();
+    //await register.navigateToRegistrationPage();
 });
+
+test('TC_REGISTER_009: Availability of Registration Page from Landing Page', async () => {
+    await register.clickRegisterationBtn();
+    await register.verifyRegisterationPage();
+});
+
+test('TC_REGISTER_010: Availability of Registration Page from Login Page', async () => {
+    await dashboard.navigateToLoginPage();
+    await register.clickRegisterationBtn();
+    await register.verifyRegisterationPage();
+});
+
+
+test('TC_REGISTER_011: Verify Existence of Clickable Fields and Titles', async() => {
+    await register.clickRegisterationBtn();
+    await register.verifyAllFieldsAreClickable();
+})
+
+test('TC_REGISTER_012: Verify that the fields are empty by default when user lands on the registration page.', async() => {
+    await register.clickRegisterationBtn();
+    await register.verifyAllFieldsAreEmpty();
+})
+
+test('TC_REGISTER_013: Verify that any text in password and confirm password field should be masked.', async() => {
+    await register.clickRegisterationBtn();
+    await register.verifyPasswordFieldsAreMasked();
+})
+
+test('TC_REGISTER_014: Verify Error Messages.', async() => {
+    await register.clickRegisterationBtn();
+    await register.fillInvalidForm();
+    await register.clickSubmitBtn();
+    await register.verifyErrorMessages();
+})
+
+ 
 
 
