@@ -44,7 +44,7 @@ test('TC_REGISTER_007: Verify that registration not fails if no gender is select
     await register.verifySuccessfulRegistration();
 });
 
-test.only('TC_REGISTER_008: Verify that registration fails if names contain invalid characters.', async ({ page }) => {
+test('TC_REGISTER_008: Verify that registration fails if names contain invalid characters.', async ({ page }) => {
     await register.EnterFirstName(Register.InvalidFirstName);
     await register.EnterLastName(Register.InvalidLastName);
     await register.EnterEmail(Register.Email);
