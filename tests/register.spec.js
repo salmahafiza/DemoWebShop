@@ -35,6 +35,11 @@ test('TC_REGISTER_012: Verify that the fields are empty by default when user lan
     await register.verifyAllFieldsAreEmpty();
 })
 
+test('TC_REGISTER_013: Verify that any text in password and confirm password field should be masked.', async() => {
+    await register.clickRegisterationBtn();
+    await register.verifyPasswordFieldsAreMasked();
+})
+
  
 
 

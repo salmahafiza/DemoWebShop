@@ -55,6 +55,10 @@ class RegisterPage {
     await expect(this.field_registrationPassword).toHaveValue('');
     await expect(this.field_confirmRegistrationPassword).toHaveValue('');
   }
+  async verifyPasswordFieldsAreMasked() {
+    await expect(this.field_registrationPassword).toHaveAttribute('type', 'password');
+    await expect(this.field_confirmRegistrationPassword).toHaveAttribute('type', 'password');
+  }
 
 
    
