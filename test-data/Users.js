@@ -1,3 +1,7 @@
+const getTimestampEmail = (domain = 'test.com') => {
+    return `user${Date.now()}@${domain}`;
+};
+
 const {RegisterPage} = require('../pages/RegisterPage');
 
 module.exports = {
@@ -38,5 +42,16 @@ module.exports = {
         email: RegisterPage.generateInvalidEmail(),
         Password: 'Test@1234',
         ConfirmPassword: 'Test@1234',
+    },
+
+    Register: {
+        firstName: 'Dummy',
+        lastName: 'Tester',
+        Email: getTimestampEmail(),
+        Password: 'abcd@1234',
+        existingEmail: 'test@gmail.com',
+        shortpassword: 'short',
+        InvalidFirstName: 'Dummy@123',
+        InvalidLastName: 'Tester!@#',
     }
 };
