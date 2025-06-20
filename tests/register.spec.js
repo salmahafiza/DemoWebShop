@@ -20,8 +20,8 @@ test.beforeEach(async ({ page }) => {
 test(" TC_REGISTER_001 : Verify that a new user can register with valid details.", async () => {
     await register.fillFirstName(ResgisterData.FirstName);
     await register.fillLastName(ResgisterData.LastName);
-    await register.Email(ResgisterData.email);
-    await register.fillpassword(ResgisterData.Password);    
+    await register.fillEmail(ResgisterData.email);
+    await register.fillPassword(ResgisterData.Password);    
     await register.fillConfirmPassword(ResgisterData.ConfirmPassword);
     await register.clickRegisterButton();
     await register.verifySuccessRegistration();
@@ -52,7 +52,7 @@ test('Tc_REGISTER_003: Passwaord Mismatch ', async ({page}) => {
     }
     }
 });
- test.only('Tc_REGISTER_004 :Invalid Registration with invalid Email pattern', async ({page}) => {    
+ test('Tc_REGISTER_004 :Invalid Registration with invalid Email pattern', async ({page}) => {    
     await register.fillFirstName(ResgisterData.FirstName);
     await register.fillLastName(ResgisterData.LastName);
     await register.fillEmail(invalidEmailFormat.email);
