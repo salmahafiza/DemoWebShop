@@ -18,6 +18,11 @@ class RegisterPage {
         this.resultMessage = page.locator(".result");
         this.error_fieldVaildationMessage = page.locator(".field-validation-error");
         this.error_generalValidationMessage = page.locator(".validation-summary-errors");
+        this.firstNameError = page.locator('span[for="FirstName"]');
+        this.LastNameError = page.locator('span[for="LastName"]');
+        this.emailError= page.locator('span[for="Email"]');
+        this.passwordError =page.locator('span[for="Password"]');
+        this.ConfirmPasswordError = page.locator('span[for="ConfirmPassword"]');
 
 
         /** TEST DATA **/
@@ -44,52 +49,35 @@ class RegisterPage {
     async fillConfirmPassword(ConfirmPassword) {
         await this.field_confirmRegistrationPassword.fill(ConfirmPassword);
     }
-      async Email(email) {
-
-        console.log(email);
-        if(email == '' || !email ){
-            const randomNumber = Math.floor(Math.random() * 100000);
-            const email = `bsh${randomNumber}@gg.com`;
-            await this.field_registrationEmail.fill(email);
-            await expect(this.field_registrationEmail).toHaveValue(email);
-        }else{
-            await this.field_registrationEmail.fill(email);
-            await expect(this.field_registrationEmail).toHaveValue(email);
-        }
-        
-    }
-    async InvalidEmaildomain(email) {
-
-        console.log(email);
-        if(email == '' || !email ){
-            const randomNumber = Math.floor(Math.random() * 100000);
-            const email = `bsh@gg${randomNumber}.gs`;
-            await this.field_registrationEmail.fill(email);
-            await expect(this.field_registrationEmail).toHaveValue(email);
-        }else{
-            await this.field_registrationEmail.fill(email);
-            await expect(this.field_registrationEmail).toHaveValue(email);
-        }
-        
-    }
-
-    async verifyRegistrationSucces() {
-        await expect(this.resultMessage).toBeVisible();
-        await expect(this.resultMessage).toHaveText('Your registration completed');
-    }
-    async clickRegisterButton() {
+       async clickRegisterButton(){
         await this.button_register.click();
-    }   
-    async verifyErrorMessage() {
-        await expect(this.error_fieldVaildationMessage).toBeVisible();
-        await expect(this.error_fieldVaildationMessage).toHaveText('Please enter your email');
     }
-    async verifySuccessRegistration() {
-        await expect ( this.page).toHaveURL('https://demowebshop.tricentis.com/registerresult/1');
-        await expect(this.resultMessage).toBeVisible();
-        await expect(this.resultMessage).toHaveText('Your registration completed');
+    async fillEmail(email){
+        await this.field_registrationEmail.fill(email)
     }
+    
+    static generateRandomEmail(){
+    const randomString = Math.random().toString(36).substring(2, 15);
+    return `${randomString}@Email.com`;
+    }
+     static generateInvalidEmail() {
+    const invalidEmails = [
+        "plainaddress",         
+        "missingatsign.com",     
+        "@nodomain.com",         
+        "user@.com",             
+        "user@com",              
+        "user@domain.",         
+        "user@domain,com",     
+        "user@@domain.com",      
+        " ",                     
+        Math.random().toString(36).substring(2, 10) 
+    ];
 
+    
+    const randomIndex = Math.floor(Math.random() * invalidEmails.length);
+    return invalidEmails[randomIndex];
 }
 
-module.exports = { RegisterPage };
+}
+module.exports = {RegisterPage};

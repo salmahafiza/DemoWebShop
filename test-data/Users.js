@@ -1,3 +1,4 @@
+const {RegisterPage} = require('../pages/RegisterPage'); 
 
 module.exports = {
     Users: {
@@ -13,20 +14,23 @@ module.exports = {
     ResgisterData :{
         FirstName: 'Test',
         LastName: 'User',
-        email:'',
+        email: RegisterPage.generateRandomEmail(),
         Password: 'Test@1234',
         ConfirmPassword: 'Test@1234',
     },
-
-    URL:{
-        Dashboard: 'https://demowebshop.tricentis.com/', 
-        Register: 'https://demowebshop.tricentis.com/register', 
-        Login: 'https://demowebshop.tricentis.com/login',
-        Products: 'https://demowebshop.tricentis.com/products',
-        GiftCards: 'https://demowebshop.tricentis.com/gift-cards',
-        FeaturedProducts: 'https://demowebshop.tricentis.com/featured-products',
-        Registered: 'https://demowebshop.tricentis.com/registerresult/1',
-
-    }
+     Url:{
+        register:"https://demowebshop.tricentis.com/register",
+        dashboard:"https://demowebshop.tricentis.com/",
+        login:"https://demowebshop.tricentis.com/login",
+        registeredurl:"https://demowebshop.tricentis.com/registerresult/1"
+    
+    },
+    EmptyData :{
+        FirstName: '',
+        LastName: '',
+        email: '',
+        Password: '',
+        ConfirmPassword: '',
+    },
 
 };
