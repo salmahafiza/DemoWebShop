@@ -25,12 +25,12 @@ module.exports = {
         registeredurl:"https://demowebshop.tricentis.com/registerresult/1"
     
     },
-    EmptyData :{
-        FirstName: '',
-        LastName: '',
-        email: '',
-        Password: '',
-        ConfirmPassword: '',
-    },
+    invalidPassword : {
+        FirstName: 'Test',
+        LastName: 'User',
+        email: RegisterPage.generateRandomEmail(),
+        Password: 'Test@1234',
+        ConfirmPassword: 'Thja@1234',
+    }
 
 };

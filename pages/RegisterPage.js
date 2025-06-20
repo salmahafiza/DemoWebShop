@@ -43,7 +43,7 @@ class RegisterPage {
     async fillLastName(LastName) {
         await this.field_LastName.fill(LastName);
     }
-    async fillpassword(Password) {
+    async fillPassword(Password) {
         await this.field_registrationPassword.fill(Password);
     }
     async fillConfirmPassword(ConfirmPassword) {
