@@ -40,6 +40,13 @@ test('TC_REGISTER_013: Verify that any text in password and confirm password fie
     await register.verifyPasswordFieldsAreMasked();
 })
 
+test('TC_REGISTER_014: Verify Error Messages.', async() => {
+    await register.clickRegisterationBtn();
+    await register.fillInvalidForm();
+    await register.clickSubmitBtn();
+    await register.verifyErrorMessages();
+})
+
  
 
 

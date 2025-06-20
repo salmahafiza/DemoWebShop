@@ -13,11 +13,17 @@ class RegisterPage {
         this.field_registrationEmail = page.locator("input#Email");
         this.field_registrationPassword = page.locator("input#Password");
         this.field_confirmRegistrationPassword = page.locator("input#ConfirmPassword");
-        this.button_register = page.locator("input#register-button");
+        this.SubmitBtn = page.locator("input#register-button");
         this.resultMessage = page.locator(".result");
         this.error_fieldVaildationMessage = page.locator(".field-validation-error");
         this.error_generalValidationMessage = page.locator(".validation-summary-errors");
+        //this.firstNameError = page.locator("span[for='FirstName']");
         this.registerBtn = page.locator('.ico-register')
+        this.firstNameError = page.locator("span[for='FirstName']");
+        this.lastNameError = page.locator("span[for='LastName']");
+        this.emailError = page.locator('span[for="Email"]');
+        this.passwordError = page.locator("span[for='Password']");
+        this.confirmPasswordError = page.locator("span[for='ConfirmPassword']");
 
         /** TEST DATA **/
         let firstName = "Dummy";
@@ -28,14 +34,14 @@ class RegisterPage {
 
     }
 
-    async clickRegisterationBtn() {
-        await this.registerBtn.click();
-    }
-    async verifyRegisterationPage(){
-        await expect(this.field_pageTitle).toBeVisible();
-    }
+  async clickRegisterationBtn() {
+    await this.registerBtn.click();
+  }
+  async verifyRegisterationPage(){
+    await expect(this.field_pageTitle).toBeVisible();
+  }
 
-    async verifyAllFieldsAreClickable() {
+  async verifyAllFieldsAreClickable() {
     await expect(this.radioButtonGenderMale).toBeEnabled();
     await expect(this.radioButtonGenderFemale).toBeEnabled();
     await expect(this.field_firstName).toBeEditable();
@@ -43,7 +49,7 @@ class RegisterPage {
     await expect(this.field_registrationEmail).toBeEditable();
     await expect(this.field_registrationPassword).toBeEditable();
     await expect(this.field_confirmRegistrationPassword).toBeEditable();
-    await expect(this.registerBtn).toBeEnabled();
+    await expect(this.SubmitBtn).toBeEnabled();
   }
 
   async verifyAllFieldsAreEmpty() {
@@ -59,6 +65,24 @@ class RegisterPage {
     await expect(this.field_registrationPassword).toHaveAttribute('type', 'password');
     await expect(this.field_confirmRegistrationPassword).toHaveAttribute('type', 'password');
   }
+
+  async fillInvalidForm() {
+    await this.field_registrationEmail.fill('qbc'); // Invalid email
+    await this.field_registrationPassword.fill('234'); // Short password
+    await this.field_confirmRegistrationPassword.fill('dsf'); // Mismatch
+  }
+  async verifyErrorMessages() {
+    await expect(this.firstNameError).toHaveText('First name is required.');
+    await expect(this.lastNameError).toHaveText('Last name is required.');
+    await expect(this.emailError).toHaveText('Wrong email');
+    await expect(this.passwordError).toHaveText('The password should have at least 6 characters.');
+    await expect(this.confirmPasswordError).toHaveText('The password and confirmation password do not match.');
+  }
+  async clickSubmitBtn(){
+    await this.SubmitBtn.click()
+  }
+
+
 
 
    
