@@ -31,6 +31,13 @@ module.exports = {
         email: RegisterPage.generateRandomEmail(),
         Password: 'Test@1234',
         ConfirmPassword: 'Thja@1234',
+    },
+    invalidEmailFormat :{
+        FirstName: 'Test',
+        LastName: 'User',
+        email: RegisterPage.generateInvalidEmail(),
+        Password: 'Test@1234',
+        ConfirmPassword: 'Test@1234',
     }
 
 };

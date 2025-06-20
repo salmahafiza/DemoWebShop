@@ -3,7 +3,7 @@ import { registerHooks } from 'node:module';
 
 const { DashboardPage } = require('../pages/DashboardPage');
 const { RegisterPage } = require('../pages/RegisterPage');
-const { Users,ResgisterData,EmptyData , Url, invalidPassword} = require('../test-data/Users');
+const { Users,ResgisterData,EmptyData , Url, invalidPassword , invalidEmailFormat } = require('../test-data/Users');
 
 
 
@@ -35,7 +35,7 @@ await register.clickRegisterButton();
         console.log("Fail");
     }   
 });
-test.only('Tc_REGISTER_003: Passwaord Mismatch ', async ({page}) => {
+test('Tc_REGISTER_003: Passwaord Mismatch ', async ({page}) => {
     await register.fillFirstName(invalidPassword.FirstName);
     await register.fillLastName(invalidPassword.LastName);
     await register.fillEmail(invalidPassword.email);
@@ -52,3 +52,18 @@ test.only('Tc_REGISTER_003: Passwaord Mismatch ', async ({page}) => {
     }
     }
 });
+ test.only('Tc_REGISTER_004 :Invalid Registration with invalid Email pattern', async ({page}) => {    
+    await register.fillFirstName(ResgisterData.FirstName);
+    await register.fillLastName(ResgisterData.LastName);
+    await register.fillEmail(invalidEmailFormat.email);
+    await register.fillPassword(ResgisterData.Password);
+    await register.fillConfirmPassword(ResgisterData.ConfirmPassword);
+    await register.clickRegisterButton();
+  if(Url.register === page.url()){
+        console.log("TC_REGISTER_004 Pass");  
+    }
+    else{
+        console.log("TC_REGISTER_004 FAIL");
+    }  
+
+ });
