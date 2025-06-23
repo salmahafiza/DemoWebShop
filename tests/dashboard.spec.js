@@ -36,3 +36,11 @@ test('TC_DASHBOARD_005: Verify that each category link leads to the correct cate
 
 });
 
+test('TC_DASHBOARD_006: Check the functionality of subscribing to the newsletter.' , async () => {
+    await dashboard.accessApplication();
+    await dashboard.textBoxSubsciptionEmail_validEmail();
+    await dashboard.buttonSubscribe();
+    await dashboard.assertMessageOnSubsciptionWithValidEmail();
+
+});
+
