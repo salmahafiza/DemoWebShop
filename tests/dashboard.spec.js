@@ -30,6 +30,16 @@ test('TC_DASHBOARD_002 - Verify that logout link is working properly', async ({ 
     await dashboard.verifyToLogout();
     await expect(page).toHaveURL('https://demowebshop.tricentis.com/');
 });
-
+test('TC_DASHBOARD_003 - Check the shopping cart displays the correct number of items.', async ({ page }) => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.addItemToCart();
+    const cartText = await page.textContent('a.ico-cart');
+    const match = cartText.match(/\((\d+)\)/);
+    const itemCount = match ? parseInt(match[1]) : 0;
+    expect(itemCount).toBe(1);
+    
+});
 
 
