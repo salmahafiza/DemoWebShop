@@ -26,7 +26,7 @@ class DashboardPage {
         this.assertGiftCardsName = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[1]");
         this.buttonGiftCardsFromDashboard = page.locator("xpath=/html/body/div[4]/div[1]/div[2]/ul[1]/li[7]/a");
         this.buttonJewelryFromDashboard = page.locator("xpath=/html/body/div[4]/div[1]/div[2]/ul[1]/li[6]/a");
-        this.recentlyViewedProducts = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[2]/div[2]//h2")
+                this.recentlyViewedProducts = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[1]/strong");
         this.computersCaegories = page.locator("xpath=/html/body/div[4]/div[1]/div[2]/ul[1]/li[2]/a");
         this.assertComputersName = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[1]");
         this.assertVirtualGiftCardName = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div/form/table/tbody/tr/td[3]/a");
@@ -51,6 +51,10 @@ class DashboardPage {
         this.assertDigitalPage = page.locator("//h1[normalize-space()='Digital downloads']");
         this.assertJewelryPage = page.locator("//h1[normalize-space()='Jewelry']");
         this.assertGiftcardsPage = page.locator("//h1[normalize-space()='Gift Cards']");
+        this.selectproduct1FromDashboard = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[3]/div/div/div[3]/div[3]/div/div[2]/h2/a");
+        this.selectproduct2FromDashboard = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[3]/div/div/div[3]/div[2]/div/div[2]/h2/a");
+        this.selectproduct3FromDashboard =page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[3]/div/div/div[3]/div[7]/div/div[2]/h2/a")
+
 
        
         
@@ -233,6 +237,18 @@ async verifyBookCategory() {
     await expect(this.assertGiftcardsPage).toHaveText('Gift Cards');
 
 }
+async verifyRecentlyViewedProducts() {
+    await expect(this.recentlyViewedProducts).toBeVisible();
+}
+
+async clickOnProductsFromDashboard() {
+    await this.selectproduct1FromDashboard.click();
+    await this.logo.click();
+    await expect (this.page).toHaveURL('https://demowebshop.tricentis.com/');
+ }
+
+
+
 
 
     

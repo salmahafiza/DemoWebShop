@@ -44,3 +44,12 @@ test('TC_DASHBOARD_006: Check the functionality of subscribing to the newsletter
 
 });
 
+test('TC_DASHBOARD_007: Verify user is able to view to view recent products they navigated to' , async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.clickOnProductsFromDashboard();
+    await dashboard.verifyRecentlyViewedProducts();
+});
+
+
