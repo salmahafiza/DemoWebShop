@@ -41,5 +41,11 @@ test('TC_DASHBOARD_003 - Check the shopping cart displays the correct number of 
     expect(itemCount).toBe(1);
     
 });
-
+test('TC_DASHBOARD_008 - Check that the community poll accepts inputs and submits correctly.', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.voteInCommunityPoll();
+    await dashboard.verifyPollSubmission();
+});
 
