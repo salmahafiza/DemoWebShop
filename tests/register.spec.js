@@ -160,3 +160,13 @@ test('TC_REGISTER_016: Verify that an error is shown if the password length is b
     await register.verifyErrorMessageForShortPassword();
 });
 
+test.only('TC_REGISTER_017: verify the behaviour of registration processby enterng alphanumeric characters in first name and  last name', async ({ page }) => {
+    await register.EnterFirstName(Register.InvalidFirstName);
+    await register.EnterLastName(Register.InvalidLastName);
+    await register.EnterEmail(Register.Email);
+    await register.EnterPassword(Register.Password);
+    await register.EnterConfirmPassword(Register.Password);
+    await register.ClickRegisterButton();
+    await register.verifyErrorMessageForInvalidCharacter(page);
+});
+
