@@ -182,6 +182,10 @@ class RegisterPage {
         const randomIndex = Math.floor(Math.random() * invalidEmails.length);
         return invalidEmails[randomIndex];
     }
+      async verifyErrorMessageForPasswordMismatched(page) {
+        await expect(this.error_fieldVaildationMessage).toHaveText('The password and confirmation password do not match.');
+}
+
 
 }
 

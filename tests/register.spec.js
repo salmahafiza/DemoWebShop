@@ -170,3 +170,13 @@ test.only('TC_REGISTER_017: verify the behaviour of registration processby enter
     await register.verifyErrorMessageForInvalidCharacter(page);
 });
 
+test('Tc_REGISTER_018: Verify signup with mismatched passwords ', async ({page}) => {
+    await register.EnterFirstName(invalidPassword.FirstName);
+    await register.EnterLastName(invalidPassword.LastName);
+    await register.EnterEmail(invalidPassword.email);
+    await register.EnterPassword(invalidPassword.Password);
+    await register.EnterConfirmPassword(invalidPassword.ConfirmPassword);
+    await register.ClickRegisterButton();
+    await register.verifyErrorMessageForPasswordMismatched();
+    
+});
