@@ -60,6 +60,8 @@ class DashboardPage {
     this.pollResultItem = "div[class='block block-poll'] li:nth-child(2)";
     this.secondAddToCartButton = page.locator('input[value="Add to cart"]').nth(1);
     this.addToCartSuccesMsg = page.locator("//p[@class='content']");
+    this.tricentisManufacturer = page.locator("a[href='/tricentis']");
+    this.tricentisPageTitle = page.locator("div[class='page-title'] h1");
 
     //TEST DATA//
     let recipientsName = "saba";
@@ -274,6 +276,15 @@ class DashboardPage {
     async assertLogoButton() {
         await expect(this.logo).toBeVisible();  
         await expect (this.page).toHaveURL('https://demowebshop.tricentis.com/');      
+    }
+
+    async clickOnTricentisManufacturer() {
+        await this.tricentisManufacturer.click();
+    }
+
+    async verifyTricentisPage() {
+        await expect(this.tricentisPageTitle).toHaveText("Tricentis");
+        console.log("No product being display for Tricentis Manufacturer");
     }
 
 }

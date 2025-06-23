@@ -109,3 +109,8 @@ test('TC_DASHBOARD_015 - Verify website logo and Title is visible and Clickable.
     await dashboard.verifyHomePageTitle();  
     
 });
+
+test('TC_DASHBOARD_016 - Verify manufacturers are visible and clickable.', async ({ page }) => {
+    await dashboard.clickOnTricentisManufacturer();
+    await dashboard.verifyTricentisPage();
+});
