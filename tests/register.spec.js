@@ -150,7 +150,7 @@ test('TC_REGISTER_015: Verify that users cannot register with an email that is a
     await register.verifyErrorMessageForExistingEmail();
 });
 
-test('TC_REGISTER_0016: Verify that an error is shown if the password length is below the required minimum..', async ({ page }) => {
+test('TC_REGISTER_016: Verify that an error is shown if the password length is below the required minimum..', async ({ page }) => {
     await register.EnterFirstName(Register.firstName);
     await register.EnterLastName(Register.lastName);
     await register.EnterEmail(Register.Email);
@@ -159,3 +159,4 @@ test('TC_REGISTER_0016: Verify that an error is shown if the password length is 
     await register.ClickRegisterButton();
     await register.verifyErrorMessageForShortPassword();
 });
+
