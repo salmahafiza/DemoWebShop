@@ -1,10 +1,9 @@
 import {test, expect} from '@playwright/test';
-import {registerHooks} from 'node:module';
+
 
 const {DashboardPage} = require('../pages/DashboardPage');
 const {RegisterPage} = require('../pages/RegisterPage');
 const {Users, ResgisterData, EmptyData, Url, invalidPassword, invalidEmailFormat} = require('../test-data/Users');
-import { test, expect } from '@playwright/test';
 import { Register } from '../test-data/Users';
 
 let dashboard;

@@ -16,4 +16,16 @@ test.beforeEach(async ({ page }) => {
 });
 
 
-
+test('TC_DASHBOARD_004: verify the count displayed on wishlist', async () => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.searchTextBox();
+    await dashboard.clickOnSearchButton();
+    await dashboard.clickOnProductName();
+    await dashboard.clickOnWishlistBtn();
+    await dashboard.accessApplication();
+    const wishlistText = await dashboard.verifyWishlistCount();
+    console.log('Wishlist Text:', wishlistText);
+});

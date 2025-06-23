@@ -33,7 +33,10 @@ class DashboardPage {
         this.addToCartButtonGiftCard = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[3]/div[1]/div/div[2]/div[3]/div[2]/input");
         this.searchBoxText = page.locator("#small-searchterms");
         this.buttonSearch = page.locator("xpath=/html/body/div[4]/div[1]/div[1]/div[3]/form/input[2]");
-        this.assertJewelryName = page.locator("xpath=/html/body/div[4]/div[1]/div[4]/div[2]/div/div[2]/div[3]/div[1]/div/div/div[2]/h2/a");
+        this.assertJewelryName = page.locator("//a[normalize-space()='Create Your Own Jewelry']");
+        this.addtoWishlistBtn = page.locator("#add-to-wishlist-button-43");
+        this.wishlistCount = page.locator('.wishlist-qty');
+        this.assertProductName = page.locator("//a[normalize-space()='Smartphone']");
 
         //TEST DATA//
         let recipientsName = "saba";
@@ -166,7 +169,7 @@ async clickOnbuttonADddToCard_VirtualGiftCard()
 
 async searchTextBox()
 {
-    await this.searchBoxText.fill("jewelry");
+    await this.searchBoxText.fill("Smartphone");
     
 }
 
@@ -178,6 +181,19 @@ async clickOnSearchButton()
 
  async displayJewelryName() {
 await expect(this.assertJewelryName).toHaveText('Create Your Own Jewelry');
+}
+
+
+async clickOnProductName(){
+    await this.assertProductName.click();
+}
+async clickOnWishlistBtn(){
+    await this.addtoWishlistBtn.click();
+}
+async verifyWishlistCount(){
+    const WishlistQty= await this.wishlistCount.innerText();
+    return WishlistQty;
+    
 }
 
 
