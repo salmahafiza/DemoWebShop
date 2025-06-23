@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test';
-import {registerHooks} from 'node:module';
+
 
 const {DashboardPage} = require('../pages/DashboardPage');
 const {RegisterPage} = require('../pages/RegisterPage');
