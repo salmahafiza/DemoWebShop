@@ -52,4 +52,14 @@ test('TC_DASHBOARD_007: Verify user is able to view to view recent products they
     await dashboard.verifyRecentlyViewedProducts();
 });
 
+test('TC_DASHBOARD_009 : Verify that clicking the Gift Cards category link correctly displays gift card products.' , async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.clickonGiftCardFromDashboard();
+    await dashboard.verifyUserInfoVisible();
+    await dashboard.displayGiftCardName();
+
+});
+
 
