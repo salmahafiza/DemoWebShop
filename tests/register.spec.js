@@ -4,7 +4,7 @@ import {registerHooks} from 'node:module';
 const {DashboardPage} = require('../pages/DashboardPage');
 const {RegisterPage} = require('../pages/RegisterPage');
 const {Users, ResgisterData, EmptyData, Url, invalidPassword, invalidEmailFormat} = require('../test-data/Users');
-import { test, expect } from '@playwright/test';
+//import { test, expect } from '@playwright/test';
 import { Register } from '../test-data/Users';
 
 let dashboard;
@@ -99,6 +99,7 @@ test('Tc_REGISTER_004 :Invalid Registration with invalid Email pattern', async (
         console.log("TC_REGISTER_004 FAIL");
     }
 
+});
     test('TC_REGISTER_010: Availability of Registration Page from Login Page', async () => {
         await dashboard.navigateToLoginPage();
         await register.clickRegisterationBtn();
@@ -139,5 +140,12 @@ test('TC_REGISTER_008: Verify that registration fails if names contain invalid c
         await register.verifyErrorMessages();
     })
 
-
+test('TC_REGISTER_015: Verify that users cannot register with an email that is already exists', async ({ page }) => {
+    await register.EnterFirstName(Register.firstName);
+    await register.EnterLastName(Register.lastName);
+    await register.EnterEmail(Register.existingEmail);
+    await register.EnterPassword(Register.Password);
+    await register.EnterConfirmPassword(Register.Password);
+    await register.ClickRegisterButton();
+    await register.verifyErrorMessageForExistingEmail();
 });

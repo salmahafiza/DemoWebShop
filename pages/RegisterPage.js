@@ -56,7 +56,7 @@ class RegisterPage {
     }
 
     async ClickRegisterButton() {
-        await this.button_register.click();
+        await this.SubmitBtn.click();
     }
 
     async verifySuccessfulRegistration() {
