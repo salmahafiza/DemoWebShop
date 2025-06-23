@@ -37,6 +37,24 @@ class DashboardPage {
         this.addtoWishlistBtn = page.locator("#add-to-wishlist-button-43");
         this.wishlistCount = page.locator('.wishlist-qty');
         this.assertProductName = page.locator("//a[normalize-space()='Smartphone']");
+        this.booksPage= page.locator("div[class='block block-category-navigation'] li:nth-child(1) a:nth-child(1)")
+        this.ComputersPage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)");
+        this.electronicsPage = page.locator("xpath=/html[1]/body[1]/div[4]/div[1]/div[4]/div[1]/div[1]/div[2]/ul[1]/li[3]/a[1]");
+        this.apparelPage = page.locator("xpath=/html[1]/body[1]/div[4]/div[1]/div[4]/div[1]/div[1]/div[2]/ul[1]/li[4]/a[1]");
+        this.digitalPage = page.locator("xpath=/html[1]/body[1]/div[4]/div[1]/div[4]/div[1]/div[1]/div[2]/ul[1]/li[5]/a[1]");
+        this.jewelryPage = page.locator("xpath=/html[1]/body[1]/div[4]/div[1]/div[4]/div[1]/div[1]/div[2]/ul[1]/li[6]/a[1]");
+        this.giftcardsPage = page.locator("xpath=/html[1]/body[1]/div[4]/div[1]/div[4]/div[1]/div[1]/div[2]/ul[1]/li[7]/a[1]");
+        this.assertBookPage = page.locator("//h1[normalize-space()='Books']");
+        this.assertComputerPage = page.locator("//h1[normalize-space()='Computers']");
+        this.assertElectronicPage = page.locator("//h1[normalize-space()='Electronics']");
+        this.assertApparelPage = page.locator("//h1[normalize-space()='Apparel & Shoes']");
+        this.assertDigitalPage = page.locator("//h1[normalize-space()='Digital downloads']");
+        this.assertJewelryPage = page.locator("//h1[normalize-space()='Jewelry']");
+        this.assertGiftcardsPage = page.locator("//h1[normalize-space()='Gift Cards']");
+
+        
+
+
 
         //TEST DATA//
         let recipientsName = "saba";
@@ -45,6 +63,8 @@ class DashboardPage {
         let validEmailOnSubscriptionLetter = "abc@gmail.com"
         //let productNameFirst = "50's Rockabilly Polka Dot Top JR Plus Size";
         //let productNameSecond = "Create Your Own Jewelry";
+
+    
 
     }
     async accessApplication() {
@@ -195,10 +215,33 @@ async verifyWishlistCount(){
     return WishlistQty;
     
 }
-
-
+async verifyBookCategory() {
+    await this.booksPage.click();
+    await expect(this.assertBookPage).toHaveText('Books');
+    await this.ComputersPage.click();
+    await expect(this.assertComputerPage).toHaveText('Computers');
+    await this.electronicsPage.click();
+    await expect(this.assertElectronicPage).toHaveText('Electronics');
+    await this.apparelPage.click();
+    await expect(this.assertApparelPage).toHaveText('Apparel & Shoes');
+    await this.digitalPage.click();
+    await expect(this.assertDigitalPage).toHaveText('Digital downloads');
+    await this.jewelryPage.click();
+    await expect(this.assertJewelryPage).toHaveText('Jewelry');
+    await this.giftcardsPage.click();
+    await expect(this.assertGiftcardsPage).toHaveText('Gift Cards');
 
 }
+
+
+    
+}
+
+
+
+
+
+
 
 
 module.exports = { DashboardPage };

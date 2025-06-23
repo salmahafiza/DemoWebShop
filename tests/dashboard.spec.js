@@ -29,3 +29,9 @@ test('TC_DASHBOARD_004: verify the count displayed on wishlist', async () => {
     const wishlistText = await dashboard.verifyWishlistCount();
     console.log('Wishlist Text:', wishlistText);
 });
+
+test('TC_DASHBOARD_005: Verify that each category link leads to the correct category page.' , async () => {
+    await dashboard.accessApplication();
+    await dashboard.verifyBookCategory();
+
+});
