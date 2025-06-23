@@ -58,6 +58,8 @@ class DashboardPage {
     this.voteBtn = '#vote-poll-1';
     this.pollResults = '.poll-results';
     this.pollResultItem = "div[class='block block-poll'] li:nth-child(2)";
+    this.secondAddToCartButton = page.locator('input[value="Add to cart"]').nth(1);
+    this.addToCartSuccesMsg = page.locator("//p[@class='content']");
 
     //TEST DATA//
     let recipientsName = "saba";
@@ -255,6 +257,18 @@ class DashboardPage {
     await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/');
   }
 
+  async clickFirstFeaturedProductAddToCart() {
+  await this.secondAddToCartButton.click();
+
 }
+ async verifyAddToCart() {
+        await expect(this.addToCartSuccesMsg).toHaveText(
+            "The product has been added to your shopping cart "
+        );
+    }
+
+}
+
+
 
 module.exports = { DashboardPage };
