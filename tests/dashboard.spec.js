@@ -93,11 +93,19 @@ test('TC_DASHBOARD_009 : Verify that clicking the Gift Cards category link corre
     await dashboard.displayGiftCardName();
 });
 
-test.only('TC_DASHBOARD_014 - Check Add to Cart functionality for featured products', async () => {
+test('TC_DASHBOARD_014 - Check Add to Cart functionality for featured products', async () => {
      await login.enterUsername(Users.username);
      await login.enterPassword(Users.password);
      await login.clickLoginButton();
      await dashboard.clickFirstFeaturedProductAddToCart();
      await dashboard.verifyAddToCart();
      
+});
+
+test('TC_DASHBOARD_015 - Verify website logo and Title is visible and Clickable.', async () => {
+    await dashboard.LogoVisibility();
+    await dashboard.clickOnLogo();
+    await dashboard.assertLogoButton();
+    await dashboard.verifyHomePageTitle();  
+    
 });

@@ -261,10 +261,19 @@ class DashboardPage {
   await this.secondAddToCartButton.click();
 
 }
- async verifyAddToCart() {
-        await expect(this.addToCartSuccesMsg).toHaveText(
-            "The product has been added to your shopping cart "
-        );
+    async verifyAddToCart() {
+            await expect(this.addToCartSuccesMsg).toHaveText(
+                "The product has been added to your shopping cart "
+            );
+    }
+
+    async LogoVisibility() {
+        await expect(this.logo).toBeVisible();  
+    }
+
+    async assertLogoButton() {
+        await expect(this.logo).toBeVisible();  
+        await expect (this.page).toHaveURL('https://demowebshop.tricentis.com/');      
     }
 
 }
