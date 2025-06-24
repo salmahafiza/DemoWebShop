@@ -77,6 +77,17 @@ module.exports = {
         address1: '123 Street',
         zip: '74000',
         phone: '03001234567'
+    },
+    misshongEmailInBillingAddressData: {
+        firstName: 'Hassan',
+        lastName: 'Mehmood',
+        email: '',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: 'Karachi',
+        address1: '123 Street',
+        zip: '74000',
+        phone: '03001234567'
 
     },
 

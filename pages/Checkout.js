@@ -242,6 +242,9 @@ class Checkout {
   async missingFirstName(){
     await expect(this.fisrtNameError).toContainText('First name is required.');
   }
+  async missingEmail(){
+    await expect(this.emailError).toHaveText('Email is required.');
+  }
 
   
 
