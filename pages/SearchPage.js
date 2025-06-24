@@ -19,6 +19,11 @@ class SearchPage {
         const inputValue = await this.SearchbarField.inputValue();
         expect(inputValue).toBe(text);
     }
+
+    async clickOnSearchButton() {
+        await this.SearchButton.click();
+        await expect(this.page).toHaveURL(/.*search/);
+    }
 }
 
 module.exports = {SearchPage};

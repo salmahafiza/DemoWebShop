@@ -20,3 +20,8 @@ test('TC_SEARCH_001: Verify that the search bar is visible on the dashboard page
 test('TC_SERACH_002: Check input functionality in the search bar.', async ({ page }) => {
    await searchbar.SearchbarFieldFill('laptop');     
 });
+
+test('TC_SEARCH_003: Check if search works by clicking the search button..', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('laptop'); 
+   await searchbar.clickOnSearchButton();
+});
