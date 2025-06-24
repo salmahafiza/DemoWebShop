@@ -94,7 +94,39 @@ test ('TC_CHECKOUT_004: Verify that an error message is displayed for an invalid
     await checkout.invalidPromo();
 });
 
-
+test ('TC_CHECKOUT_005: Verify that user can select a payment method', async ({page}) => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox();
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(billingAddressData);
+    await checkout.clickContinue();
+    await checkout.clickContinueShippingSave();
+    await expect (page.locator("//h2[normalize-space()='Shipping method']")).toBeVisible();
+    await checkout.selectShippingMethod('Ground (0.00)');  // Options: Ground, Next Day Air, Second Day Air
+    await checkout.clickContinueShippingMethod();
+    await expect (page.locator("//h2[normalize-space()='Payment method']")).toBeVisible();
+    await checkout.selectPaymentMethod('Credit Card'); 
+    // Options: Cash On Delivery (COD) (7.00), Check / Money Order (5.00), Credit Card, Purchase Order
+    await checkout.clickContinuePaymentMethod();
+    await checkout.PaymentViaCreditCard(creditCardDetails);
+    await checkout.ContinueViaCard();
+    await checkout.confirm();
+});
 
 
 
