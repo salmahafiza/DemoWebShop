@@ -24,6 +24,11 @@ class SearchPage {
         await this.SearchButton.click();
         await expect(this.page).toHaveURL(/.*search/);
     }
+
+    async pressEnterKey() {
+        await this.EnterTextInSearchBox.press('Enter');
+        await expect(this.page).toHaveURL(/.*search/);
+    }
 }
 
 module.exports = {SearchPage};

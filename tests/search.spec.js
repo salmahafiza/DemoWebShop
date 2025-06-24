@@ -25,3 +25,8 @@ test('TC_SEARCH_003: Check if search works by clicking the search button..', asy
    await searchbar.SearchbarFieldFill('laptop'); 
    await searchbar.clickOnSearchButton();
 });
+
+test('TC_SEARCH_004: Check if pressing Enter triggers the search.', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('laptop');
+   await searchbar.pressEnterKey(); 
+});
