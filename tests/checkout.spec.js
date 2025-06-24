@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { Checkout } = require('../pages/Checkout');
-const {Users, billingAddressData, creditCardDetails, inValiBillingAddressData} = require('../test-data/Users');
+const {Users, billingAddressData, creditCardDetails, inValiBillingAddressData, MissingFirstNameInBillingAddressData} = require('../test-data/Users');
 
 let login;
 let dashboard;
@@ -310,4 +310,28 @@ test('TC_CHECKOUT_011: Verify valid billing address entry',async () => {
     await checkout.fillBillingAddress(billingAddressData);
     await checkout.clickContinue();
     await checkout.AssertShippingAddress();
+});
+
+test('TC_CHECKOUT_012: Verify  the behaviour of  billing process leaving the first name empty ',async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(MissingFirstNameInBillingAddressData);
+    await checkout.clickContinue();
+    await checkout.missingFirstName();
 })

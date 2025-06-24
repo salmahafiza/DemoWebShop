@@ -239,6 +239,9 @@ class Checkout {
   async AssertShippingAddress(){
     await expect(this.assertShippingAddress).toHaveText('Shipping address');
   }
+  async missingFirstName(){
+    await expect(this.fisrtNameError).toContainText('First name is required.');
+  }
 
   
 
