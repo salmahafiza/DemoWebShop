@@ -92,3 +92,11 @@ test('TC_DASHBOARD_009 : Verify that clicking the Gift Cards category link corre
     await dashboard.verifyUserInfoVisible();
     await dashboard.displayGiftCardName();
 });
+
+test('TC_DASHBOARD_010 : Verify if featured products section is visible', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.verifyFeaturedProductsSection();
+    await dashboard.verifyFeaturedProducts();
+});
