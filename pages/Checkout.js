@@ -55,6 +55,10 @@ class Checkout {
     this.assertOrderConfirmation = page.locator(".section.order-completed");
     this.lastBtn = page.locator("input[value='Continue']");
     this.assertCart = page.locator(".order-summary-content");
+    this.qtyInput = page.locator('input.qty-input');
+    this.updateCartButton = page.locator('input[name="updatecart"]');
+    this.totalPrice = page.locator('.product-subtotal');
+
 
 
 
@@ -180,6 +184,15 @@ class Checkout {
   }
   async emptyCart(){
     await expect(this.assertCart).toHaveText('Your Shopping Cart is empty!');
+  }
+  async updateProductQuantity(quantity) {
+    await this.qtyInput.fill(''); // Clear existing quantity
+    await this.qtyInput.type(quantity.toString());
+    await this.updateCartButton.click();
+  }
+  async verifyTotalPriceChanged(previousPrice) {
+    const newPrice = await this.totalPrice.textContent();
+    expect(newPrice.trim()).not.toBe(previousPrice.trim());
   }
 
 }

@@ -64,6 +64,24 @@ test ('TC_CHECKOUT_002: Verify the behavior when trying to checkout with an empt
     await checkout.emptyCart();
 });
 
+test ('TC_CHECKOUT_003: Verify that user can update quantity during checkout', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox();
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    const previousTotal = await checkout.totalPrice.textContent();
+    await checkout.updateProductQuantity(12);//Update QTY
+    await checkout.verifyTotalPriceChanged(previousTotal);//Verify QTY Update Through Price change
+});
+
+
+
 
 
 
