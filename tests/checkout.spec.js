@@ -1,0 +1,62 @@
+import { test, expect } from '@playwright/test';
+const { LoginPage } = require('../pages/LoginPage');
+const { DashboardPage } = require('../pages/DashboardPage');
+const { Checkout } = require('../pages/Checkout');
+const {Users, billingAddressData, creditCardDetails} = require('../test-data/Users');
+
+let login;
+let dashboard;
+let checkout;
+
+test.beforeEach(async ({ page }) => {
+    login = new LoginPage(page);
+    dashboard = new DashboardPage(page);
+    checkout = new Checkout(page);
+    await dashboard.navigateToLoginPage();
+});
+
+test('TC_CHECKOUT_001: Verify that a user can complete the checkout process successfully', async ({ page }) => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox();
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(billingAddressData);
+    await checkout.clickContinue();
+    await checkout.clickContinueShippingSave();
+    await expect (page.locator("//h2[normalize-space()='Shipping method']")).toBeVisible();
+    await checkout.selectShippingMethod('Ground (0.00)');  // Options: Ground, Next Day Air, Second Day Air
+    await checkout.clickContinueShippingMethod();
+    await expect (page.locator("//h2[normalize-space()='Payment method']")).toBeVisible();
+    await checkout.selectPaymentMethod('Credit Card'); 
+    // Options: Cash On Delivery (COD) (7.00), Check / Money Order (5.00), Credit Card, Purchase Order
+    await checkout.clickContinuePaymentMethod();
+    await checkout.PaymentViaCreditCard(creditCardDetails);
+    await checkout.ContinueViaCard();
+    await checkout.confirm();
+    //await expect (page.locator("//h2[normalize-space()='Payment information']")).toBeVisible();
+    //await checkout.COD_confirmationText();
+    //await checkout. ContinuePayment();
+    await checkout.clickConfirmOrder();
+    await checkout.OrderConfirmationMsg();
+    await checkout.clickContinueLastBtn();
+
+});
+
+
+
+
+
+

@@ -179,9 +179,9 @@ class DashboardPage {
     await this.addToCartButtonGiftCard.click();
   }
 
-  async searchTextBox() {
+  /*async searchTextBox() {
     await this.searchBoxText.fill("jewelry");
-  }
+  }*/
 
   async clickOnSearchButton() {
     await this.buttonSearch.click();
