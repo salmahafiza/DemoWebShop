@@ -13,6 +13,12 @@ class SearchPage {
     async verifySearchBarVisible() {
         await expect(this.search_bar).toBeVisible();
     }
+    
+    async SearchbarFieldFill(text) {
+        await this.SearchbarField.fill(text);
+        const inputValue = await this.SearchbarField.inputValue();
+        expect(inputValue).toBe(text);
+    }
 }
 
 module.exports = {SearchPage};

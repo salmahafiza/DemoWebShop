@@ -16,3 +16,7 @@ test.beforeEach(async ({ page }) => {
 test('TC_SEARCH_001: Verify that the search bar is visible on the dashboard page', async ({ page }) => {
     await searchbar.verifySearchBarVisible();
 });   
+
+test('TC_SERACH_002: Check input functionality in the search bar.', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('laptop');     
+});
