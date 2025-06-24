@@ -248,6 +248,9 @@ class Checkout {
   async missinglastName(){
     await expect(this.lastNameError).toHaveText('Last name is required.');
   }
+  async missingCity(){
+    await expect(this.cityError).toHaveText('City is required');
+  }
 
   
 
