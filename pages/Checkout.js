@@ -69,6 +69,7 @@ class Checkout {
     this.streetError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.Address1']");
     this.zipError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.ZipPostalCode']");
     this.phoneNoError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.PhoneNumber']");
+    this.confirmOrderDetails = page.locator(".product-name");
 
   }
 
@@ -161,7 +162,7 @@ class Checkout {
     await this.continuePayment.click();
   }
   async COD_confirmationText(){
-    await expect(this.COD_confirmationText).toHaveText('You will pay by COD');
+    await expect(this.paymentConfirmationText_COD).toHaveText('You will pay by COD');
   }
   async ContinuePayment(){
     await this.continuePaymentInfo.click();
@@ -217,6 +218,12 @@ class Checkout {
     await expect(this.zipError).toHaveText('Zip / postal code is required');
     await expect(this.phoneNoError).toHaveText('Phone is required');
   }
+  async OrderDetails(){
+    await expect(this.confirmOrderDetails).toHaveText('Smartphone');
+
+}
+
+  
 
 }
 

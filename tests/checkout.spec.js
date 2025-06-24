@@ -173,7 +173,40 @@ test('TC_CHECKOUT_007: Shipping method required forcefully pass with explanation
     await checkout.selectShippingMethod('');  // Options: Ground, Next Day Air, Second Day Air
     await checkout.clickContinueShippingMethod();
     console.log('Skipping this negative test as at least one shipping method is pre-selected by default, unchecking all is impossible via UI.');
+});
 
+test ('TC_CHECKOUT_008: Verify that user can review order before final confirmation', async () => {
+      await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox();
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(billingAddressData);
+    await checkout.clickContinue();
+    await checkout.clickContinueShippingSave();
+    await checkout.selectShippingMethod('Ground (0.00)');  // Options: Ground, Next Day Air, Second Day Air
+    await checkout.clickContinueShippingMethod();
+    await checkout.selectPaymentMethod('Cash On Delivery (COD) (7.00)'); 
+    // Options: Cash On Delivery (COD) (7.00), Check / Money Order (5.00), Credit Card, Purchase Order
+    await checkout.clickContinuePaymentMethod();
+    await checkout.COD_confirmationText();
+    await checkout. ContinuePayment();
+    await checkout.confirm();
+    await checkout.OrderDetails();
 
 });
+
 
