@@ -72,6 +72,7 @@ class Checkout {
     this.confirmOrderDetails = page.locator(".product-name");
     this.assertProduct2 = page.locator("//h2[@class='product-title']//a[contains(text(),'14.1-inch Laptop')]");
     this.addToCartBtn2 = page.locator("#add-to-cart-button-31");
+    this.assertShippingAddress = page.locator("//h2[normalize-space()='Shipping address']");
 
   }
 
@@ -234,8 +235,10 @@ class Checkout {
   }
   async OrderDetails(){
     await expect(this.confirmOrderDetails).toHaveText('Smartphone');
-
-}
+  }
+  async AssertShippingAddress(){
+    await expect(this.assertShippingAddress).toHaveText('Shipping address');
+  }
 
   
 
