@@ -80,6 +80,20 @@ test ('TC_CHECKOUT_003: Verify that user can update quantity during checkout', a
     await checkout.verifyTotalPriceChanged(previousTotal);//Verify QTY Update Through Price change
 });
 
+test ('TC_CHECKOUT_004: Verify that an error message is displayed for an invalid promo code', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox();
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.invalidPromo();
+});
+
 
 
 

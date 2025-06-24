@@ -58,6 +58,9 @@ class Checkout {
     this.qtyInput = page.locator('input.qty-input');
     this.updateCartButton = page.locator('input[name="updatecart"]');
     this.totalPrice = page.locator('.product-subtotal');
+    this.promoCode = page.locator("input[name='discountcouponcode']");
+    this.promoBtn = page.locator("input[value='Apply coupon']");
+    this.errorMsg = page.locator(".message");
 
 
 
@@ -193,6 +196,12 @@ class Checkout {
   async verifyTotalPriceChanged(previousPrice) {
     const newPrice = await this.totalPrice.textContent();
     expect(newPrice.trim()).not.toBe(previousPrice.trim());
+  }
+  async invalidPromo(){
+    await this.promoCode.fill('123456');
+    await this.promoBtn.click();
+    await expect(this.errorMsg).toHaveText("The coupon code you entered couldn't be applied to your order");
+
   }
 
 }
