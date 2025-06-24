@@ -112,3 +112,10 @@ test('TC_DASHBOARD_012 : Verify if the website logo is clearly visible on the da
     await dashboard.LogoVisibility();
 
 });
+test('TC_DASHBOARD_013 - Validate if homepage banner ( Tricentis ad) is shown', async () => {   
+      await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.VisibilityAddsOnDashboard();
+
+});
