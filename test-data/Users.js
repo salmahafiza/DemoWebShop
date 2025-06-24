@@ -15,6 +15,9 @@ module.exports = {
         UnRegEmail: 't+e+s+t+1+2+3@gmail.com',
         InvalidEmail: 'abc1234gmail.com',
     },
+    RegisterdEmail: {
+        username: 'test123+1@gmail.com'
+    },
     ResgisterData :{
         FirstName: 'Test',
         LastName: 'User',
