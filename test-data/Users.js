@@ -53,5 +53,52 @@ module.exports = {
         shortpassword: 'short',
         InvalidFirstName: 'Dummy@123',
         InvalidLastName: 'Tester!@#',
+    },
+
+    billingAddressData: {
+        firstName: 'Hassan',
+        lastName: 'Mehmood',
+        email: 'hassan.mehmood@test.com',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: 'Karachi',
+        address1: '123 Street',
+        zip: '74000',
+        phone: '03001234567'
+
+    },
+    MissingFirstNameInBillingAddressData: {
+        firstName: '',
+        lastName: 'Mehmood',
+        email: 'hassan.mehmood@test.com',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: 'Karachi',
+        address1: '123 Street',
+        zip: '74000',
+        phone: '03001234567'
+
+    },
+
+    inValiBillingAddressData: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        //country: '',
+        //state: '',
+        city: '',
+        address1: '',
+        zip: '',
+        phone: ''
+
+    },
+
+    creditCardDetails: {
+        cardType: 'Visa',
+        holderName: 'Hassan Mehmood',
+        cardNumber: '4111111111111111',
+        expireMonth: '12',
+        expireYear: '2030',
+        cardCode: '123'
     }
 };
