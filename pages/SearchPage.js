@@ -9,6 +9,10 @@ class SearchPage {
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
     }
+
+    async verifySearchBarVisible() {
+        await expect(this.search_bar).toBeVisible();
+    }
 }
 
 module.exports = {SearchPage};

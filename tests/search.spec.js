@@ -12,3 +12,7 @@ test.beforeEach(async ({ page }) => {
    searchbar = new SearchPage(page);
    await dashboard.accessApplication();
 });
+
+test.only('TC_SEARCH_001: Verify that the search bar is visible on the dashboard page', async ({ page }) => {
+    await searchbar.verifySearchBarVisible();
+});   
