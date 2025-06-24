@@ -53,14 +53,17 @@ class Checkout {
     this.assertConfirmOrder = page.locator("//h2[normalize-space()='Confirm order']");
     this.confirmBtn = page.locator("input[value='Confirm']");
     this.assertOrderConfirmation = page.locator(".section.order-completed");
-    this.lastBtn = page.locator("input[value='Continue']")
+    this.lastBtn = page.locator("input[value='Continue']");
+    this.assertCart = page.locator(".order-summary-content");
 
 
 
   }
 
-  async gotoCart(){
+  async gotoShoppingCart(){
     await this.shoppingCartButton.click();
+  }
+  async gotoCart(){
     await this.goToCartButton.click();
   }
   async searchTextBox() {
@@ -174,7 +177,9 @@ class Checkout {
   }
   async clickContinueLastBtn(){
     await this.lastBtn.click();
-
+  }
+  async emptyCart(){
+    await expect(this.assertCart).toHaveText('Your Shopping Cart is empty!');
   }
 
 }

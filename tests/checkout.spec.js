@@ -23,6 +23,7 @@ test('TC_CHECKOUT_001: Verify that a user can complete the checkout process succ
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
     await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
@@ -53,6 +54,14 @@ test('TC_CHECKOUT_001: Verify that a user can complete the checkout process succ
     await checkout.OrderConfirmationMsg();
     await checkout.clickContinueLastBtn();
 
+});
+
+test ('TC_CHECKOUT_002: Verify the behavior when trying to checkout with an empty cart', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.gotoShoppingCart();
+    await checkout.emptyCart();
 });
 
 
