@@ -70,11 +70,6 @@ class Checkout {
     this.zipError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.ZipPostalCode']");
     this.phoneNoError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.PhoneNumber']");
 
-
-
-
-
-
   }
 
   async gotoShoppingCart(){

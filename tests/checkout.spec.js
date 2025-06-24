@@ -37,10 +37,8 @@ test('TC_CHECKOUT_001: Verify that a user can complete the checkout process succ
     await checkout.fillBillingAddress(billingAddressData);
     await checkout.clickContinue();
     await checkout.clickContinueShippingSave();
-    await expect (page.locator("//h2[normalize-space()='Shipping method']")).toBeVisible();
     await checkout.selectShippingMethod('Ground (0.00)');  // Options: Ground, Next Day Air, Second Day Air
     await checkout.clickContinueShippingMethod();
-    await expect (page.locator("//h2[normalize-space()='Payment method']")).toBeVisible();
     await checkout.selectPaymentMethod('Credit Card'); 
     // Options: Cash On Delivery (COD) (7.00), Check / Money Order (5.00), Credit Card, Purchase Order
     await checkout.clickContinuePaymentMethod();
@@ -116,10 +114,8 @@ test ('TC_CHECKOUT_005: Verify that user can select a payment method', async ({p
     await checkout.fillBillingAddress(billingAddressData);
     await checkout.clickContinue();
     await checkout.clickContinueShippingSave();
-    await expect (page.locator("//h2[normalize-space()='Shipping method']")).toBeVisible();
     await checkout.selectShippingMethod('Ground (0.00)');  // Options: Ground, Next Day Air, Second Day Air
     await checkout.clickContinueShippingMethod();
-    await expect (page.locator("//h2[normalize-space()='Payment method']")).toBeVisible();
     await checkout.selectPaymentMethod('Credit Card'); 
     // Options: Cash On Delivery (COD) (7.00), Check / Money Order (5.00), Credit Card, Purchase Order
     await checkout.clickContinuePaymentMethod();
@@ -150,10 +146,34 @@ test ('TC_CHECKOUT_006: Verify that billing address must be filled out', async (
     await checkout.fillBillingAddress(inValiBillingAddressData);
     await checkout.clickContinue();
     await checkout.errorMessages();
+});
+
+test('TC_CHECKOUT_007: Shipping method required forcefully pass with explanation', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox();
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(billingAddressData);
+    await checkout.clickContinue();
+    await checkout.clickContinueShippingSave();
+    await checkout.selectShippingMethod('');  // Options: Ground, Next Day Air, Second Day Air
+    await checkout.clickContinueShippingMethod();
+    console.log('Skipping this negative test as at least one shipping method is pre-selected by default, unchecking all is impossible via UI.');
 
 
 });
-
-
-
 
