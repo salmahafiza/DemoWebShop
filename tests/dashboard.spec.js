@@ -100,3 +100,10 @@ test('TC_DASHBOARD_010 : Verify if featured products section is visible', async 
     await dashboard.verifyFeaturedProductsSection();
     await dashboard.verifyFeaturedProducts();
 });
+test('TC_DASHBOARD_011 : Check news letter subscription on empty Box', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.buttonSubscribe();
+
+});
