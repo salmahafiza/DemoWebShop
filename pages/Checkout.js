@@ -73,6 +73,9 @@ class Checkout {
     this.assertProduct2 = page.locator("//h2[@class='product-title']//a[contains(text(),'14.1-inch Laptop')]");
     this.addToCartBtn2 = page.locator("#add-to-cart-button-31");
     this.assertShippingAddress = page.locator("//h2[normalize-space()='Shipping address']");
+    this.CheckOrder = page.locator("//a[normalize-space()='Click here for order details.']");
+    this.OrderInfo = page.locator("//h1[normalize-space()='Order information']");
+
 
   }
 
@@ -250,6 +253,10 @@ class Checkout {
   }
   async missingCity(){
     await expect(this.cityError).toHaveText('City is required');
+  }
+  async assertOrderDetails(){
+    await this.CheckOrder.click();
+    await expect(this.OrderInfo).toHaveText('Order information');
   }
 
   
