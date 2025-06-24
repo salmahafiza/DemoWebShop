@@ -190,7 +190,7 @@ class DashboardPage {
   async displayJewelryName() {
     await expect(this.assertJewelryName).toHaveText('Create Your Own Jewelry');
   }
-  
+
   async voteInCommunityPoll(page) {
     const pollText = await this.page.locator('#poll-block-1').textContent();
 
@@ -244,7 +244,7 @@ class DashboardPage {
     await this.giftcardsPage.click();
     await expect(this.assertGiftcardsPage).toHaveText('Gift Cards');
   }
-  
+
   async verifyRecentlyViewedProducts() {
     await expect(this.recentlyViewedProducts).toBeVisible();
   }
@@ -253,6 +253,9 @@ class DashboardPage {
     await this.selectproduct1FromDashboard.click();
     await this.logo.click();
     await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/');
+  }
+  async LogoVisibility() {
+    await expect(this.logo).toBeVisible();
   }
 
 }

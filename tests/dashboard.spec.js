@@ -107,3 +107,8 @@ test('TC_DASHBOARD_011 : Check news letter subscription on empty Box', async () 
     await dashboard.buttonSubscribe();
 
 });
+test('TC_DASHBOARD_012 : Verify if the website logo is clearly visible on the dashboard', async () => {
+    await dashboard.clickOnLogo();
+    await dashboard.LogoVisibility();
+
+});
