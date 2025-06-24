@@ -61,6 +61,16 @@ class Checkout {
     this.promoCode = page.locator("input[name='discountcouponcode']");
     this.promoBtn = page.locator("input[value='Apply coupon']");
     this.errorMsg = page.locator(".message");
+    this.fisrtNameError  = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.FirstName']");
+    this.lastNameError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.LastName']");
+    this.emailError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.Email']");
+    this.countryError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.CountryId']");
+    this.cityError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.City']");
+    this.streetError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.Address1']");
+    this.zipError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.ZipPostalCode']");
+    this.phoneNoError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.PhoneNumber']");
+
+
 
 
 
@@ -201,7 +211,16 @@ class Checkout {
     await this.promoCode.fill('123456');
     await this.promoBtn.click();
     await expect(this.errorMsg).toHaveText("The coupon code you entered couldn't be applied to your order");
-
+  }
+  async errorMessages(){
+    await expect(this.fisrtNameError).toContainText('First name is required.');
+    await expect(this.lastNameError).toHaveText('Last name is required.');
+    await expect(this.emailError).toHaveText('Email is required.');
+    await expect(this.countryError).toHaveText('Country is required.');
+    await expect(this.cityError).toHaveText('City is required');
+    await expect(this.streetError).toHaveText('Street address is required');
+    await expect(this.zipError).toHaveText('Zip / postal code is required');
+    await expect(this.phoneNoError).toHaveText('Phone is required');
   }
 
 }

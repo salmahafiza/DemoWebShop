@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { Checkout } = require('../pages/Checkout');
-const {Users, billingAddressData, creditCardDetails} = require('../test-data/Users');
+const {Users, billingAddressData, creditCardDetails, inValiBillingAddressData} = require('../test-data/Users');
 
 let login;
 let dashboard;
@@ -128,7 +128,31 @@ test ('TC_CHECKOUT_005: Verify that user can select a payment method', async ({p
     await checkout.confirm();
 });
 
+test ('TC_CHECKOUT_006: Verify that billing address must be filled out', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox();
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(inValiBillingAddressData);
+    await checkout.clickContinue();
+    await checkout.errorMessages();
 
+
+});
 
 
 

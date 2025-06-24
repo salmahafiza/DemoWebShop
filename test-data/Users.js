@@ -67,6 +67,20 @@ module.exports = {
         phone: '03001234567'
 
     },
+
+    inValiBillingAddressData: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        //country: '',
+        //state: '',
+        city: '',
+        address1: '',
+        zip: '',
+        phone: ''
+
+    },
+
     creditCardDetails: {
         cardType: 'Visa',
         holderName: 'Hassan Mehmood',
