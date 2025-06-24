@@ -70,6 +70,8 @@ class Checkout {
     this.zipError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.ZipPostalCode']");
     this.phoneNoError = page.locator(".field-validation-error[data-valmsg-for='BillingNewAddress.PhoneNumber']");
     this.confirmOrderDetails = page.locator(".product-name");
+    this.assertProduct2 = page.locator("//h2[@class='product-title']//a[contains(text(),'14.1-inch Laptop')]");
+    this.addToCartBtn2 = page.locator("#add-to-cart-button-31");
 
   }
 
@@ -79,14 +81,26 @@ class Checkout {
   async gotoCart(){
     await this.goToCartButton.click();
   }
-  async searchTextBox() {
+  async searchTextBox(searchTerm) {
+    await this.searchBoxText.fill(searchTerm);
+}
+ /* async searchTextBox() {
     await this.searchBoxText.fill("Smartphone");
   }
+  async searchTextBox2() {
+    await this.searchBoxText.fill("14.1-inch Laptop");
+  }*/
   async clickOnProductName() {
     await this.assertProductName.click();
   }
+  async clickOnProduct2(){
+    await this.assertProduct2.click();
+  }
   async clickOnAdtoCart(){
     await this.addtocartBtn.click();
+  }
+  async clickOnAddtocart2(){
+    await this.addToCartBtn2.click();
   }
   async assertShoppingCartPage(){
     await expect(this.shoppingCartPage).toHaveText('Shopping cart');
