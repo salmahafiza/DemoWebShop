@@ -58,9 +58,11 @@ class DashboardPage {
     this.voteBtn = '#vote-poll-1';
     this.pollResults = '.poll-results';
     this.pollResultItem = "div[class='block block-poll'] li:nth-child(2)";
+    this.secondAddToCartButton = page.locator('input[value="Add to cart"]').nth(1);
+    this.addToCartSuccesMsg = page.locator("//p[@class='content']");
+    this.tricentisManufacturer = page.locator("a[href='/tricentis']");
+    this.tricentisPageTitle = page.locator("div[class='page-title'] h1");
     this.AddsOnDashboard = page.locator("#nivo-slider");
-
-
 
     //TEST DATA//
     let recipientsName = "saba";
@@ -266,6 +268,57 @@ async VisibilityAddsOnDashboard(){
     await expect(this.AddsOnDashboard).toBeVisible();
 }
 
+  async clickFirstFeaturedProductAddToCart() {
+  await this.secondAddToCartButton.click();
+
 }
+    async verifyAddToCart() {
+            await expect(this.addToCartSuccesMsg).toHaveText(
+                "The product has been added to your shopping cart "
+            );
+    }
+
+    async LogoVisibility() {
+        await expect(this.logo).toBeVisible();  
+    }
+
+    async assertLogoButton() {
+        await expect(this.logo).toBeVisible();  
+        await expect (this.page).toHaveURL('https://demowebshop.tricentis.com/');      
+    }
+
+    async clickOnTricentisManufacturer() {
+        await this.tricentisManufacturer.click();
+    }
+
+    async verifyTricentisPage() {
+        await expect(this.tricentisPageTitle).toHaveText("Tricentis");
+        console.log("No product being display for Tricentis Manufacturer");
+    }
+
+    async clickOnPopularTagswithAssert(tagName) {
+        let childElementNum;
+        if (tagName === "apparel") {
+            childElementNum = 1;
+        } else if (tagName === "awesome") {
+            childElementNum = 2;
+        } else if (tagName === "computer") {
+            childElementNum = 7;
+        }
+        this.popularTag = this.page
+            .locator(
+                `div.block.block-popular-tags li:nth-child(${childElementNum}) a`
+            )
+            .filter({hasText: `${tagName}`});
+        await this.popularTag.click();
+        this.popularTagPageTitle = this.page.locator("div[class='page-title'] h1");
+        await expect(this.popularTagPageTitle).toHaveText(
+            `Products tagged with '${tagName}'`
+        );
+    }
+
+}
+
+
 
 module.exports = { DashboardPage };
