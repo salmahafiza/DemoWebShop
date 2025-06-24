@@ -245,6 +245,9 @@ class Checkout {
   async missingEmail(){
     await expect(this.emailError).toHaveText('Email is required.');
   }
+  async missinglastName(){
+    await expect(this.lastNameError).toHaveText('Last name is required.');
+  }
 
   
 

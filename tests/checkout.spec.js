@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { Checkout } = require('../pages/Checkout');
-const {Users, billingAddressData, creditCardDetails, inValiBillingAddressData, MissingFirstNameInBillingAddressData,misshongEmailInBillingAddressData} = require('../test-data/Users');
+const {Users, billingAddressData, creditCardDetails, inValiBillingAddressData, missingLastNameInBillingAddressData ,MissingFirstNameInBillingAddressData,misshongEmailInBillingAddressData} = require('../test-data/Users');
 
 let login;
 let dashboard;
@@ -358,4 +358,28 @@ test('TC_CHECKOUT_013: Verify  the behaviour of  billing process leaving the ema
     await checkout.fillBillingAddress(misshongEmailInBillingAddressData);
     await checkout.clickContinue();
     await checkout.missingEmail();
+});
+
+test('TC_CHECKOUT_014: Verify  the behaviour of  billing process leaving the lastName empty',async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(missingLastNameInBillingAddressData);
+    await checkout.clickContinue();
+    await checkout.missinglastName();
 });

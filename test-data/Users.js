@@ -90,6 +90,18 @@ module.exports = {
         phone: '03001234567'
 
     },
+    missingLastNameInBillingAddressData: {
+        firstName: 'Hassan',
+        lastName: '',
+        email: 'hassan.mehmood@test.com',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: 'Karachi',
+        address1: '123 Street',
+        zip: '74000',
+        phone: '03001234567'
+
+    },
 
     inValiBillingAddressData: {
         firstName: '',
