@@ -92,3 +92,30 @@ test('TC_DASHBOARD_009 : Verify that clicking the Gift Cards category link corre
     await dashboard.verifyUserInfoVisible();
     await dashboard.displayGiftCardName();
 });
+
+test('TC_DASHBOARD_010 : Verify if featured products section is visible', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.verifyFeaturedProductsSection();
+    await dashboard.verifyFeaturedProducts();
+});
+test('TC_DASHBOARD_011 : Check news letter subscription on empty Box', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.buttonSubscribe();
+
+});
+test('TC_DASHBOARD_012 : Verify if the website logo is clearly visible on the dashboard', async () => {
+    await dashboard.clickOnLogo();
+    await dashboard.LogoVisibility();
+
+});
+test('TC_DASHBOARD_013 - Validate if homepage banner ( Tricentis ad) is shown', async () => {   
+      await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.VisibilityAddsOnDashboard();
+
+});
