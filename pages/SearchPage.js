@@ -9,6 +9,26 @@ class SearchPage {
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
     }
+
+    async verifySearchBarVisible() {
+        await expect(this.search_bar).toBeVisible();
+    }
+    
+    async SearchbarFieldFill(text) {
+        await this.SearchbarField.fill(text);
+        const inputValue = await this.SearchbarField.inputValue();
+        expect(inputValue).toBe(text);
+    }
+
+    async clickOnSearchButton() {
+        await this.SearchButton.click();
+        await expect(this.page).toHaveURL(/.*search/);
+    }
+
+    async pressEnterKey() {
+        await this.EnterTextInSearchBox.press('Enter');
+        await expect(this.page).toHaveURL(/.*search/);
+    }
 }
 
 module.exports = {SearchPage};
