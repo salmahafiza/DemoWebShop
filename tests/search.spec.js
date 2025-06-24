@@ -13,6 +13,6 @@ test.beforeEach(async ({ page }) => {
    await dashboard.accessApplication();
 });
 
-test.only('TC_SEARCH_001: Verify that the search bar is visible on the dashboard page', async ({ page }) => {
+test('TC_SEARCH_001: Verify that the search bar is visible on the dashboard page', async ({ page }) => {
     await searchbar.verifySearchBarVisible();
 });   
