@@ -114,3 +114,15 @@ test('TC_DASHBOARD_016 - Verify manufacturers are visible and clickable.', async
     await dashboard.clickOnTricentisManufacturer();
     await dashboard.verifyTricentisPage();
 });
+
+
+test("TC_DASHBOARD_017: Verify Popular Tags are visible and clickable.", async () => {
+  await login.enterUsername(Users.username);
+  await login.enterPassword(Users.password);
+  await login.clickLoginButton();
+  await dashboard.clickOnPopularTagswithAssert("apparel");
+  await dashboard.clickOnLogo();
+  await dashboard.clickOnPopularTagswithAssert("awesome");
+  await dashboard.clickOnLogo();
+  await dashboard.clickOnPopularTagswithAssert("computer");
+});

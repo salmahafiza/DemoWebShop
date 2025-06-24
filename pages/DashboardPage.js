@@ -287,6 +287,27 @@ class DashboardPage {
         console.log("No product being display for Tricentis Manufacturer");
     }
 
+    async clickOnPopularTagswithAssert(tagName) {
+        let childElementNum;
+        if (tagName === "apparel") {
+            childElementNum = 1;
+        } else if (tagName === "awesome") {
+            childElementNum = 2;
+        } else if (tagName === "computer") {
+            childElementNum = 7;
+        }
+        this.popularTag = this.page
+            .locator(
+                `div.block.block-popular-tags li:nth-child(${childElementNum}) a`
+            )
+            .filter({hasText: `${tagName}`});
+        await this.popularTag.click();
+        this.popularTagPageTitle = this.page.locator("div[class='page-title'] h1");
+        await expect(this.popularTagPageTitle).toHaveText(
+            `Products tagged with '${tagName}'`
+        );
+    }
+
 }
 
 
