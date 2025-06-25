@@ -8,6 +8,7 @@ class SearchPage {
         this.EnterTextInSearchBox = page.locator('//*[@id="small-searchterms"]');
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
+        this.searchWarning = page.locator('.warning');
     }
 
     async verifySearchBarVisible() {
@@ -28,6 +29,11 @@ class SearchPage {
     async pressEnterKey() {
         await this.EnterTextInSearchBox.press('Enter');
         await expect(this.page).toHaveURL(/.*search/);
+    }
+    async minSearchError(){
+        const warningText = await this.searchWarning.textContent();
+        console.log('Displayed Warning Message:', warningText.trim());
+        await expect(this.searchWarning).toHaveText('Search term minimum length is 3 characters');
     }
 }
 

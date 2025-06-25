@@ -30,3 +30,10 @@ test('TC_SEARCH_004: Check if pressing Enter triggers the search.', async ({ pag
    await searchbar.SearchbarFieldFill('laptop');
    await searchbar.pressEnterKey(); 
 });
+
+test('TC_SEARCH_013: Verify search queries less than 3 characters', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('a');
+   await searchbar.pressEnterKey(); 
+   await searchbar.minSearchError();
+
+});
