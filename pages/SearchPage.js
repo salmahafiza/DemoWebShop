@@ -8,6 +8,7 @@ class SearchPage {
         this.EnterTextInSearchBox = page.locator('//*[@id="small-searchterms"]');
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
+        this.errorMessageForNoProducts = page.locator(".result");
      
     }
 
@@ -39,6 +40,14 @@ class SearchPage {
   async assertSearchWithPartialTextResult() {
 
     await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/search?q=lap');
+  }
+  async searchWithSpecialCharacters(specialCharacter){
+    await this.SearchbarField.fill(specialCharacter);
+    await this.SearchButton.click();
+  }
+  async assertWithSPecialCharactersResult() {
+    await expect(this.errorMessageForNoProducts).toHaveText('No products were found that matched your criteria.');
+
   }
 }
 
