@@ -59,6 +59,18 @@ class SearchPage {
     await expect(this.numericTextResult).toHaveCount(1);
 
   }
+  async searchWithEmptyText(emptySearchText){
+    await this.SearchbarField.fill(emptySearchText);
+    await this.SearchButton.click();
+
+  }
+async assertWithNoProductsFound() {
+    this.page.once('dialog', async dialog => {
+        // Assert the alert message
+        expect(dialog.message()).toBe('Please enter some search keyword');
+        await dialog.accept(); // Press OK on the alert
+    });
+}
 }
 
 module.exports = { SearchPage };

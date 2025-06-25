@@ -31,7 +31,7 @@ test('TC_SEARCH_003: Check if search works by clicking the search button..', asy
 test('TC_SEARCH_004: Check if pressing Enter triggers the search.', async ({ page }) => {
    await searchbar.SearchbarFieldFill('laptop');
    await searchbar.pressEnterKey(); 
-}); //saniya
+}); 
 test('TC_SEARCH_009 : Verify search with partial keywords.', async ({ page }) => {
    await searchbar.searchWithPartialText(searchData.partialSearchText);
    await searchbar.assertSearchWithPartialTextResult();
@@ -44,4 +44,10 @@ test('TC_SEARCH_010: Verify search with special characters.', async ({ page }) =
 test('TC_SEARCH_011: Verify search with numeric values.', async ({ page }) => {
    await searchbar.searchWithNumericValue(searchData.numericalSearchText);
    await searchbar.assertNumericSearchResult();
+});
+test.only ('TC_SEARCH_012: Verify search with empty text.', async ({ page }) => {
+   await searchbar.searchWithEmptyText(searchData.emptySearchText);
+
+   await searchbar.assertWithNoProductsFound();
+
 });
