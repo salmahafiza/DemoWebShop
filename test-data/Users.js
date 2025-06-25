@@ -108,5 +108,10 @@ module.exports = {
         emptySearchText: '',
         invalidSearchText: 'invalidsearchtext1234567890',
         numericalSearchText: '14.1',
+        filerText:'gift',
+        priceRange:{
+            pf :'5',
+            pt : '50',
+        }
     }
 };

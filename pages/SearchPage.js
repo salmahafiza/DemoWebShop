@@ -10,7 +10,10 @@ class SearchPage {
         this.product_page = page.locator('h2[class=product-title] a');
         this.errorMessageForNoProducts = page.locator(".result");
         this.numericTextResult = page.locator('.product-item');
-     
+        this.checkBox = page.locator('#As');
+        this.priceFrom = page.locator('#Pf');
+        this.priceTo = page.locator('#Pt');
+        this.priceRangeFilteration = page.locator('.search-results');
     }
 
     async verifySearchBarVisible() {
@@ -38,39 +41,59 @@ class SearchPage {
 
 
     }
-  async assertSearchWithPartialTextResult() {
+    async assertSearchWithPartialTextResult() {
 
-    await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/search?q=lap');
-  }
-  async searchWithSpecialCharacters(specialCharacter){
-    await this.SearchbarField.fill(specialCharacter);
-    await this.SearchButton.click();
-  }
-  async assertWithSPecialCharactersResult() {
-    await expect(this.errorMessageForNoProducts).toHaveText('No products were found that matched your criteria.');
+        await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/search?q=lap');
+    }
+    async searchWithSpecialCharacters(specialCharacter) {
+        await this.SearchbarField.fill(specialCharacter);
+        await this.SearchButton.click();
+    }
+    async assertWithSPecialCharactersResult() {
+        await expect(this.errorMessageForNoProducts).toHaveText('No products were found that matched your criteria.');
 
-  }
-  async searchWithNumericValue(numericalSearchText){
-    await this.SearchbarField.fill(numericalSearchText);
-    await this.SearchButton.click();
+    }
+    async searchWithNumericValue(numericalSearchText) {
+        await this.SearchbarField.fill(numericalSearchText);
+        await this.SearchButton.click();
 
-  }
-  async assertNumericSearchResult() {
-    await expect(this.numericTextResult).toHaveCount(1);
+    }
+    async assertNumericSearchResult() {
+        await expect(this.numericTextResult).toHaveCount(1);
 
-  }
-  async searchWithEmptyText(emptySearchText){
-    await this.SearchbarField.fill(emptySearchText);
-    await this.SearchButton.click();
+    }
+    async searchWithEmptyText(emptySearchText) {
+        await this.SearchbarField.fill(emptySearchText);
+        await this.SearchButton.click();
 
-  }
-async assertWithNoProductsFound() {
-    this.page.once('dialog', async dialog => {
-        // Assert the alert message
-        expect(dialog.message()).toBe('Please enter some search keyword');
-        await dialog.accept(); // Press OK on the alert
-    });
-}
+    }
+    async assertWithNoProductsFound() {
+        this.page.once('dialog', async dialog => {
+            // Assert the alert message
+            expect(dialog.message()).toBe('Please enter some search keyword');
+            await dialog.accept(); // Press OK on the alert
+        });
+    }
+    async advanceSearchCheck() {
+        await (this.checkBox).check();
+
+    }
+
+    async advanceSearchText(filerText) {
+        await this.SearchbarField.fill(filerText);
+        await this.SearchButton.click();
+
+    }
+    async priceRange(pf, pt) {
+        await this.priceFrom.fill(pf);
+        await this.priceTo.fill(pt);
+        await this.SearchButton.click();
+
+    }
+    async assertPriceRangeFilteration() {
+        await expect(this.priceRangeFilteration).toBeVisible();
+    }
+
 }
 
 module.exports = { SearchPage };

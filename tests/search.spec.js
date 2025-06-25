@@ -45,9 +45,15 @@ test('TC_SEARCH_011: Verify search with numeric values.', async ({ page }) => {
    await searchbar.searchWithNumericValue(searchData.numericalSearchText);
    await searchbar.assertNumericSearchResult();
 });
-test.only ('TC_SEARCH_012: Verify search with empty text.', async ({ page }) => {
+test ('TC_SEARCH_012: Verify search with empty text.', async ({ page }) => {
    await searchbar.searchWithEmptyText(searchData.emptySearchText);
 
    await searchbar.assertWithNoProductsFound();
 
+});
+test("TC_SEARCH_017 : Search should filter the result with price range", async ({ page }) => {
+   await searchbar.advanceSearchText(searchData.filerText);
+   await searchbar.advanceSearchCheck();
+   await searchbar.priceRange(searchData.priceRange.pf, searchData.priceRange.pt);
+   await searchbar.assertPriceRangeFilteration();
 });
