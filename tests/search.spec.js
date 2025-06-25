@@ -49,3 +49,9 @@ test('TC_SEARCH_007: Verify search behavior for nonexistent products.', async ({
    await searchbar.clickOnSearchButton();
    await searchbar.InValidSearchResults();
 });
+
+test('TC_SEARCH_008: Verify case-insensitive search..', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('LAPTOP');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ValideSearchResults();
+});
