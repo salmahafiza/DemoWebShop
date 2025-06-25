@@ -1,4 +1,4 @@
-const {expect} = require('@playwright/test');
+const { expect } = require('@playwright/test');
 
 class SearchPage {
     constructor(page) {
@@ -8,12 +8,13 @@ class SearchPage {
         this.EnterTextInSearchBox = page.locator('//*[@id="small-searchterms"]');
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
+     
     }
 
     async verifySearchBarVisible() {
         await expect(this.search_bar).toBeVisible();
     }
-    
+
     async SearchbarFieldFill(text) {
         await this.SearchbarField.fill(text);
         const inputValue = await this.SearchbarField.inputValue();
@@ -29,7 +30,17 @@ class SearchPage {
         await this.EnterTextInSearchBox.press('Enter');
         await expect(this.page).toHaveURL(/.*search/);
     }
+    async searchWithPartialText(partialSearchText) {
+        await this.SearchbarField.fill(partialSearchText);
+        await this.SearchButton.click();
+
+
+    }
+  async assertSearchWithPartialTextResult() {
+
+    await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/search?q=lap');
+  }
 }
 
-module.exports = {SearchPage};
+module.exports = { SearchPage };
 

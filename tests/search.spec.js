@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 const { DashboardPage } = require('../pages/DashboardPage');
 const { SearchPage } = require ('../pages/SearchPage');
+const {searchData} = require('../test-data/Users');
+
 
 let dashboard;
 let searchbar;
@@ -29,4 +31,9 @@ test('TC_SEARCH_003: Check if search works by clicking the search button..', asy
 test('TC_SEARCH_004: Check if pressing Enter triggers the search.', async ({ page }) => {
    await searchbar.SearchbarFieldFill('laptop');
    await searchbar.pressEnterKey(); 
+});
+test('TC_SEARCH_009 : Verify search with partial keywords.', async ({ page }) => {
+   await searchbar.searchWithPartialText(searchData.partialSearchText);
+   await searchbar.assertSearchWithPartialTextResult();
+
 });

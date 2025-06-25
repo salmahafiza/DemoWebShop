@@ -100,5 +100,12 @@ module.exports = {
         expireMonth: '12',
         expireYear: '2030',
         cardCode: '123'
+    },
+    searchData: {
+        partialSearchText: 'lap',
+        searchText: 'computer',
+        specialCharacter: "Lapt@p#123",
+        emptySearchText: '',
+        invalidSearchText: 'invalidsearchtext1234567890'
     }
 };
