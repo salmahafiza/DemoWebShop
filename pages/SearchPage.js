@@ -9,6 +9,7 @@ class SearchPage {
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
         this.searchWarning = page.locator('.warning');
+        this.longSearchResult = page.locator('.result');
     }
 
     async verifySearchBarVisible() {
@@ -34,6 +35,11 @@ class SearchPage {
         const warningText = await this.searchWarning.textContent();
         console.log('Displayed Warning Message:', warningText.trim());
         await expect(this.searchWarning).toHaveText('Search term minimum length is 3 characters');
+    }
+    async longSearch(){
+        const Text = await this.longSearchResult.textContent();
+        console.log('Displayed Message:', Text.trim());
+        await expect(this.longSearchResult).toHaveText('No products were found that matched your criteria.');
     }
 }
 

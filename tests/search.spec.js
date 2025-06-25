@@ -31,9 +31,18 @@ test('TC_SEARCH_004: Check if pressing Enter triggers the search.', async ({ pag
    await searchbar.pressEnterKey(); 
 });
 
-test('TC_SEARCH_013: Verify search queries less than 3 characters', async ({ page }) => {
+test('TC_SEARCH_013: Verify search queries less than 3 characters', async () => {
    await searchbar.SearchbarFieldFill('a');
    await searchbar.pressEnterKey(); 
    await searchbar.minSearchError();
-
 });
+
+test('TC_SEARCH_014: Long search terms should not break functionality.', async () => {
+   
+   const lonInput = 'a'.repeat(500);
+   await searchbar.SearchbarFieldFill(lonInput);
+   await searchbar.pressEnterKey(); 
+   await searchbar.longSearch();
+});
+
+
