@@ -41,7 +41,7 @@ class SearchPage {
 
     async clickOnProductName() {
         await this.product_page.click();
-        await expect(this.page).toHaveURL(/.*product/);
+        await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/141-inch-laptop');
     }
 }
 

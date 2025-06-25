@@ -41,5 +41,5 @@ test('TC_SEARCH_006: Verify product page redirection.', async ({ page }) => {
    await searchbar.SearchbarFieldFill('laptop');
    await searchbar.clickOnSearchButton();
    await searchbar.ValideSearchResults();
-   await searchbar.product_page.click();  
+   await searchbar.clickOnProductName(); 
 });
