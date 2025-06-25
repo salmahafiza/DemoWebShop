@@ -41,3 +41,7 @@ test('TC_SEARCH_010: Verify search with special characters.', async ({ page }) =
    await searchbar.searchWithSpecialCharacters(searchData.specialCharacter);
    await searchbar.assertWithSPecialCharactersResult();
 });
+test('TC_SEARCH_011: Verify search with numeric values.', async ({ page }) => {
+   await searchbar.searchWithNumericValue(searchData.numericalSearchText);
+   await searchbar.assertNumericSearchResult();
+});

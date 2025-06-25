@@ -9,6 +9,7 @@ class SearchPage {
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
         this.errorMessageForNoProducts = page.locator(".result");
+        this.numericTextResult = page.locator('.product-item');
      
     }
 
@@ -47,6 +48,15 @@ class SearchPage {
   }
   async assertWithSPecialCharactersResult() {
     await expect(this.errorMessageForNoProducts).toHaveText('No products were found that matched your criteria.');
+
+  }
+  async searchWithNumericValue(numericalSearchText){
+    await this.SearchbarField.fill(numericalSearchText);
+    await this.SearchButton.click();
+
+  }
+  async assertNumericSearchResult() {
+    await expect(this.numericTextResult).toHaveCount(1);
 
   }
 }

@@ -106,6 +106,7 @@ module.exports = {
         searchText: 'computer',
         specialCharacter: "Lapt@p#123",
         emptySearchText: '',
-        invalidSearchText: 'invalidsearchtext1234567890'
+        invalidSearchText: 'invalidsearchtext1234567890',
+        numericalSearchText: '14.1',
     }
 };
