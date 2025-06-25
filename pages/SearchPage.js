@@ -8,6 +8,7 @@ class SearchPage {
         this.EnterTextInSearchBox = page.locator('//*[@id="small-searchterms"]');
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
+        this.searchResults = page.locator('h2.product-title a');
     }
 
     async verifySearchBarVisible() {
@@ -28,6 +29,14 @@ class SearchPage {
     async pressEnterKey() {
         await this.EnterTextInSearchBox.press('Enter');
         await expect(this.page).toHaveURL(/.*search/);
+    }
+
+    async ValideSearchResults() {
+        const searchResults = await this.searchResults.allTextContents();
+        expect(searchResults.length).toBeGreaterThan(0);
+        for (const result of searchResults) {
+            expect(result.toLowerCase()).toContain('laptop');
+        }
     }
 }
 
