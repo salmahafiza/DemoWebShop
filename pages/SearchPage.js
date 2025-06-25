@@ -9,6 +9,10 @@ class SearchPage {
         this.SearchButton = page.locator('//input[@class="button-1 search-box-button"]');
         this.product_page = page.locator('h2[class=product-title] a');
         this.searchResults = page.locator('h2.product-title a');
+        this.AdvancedSearchCheckBox = page.locator('//*[@id="As"]');   
+        this.CategoryDropdown = page.locator('//*[@id="Cid"]');
+        this.AutomaticallySearchSubCategoriesCheckBox = page.locator('//*[@id="Isc"]');
+        this.AdnacedSearchButton = page.locator('//input[@class="button-1 search-button"]');
     }
 
     async verifySearchBarVisible() {
@@ -50,6 +54,23 @@ class SearchPage {
         for (const result of searchResults) {
             expect(result.toLowerCase()).toContain('No products were found that matched your criteria.');
         }
+    }
+
+    async ClickonAdvancedSearchCheckBox() {
+        await this.AdvancedSearchCheckBox.click();
+    }
+
+    async SelectCategoryFromDropdown(category) {
+        await this.CategoryDropdown.selectOption({ label: category });
+    }
+
+    async ClickonAutomaticallySearchSubCategoriesCheckBox() {
+        await this.AutomaticallySearchSubCategoriesCheckBox.click();
+    }
+
+    async ClickonAdnacedSearchButton() {
+        await this.AdnacedSearchButton.click();
+        await expect(this.page).toHaveURL(/.*search/);
     }
 }
 

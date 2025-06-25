@@ -55,3 +55,13 @@ test('TC_SEARCH_008: Verify case-insensitive search..', async ({ page }) => {
    await searchbar.clickOnSearchButton();
    await searchbar.ValideSearchResults();
 });
+
+test('TC_SEARCH_019: Verify functionality of Automatically search sub categories', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('LAPTOP');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ClickonAdvancedSearchCheckBox();
+   await searchbar.SelectCategoryFromDropdown('Computers');
+   await searchbar.ClickonAutomaticallySearchSubCategoriesCheckBox();
+   await searchbar.ClickonAdnacedSearchButton();
+});
+   
