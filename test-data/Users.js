@@ -27,7 +27,6 @@ module.exports = {
         dashboard: "https://demowebshop.tricentis.com/",
         login: "https://demowebshop.tricentis.com/login",
         registeredurl: "https://demowebshop.tricentis.com/registerresult/1"
-
     },
     invalidPassword: {
         FirstName: 'Test',
@@ -43,7 +42,6 @@ module.exports = {
         Password: 'Test@1234',
         ConfirmPassword: 'Test@1234',
     },
-
     Register: {
         firstName: 'Dummy',
         lastName: 'Tester',
@@ -54,7 +52,6 @@ module.exports = {
         InvalidFirstName: 'Dummy@123',
         InvalidLastName: 'Tester!@#',
     },
-
     billingAddressData: {
         firstName: 'Hassan',
         lastName: 'Mehmood',
@@ -65,7 +62,17 @@ module.exports = {
         address1: '123 Street',
         zip: '74000',
         phone: '03001234567'
-
+    },
+    missingCityInBillingAddressData: {
+        firstName: 'Hassan',
+        lastName: 'Mehmood',
+        email: 'hassan.mehmood@test.com',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: '',
+        address1: '123 Street',
+        zip: '74000',
+        phone: '03001234567'
     },
     MissingFirstNameInBillingAddressData: {
         firstName: '',
@@ -77,9 +84,29 @@ module.exports = {
         address1: '123 Street',
         zip: '74000',
         phone: '03001234567'
-
     },
-
+    misshongEmailInBillingAddressData: {
+        firstName: 'Hassan',
+        lastName: 'Mehmood',
+        email: '',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: 'Karachi',
+        address1: '123 Street',
+        zip: '74000',
+        phone: '03001234567'
+    },
+    missingLastNameInBillingAddressData: {
+        firstName: 'Hassan',
+        lastName: '',
+        email: 'hassan.mehmood@test.com',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: 'Karachi',
+        address1: '123 Street',
+        zip: '74000',
+        phone: '03001234567'
+    },
     inValiBillingAddressData: {
         firstName: '',
         lastName: '',
@@ -90,9 +117,7 @@ module.exports = {
         address1: '',
         zip: '',
         phone: ''
-
     },
-
     creditCardDetails: {
         cardType: 'Visa',
         holderName: 'Hassan Mehmood',
@@ -115,6 +140,5 @@ module.exports = {
         },
         searchText1: 'Laptop',
         optionText: 'Computers',
-
     }
 };
