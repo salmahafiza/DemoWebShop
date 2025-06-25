@@ -45,4 +45,22 @@ test('TC_SEARCH_014: Long search terms should not break functionality.', async (
    await searchbar.longSearch();
 });
 
+/*test('TC_SEARCH_015: System should handle repeated queries properly.', async () => {
+   
+   const Input = 'Laptop'.repeat(2);
+   await searchbar.SearchbarFieldFill(Input);
+   await searchbar.pressEnterKey(); 
+   await searchbar.duplicateSearch();
+});*/
+test('TC_SEARCH_015: Verify System should handle repeated queries properly.', async () => {
+   //await searchbar.verifyDuplicateSearchQueries();
+   await searchbar.searchProduct('Laptop');
+   const first = await searchbar.getSearchResults();
+
+   await searchbar.searchProduct('Laptop');
+   const second = await searchbar.getSearchResults();
+
+   expect(second.trim()).toBe(first.trim());
+});
+
 

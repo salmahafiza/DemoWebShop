@@ -10,6 +10,8 @@ class SearchPage {
         this.product_page = page.locator('h2[class=product-title] a');
         this.searchWarning = page.locator('.warning');
         this.longSearchResult = page.locator('.result');
+        this.productNameLaptop = page.locator('.product-name');
+        this.resultSection = page.locator(".page.search-page");
     }
 
     async verifySearchBarVisible() {
@@ -41,6 +43,33 @@ class SearchPage {
         console.log('Displayed Message:', Text.trim());
         await expect(this.longSearchResult).toHaveText('No products were found that matched your criteria.');
     }
+    /*async duplicateSearch(){
+        const Text = await this.longSearchResult.textContent();
+        console.log('Displayed Message:', Text.trim());
+        await expect(this.longSearchResult).toHaveText('No products were found that matched your criteria.');
+    }*/
+    /*async verifyDuplicateSearchQueries() {
+        const searchTerm = 'Laptop';
+        await this.EnterTextInSearchBox.fill('14.1-inch Laptop' , searchTerm);
+        await this.SearchButton.click();
+        const firstResult = await this.productNameLaptop.allTextContents();
+
+        //repeatSearch
+         const searchTermRepeat = '14.1-inch Laptop';
+        await this.EnterTextInSearchBox.fill('Laptop' , searchTerm);
+        await this.SearchButton.click();
+        const secondResult = await this.productNameLaptop.allTextContents();
+        expect(firstResult).toEqual(secondResult);
+    }*/
+    async searchProduct(term) {
+        await this.EnterTextInSearchBox.fill(term);
+        await this.SearchButton.click();
+    }
+
+    async getSearchResults() {
+        return await this.resultSection.innerText();
+    }
+
 }
 
 module.exports = {SearchPage};
