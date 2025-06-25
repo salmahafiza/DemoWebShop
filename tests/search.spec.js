@@ -43,3 +43,9 @@ test('TC_SEARCH_006: Verify product page redirection.', async ({ page }) => {
    await searchbar.ValideSearchResults();
    await searchbar.clickOnProductName(); 
 });
+
+test('TC_SEARCH_007: Verify search behavior for nonexistent products.', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('xyzproduct');
+   await searchbar.clickOnSearchButton();
+   await searchbar.InValidSearchResults();
+});

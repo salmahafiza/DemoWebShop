@@ -43,6 +43,14 @@ class SearchPage {
         await this.product_page.click();
         await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/141-inch-laptop');
     }
+
+    async InValidSearchResults() {
+        const searchResults = await this.searchResults.allTextContents();
+        expect(searchResults.length).toBe(0);
+        for (const result of searchResults) {
+            expect(result.toLowerCase()).toContain('No products were found that matched your criteria.');
+        }
+    }
 }
 
 module.exports = {SearchPage};
