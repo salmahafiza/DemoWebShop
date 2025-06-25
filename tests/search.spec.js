@@ -31,8 +31,15 @@ test('TC_SEARCH_004: Check if pressing Enter triggers the search.', async ({ pag
    await searchbar.pressEnterKey(); 
 });
 
-test.only('TC_SEARCH_005:Verify search results for valid queries.', async ({ page }) => {
+test('TC_SEARCH_005:Verify search results for valid queries.', async ({ page }) => {
    await searchbar.SearchbarFieldFill('laptop');
    await searchbar.clickOnSearchButton();
    await searchbar.ValideSearchResults();
+});
+
+test('TC_SEARCH_006: Verify product page redirection.', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('laptop');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ValideSearchResults();
+   await searchbar.product_page.click();  
 });

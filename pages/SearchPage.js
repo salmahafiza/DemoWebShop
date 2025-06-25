@@ -38,6 +38,11 @@ class SearchPage {
             expect(result.toLowerCase()).toContain('laptop');
         }
     }
+
+    async clickOnProductName() {
+        await this.product_page.click();
+        await expect(this.page).toHaveURL(/.*product/);
+    }
 }
 
 module.exports = {SearchPage};
