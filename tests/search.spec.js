@@ -32,6 +32,7 @@ test('TC_SEARCH_004: Check if pressing Enter triggers the search.', async ({ pag
    await searchbar.SearchbarFieldFill('laptop');
    await searchbar.pressEnterKey(); 
 });
+
 test('TC_SEARCH_005:Verify search results for valid queries.', async ({ page }) => {
     await searchbar.SearchbarFieldFill('laptop');
     await searchbar.clickOnSearchButton();
@@ -77,6 +78,40 @@ test('TC_SEARCH_012: Verify search with empty text.', async ({ page }) => {
    await searchbar.assertWithNoProductsFound();
 });
 
+test('TC_SEARCH_013: Verify search queries less than 3 characters', async () => {
+    await searchbar.SearchbarFieldFill('a');
+    await searchbar.pressEnterKey();
+    await searchbar.minSearchError();
+});
+
+test('TC_SEARCH_014: Long search terms should not break functionality.', async () => {
+    const lonInput = 'a'.repeat(500);
+    await searchbar.SearchbarFieldFill(lonInput);
+    await searchbar.pressEnterKey();
+    await searchbar.longSearch();
+});
+
+/*test('TC_SEARCH_015: System should handle repeated queries properly.', async () => {
+   const Input = 'Laptop'.repeat(2);
+   await searchbar.SearchbarFieldFill(Input);
+   await searchbar.pressEnterKey();
+   await searchbar.duplicateSearch();
+});*/
+
+test('TC_SEARCH_015: Verify System should handle repeated queries properly.', async () => {
+    //await searchbar.verifyDuplicateSearchQueries();
+    await searchbar.searchProduct('Laptop');
+    const first = await searchbar.getSearchResults();
+    await searchbar.searchProduct('Laptop');
+    const second = await searchbar.getSearchResults();
+    expect(second.trim()).toBe(first.trim());
+});
+
+test('TC_SEARCH_016: Verify auto-suggestions appear as user types', async () => {
+    const keyword = 'pho';
+    await searchbar.verifyAutoSuggestions(keyword);
+});
+
 test("TC_SEARCH_017 : Search should filter the result with price range", async ({ page }) => {
     await searchbar.advanceSearchText(searchData.filerText);
     await searchbar.advanceSearchCheck();
@@ -109,3 +144,6 @@ test('TC_SEARCH_020: Verify functionality of "Search in product descriptions"', 
    await searchbar.ClickonSearchInProductDescriptionCheckBox();
    await searchbar.ClickonAdnacedSearchButton();
 });
+
+
+
