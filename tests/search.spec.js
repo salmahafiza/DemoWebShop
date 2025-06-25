@@ -57,11 +57,21 @@ test('TC_SEARCH_008: Verify case-insensitive search..', async ({ page }) => {
 });
 
 test('TC_SEARCH_019: Verify functionality of Automatically search sub categories', async ({ page }) => {
-   await searchbar.SearchbarFieldFill('LAPTOP');
+   await searchbar.SearchbarFieldFill('Laptop');
    await searchbar.clickOnSearchButton();
    await searchbar.ClickonAdvancedSearchCheckBox();
    await searchbar.SelectCategoryFromDropdown('Computers');
    await searchbar.ClickonAutomaticallySearchSubCategoriesCheckBox();
+   await searchbar.ClickonAdnacedSearchButton();
+});
+
+test.only('TC_SEARCH_020: Verify functionality of "Search in product descriptions"', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('Computer');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ClickonAdvancedSearchCheckBox();
+   await searchbar.SelectCategoryFromDropdown('Computers');
+   await searchbar.ClickonAutomaticallySearchSubCategoriesCheckBox();
+   await searchbar.ClickonSearchInProductDescriptionCheckBox();
    await searchbar.ClickonAdnacedSearchButton();
 });
    

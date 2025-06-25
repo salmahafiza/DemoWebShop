@@ -12,6 +12,7 @@ class SearchPage {
         this.AdvancedSearchCheckBox = page.locator('//*[@id="As"]');   
         this.CategoryDropdown = page.locator('//*[@id="Cid"]');
         this.AutomaticallySearchSubCategoriesCheckBox = page.locator('//*[@id="Isc"]');
+        this.SearchInProductDescriptionCheckBox = page.locator('//*[@id="Sid"]');
         this.AdnacedSearchButton = page.locator('//input[@class="button-1 search-button"]');
     }
 
@@ -66,6 +67,10 @@ class SearchPage {
 
     async ClickonAutomaticallySearchSubCategoriesCheckBox() {
         await this.AutomaticallySearchSubCategoriesCheckBox.click();
+    }
+
+    async ClickonSearchInProductDescriptionCheckBox() {
+        await this.SearchInProductDescriptionCheckBox.click();
     }
 
     async ClickonAdnacedSearchButton() {
