@@ -65,7 +65,7 @@ test('TC_SEARCH_019: Verify functionality of Automatically search sub categories
    await searchbar.ClickonAdnacedSearchButton();
 });
 
-test.only('TC_SEARCH_020: Verify functionality of "Search in product descriptions"', async ({ page }) => {
+test('TC_SEARCH_020: Verify functionality of "Search in product descriptions"', async ({ page }) => {
    await searchbar.SearchbarFieldFill('Computer');
    await searchbar.clickOnSearchButton();
    await searchbar.ClickonAdvancedSearchCheckBox();
