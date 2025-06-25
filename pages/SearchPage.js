@@ -12,6 +12,7 @@ class SearchPage {
         this.longSearchResult = page.locator('.result');
         this.productNameLaptop = page.locator('.product-name');
         this.resultSection = page.locator(".page.search-page");
+        this.suggestions = page.locator('.ui-autocomplete li');
     }
 
     async verifySearchBarVisible() {
@@ -68,6 +69,21 @@ class SearchPage {
 
     async getSearchResults() {
         return await this.resultSection.innerText();
+    }
+    async verifyAutoSuggestions(keyword) {
+        await this.EnterTextInSearchBox.fill(keyword);
+        await this.page.waitForSelector('.ui-autocomplete li', { timeout: 5000 });
+
+        const count = await this.suggestions.count();
+        console.log(`Total Suggestions Displayed: ${count}`);
+
+        for (let i = 0; i < count; i++) {
+            const suggestionText = await this.suggestions.nth(i).innerText();
+            console.log(`Suggestion ${i + 1}:`, suggestionText);
+        }
+
+        // Assertion for suggestion that are visible
+        await expect(this.suggestions.first()).toBeVisible();
     }
 
 }

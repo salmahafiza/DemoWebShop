@@ -63,4 +63,9 @@ test('TC_SEARCH_015: Verify System should handle repeated queries properly.', as
    expect(second.trim()).toBe(first.trim());
 });
 
+test('TC_SEARCH_016: Verify auto-suggestions appear as user types', async () => {
+   const keyword = 'pho';
+   await searchbar.verifyAutoSuggestions(keyword);
+});
+
 
