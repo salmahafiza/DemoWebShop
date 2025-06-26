@@ -20,9 +20,6 @@ test.beforeEach(async ({ page }) => {
 });
 
 test ('TC_PDP_003: Verify that user can update quantity during checkout', async () => {
-    //await login.enterUsername(Users.username);
-    //await login.enterPassword(Users.password);
-    //await login.clickLoginButton();
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
@@ -34,9 +31,6 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
 });
 
 test ('TC_PDP_004: Verify that product reviews are visible', async () => {
-    //await login.enterUsername(Users.username);
-    //await login.enterPassword(Users.password);
-    //await login.clickLoginButton();
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
@@ -44,9 +38,7 @@ test ('TC_PDP_004: Verify that product reviews are visible', async () => {
 });
 
 test ('TC_PDP_005: Verify that the price of the product is displayed correctly', async () => {
-    //await login.enterUsername(Users.username);
-    //await login.enterPassword(Users.password);
-    //await login.clickLoginButton();
+
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
@@ -56,9 +48,6 @@ test ('TC_PDP_005: Verify that the price of the product is displayed correctly',
 });
 
 test ('TC_PDP_006: Verify the availability status of the product', async () => {
-    //await login.enterUsername(Users.username);
-    //await login.enterPassword(Users.password);
-    //await login.clickLoginButton();
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
@@ -68,9 +57,6 @@ test ('TC_PDP_006: Verify the availability status of the product', async () => {
 });
 
 test ('TC_PDP_007: Verify that products can be added to compare', async ({page}) => {
-    //await login.enterUsername(Users.username);
-    //await login.enterPassword(Users.password);
-    //await login.clickLoginButton();
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
