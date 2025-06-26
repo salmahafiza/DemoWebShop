@@ -1,4 +1,5 @@
 const { expect } = require('@playwright/test');
+const { searchData } = require('../test-data/Users');
 
 class SearchPage {
     constructor(page) {
@@ -28,6 +29,7 @@ class SearchPage {
         this.SearchInProductDescriptionCheckBox = page.locator('//*[@id="Sid"]');
         this.AdnacedSearchButton = page.locator('//input[@class="button-1 search-button"]');
         this.menufecturerDropdown = page.locator('//*[@id="Mid"]');
+        this.sortbyPrice = page.locator('#products-orderby');
     }
 
     async verifySearchBarVisible() {
@@ -222,6 +224,10 @@ class SearchPage {
             console.log('No products are visible.');
             return;
         }
+    }
+    async sortByPriceLowToHigh() {
+        await this.sortbyPrice.selectOption({ label: 'Price: Low to High' });
+
     }
 
 }

@@ -149,11 +149,17 @@ test('TC_SEARCH_021 : Verify Search Functionality works in different Browsers.',
    await searchbar.clickOnSearchButton();
    await searchbar.ValideSearchResults();
 });
-test.only('TC_SEARCH_022  : Verify results are filtered by manufacturers by selecting a manufacturer', async ({ page }) => {
+test('TC_SEARCH_022  : Verify results are filtered by manufacturers by selecting a manufacturer', async ({ page }) => {
    await searchbar.validSearchText(searchData.searchText1);
    await searchbar.clickOnSearchButton();
    await searchbar.ClickonAdvancedSearchCheckBox();
    await searchbar.selectOptionFromMenufecturer(searchData.menufecturerOptionText);
    await searchbar.verifyingVisibilityOfProduct();
+
+});
+test('TC__SEARCH_023 : Sort results by price (low to high)	', async ({ page }) => {
+   await searchbar.validSearchText(searchData.searchText1);
+   await searchbar.clickOnSearchButton();
+   await searchbar.sortByPriceLowToHigh();
 
 });
