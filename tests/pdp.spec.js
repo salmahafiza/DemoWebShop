@@ -56,6 +56,18 @@ test ('TC_PDP_005: Verify that the price of the product is displayed correctly',
     expect(price).not.toBeNull();
 });
 
+test ('TC_PDP_006: Verify the availability status of the product', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    const availability = await pdp.getProductAvailability();
+    console.log(`Availability Status: ${availability?.trim()}`);
+    expect(availability).toMatch(/In stock|Out of stock/i); 
+});
+
 
 
 

@@ -9,6 +9,7 @@ class PDP {
     this.productReviews = page.locator(".product-review-links");
     this.assertReviews = page.locator("div[class='product-review-list'] div[class='title'] strong");
     this.productPrice = page.locator('.product-price');
+    this.availabilityStatus = page.locator('.stock .value');
 
   }
 
@@ -19,6 +20,12 @@ class PDP {
   async verifyProductPrice(){
     return await this.productPrice.textContent();
   }
+  async getProductAvailability() {
+    const availabilityLocator = this.availabilityStatus;
+    await availabilityLocator.waitFor({ state: 'visible', timeout: 5000 });
+    return await availabilityLocator.textContent();
+}
+
   
 
 
