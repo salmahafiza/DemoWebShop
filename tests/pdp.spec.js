@@ -33,3 +33,16 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
     await checkout.updateProductQuantity(12);//Update QTY
     await checkout.verifyTotalPriceChanged(previousTotal);//Verify QTY Update Through Price change
 });
+
+test ('TC_PDP_004: Verify that product reviews are visible', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await pdp.verifyProductReviews()
+});
+
+
+
