@@ -79,37 +79,37 @@ test('TC_SEARCH_012: Verify search with empty text.', async ({ page }) => {
 });
 
 test('TC_SEARCH_013: Verify search queries less than 3 characters', async () => {
-    await searchbar.SearchbarFieldFill('a');
-    await searchbar.pressEnterKey();
-    await searchbar.minSearchError();
+   await searchbar.SearchbarFieldFill('a');
+   await searchbar.pressEnterKey(); 
+   await searchbar.minSearchError();
 });
 
 test('TC_SEARCH_014: Long search terms should not break functionality.', async () => {
-    const lonInput = 'a'.repeat(500);
-    await searchbar.SearchbarFieldFill(lonInput);
-    await searchbar.pressEnterKey();
-    await searchbar.longSearch();
+   const lonInput = 'a'.repeat(500);
+   await searchbar.SearchbarFieldFill(lonInput);
+   await searchbar.pressEnterKey(); 
+   await searchbar.longSearch();
 });
 
 /*test('TC_SEARCH_015: System should handle repeated queries properly.', async () => {
    const Input = 'Laptop'.repeat(2);
    await searchbar.SearchbarFieldFill(Input);
-   await searchbar.pressEnterKey();
+   await searchbar.pressEnterKey(); 
    await searchbar.duplicateSearch();
 });*/
 
 test('TC_SEARCH_015: Verify System should handle repeated queries properly.', async () => {
-    //await searchbar.verifyDuplicateSearchQueries();
-    await searchbar.searchProduct('Laptop');
-    const first = await searchbar.getSearchResults();
-    await searchbar.searchProduct('Laptop');
-    const second = await searchbar.getSearchResults();
-    expect(second.trim()).toBe(first.trim());
+   //await searchbar.verifyDuplicateSearchQueries();
+   await searchbar.searchProduct('Laptop');
+   const first = await searchbar.getSearchResults();
+   await searchbar.searchProduct('Laptop');
+   const second = await searchbar.getSearchResults();
+   expect(second.trim()).toBe(first.trim());
 });
 
 test('TC_SEARCH_016: Verify auto-suggestions appear as user types', async () => {
-    const keyword = 'pho';
-    await searchbar.verifyAutoSuggestions(keyword);
+   const keyword = 'pho';
+   await searchbar.verifyAutoSuggestions(keyword);
 });
 
 test("TC_SEARCH_017 : Search should filter the result with price range", async ({ page }) => {
@@ -169,4 +169,25 @@ test('TC_SEARCH_024 : Filter - Display Per Page', async ({ page }) => {
    await searchbar.validSearchText(searchData.giftSearchText);
    await searchbar.selectDisplayPage();
    await searchbar.verifyingVisibilityOfProductByDisplayPage();
+});
+test('TC_SEARCH_0025: Verify functionality of Filter - View As Grid', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('Computer');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ClickonAdvancedSearchCheckBox();
+   await searchbar.SelectCategoryFromDropdown('Computers');
+   await searchbar.ClickonAutomaticallySearchSubCategoriesCheckBox();
+   await searchbar.ClickonSearchInProductDescriptionCheckBox();
+   await searchbar.ClickonAdnacedSearchButton();
+   await searchbar.clickonViewAsCheckBox('Grid');
+});
+
+test('TC_SEARCH_026: Verify functionality of Filter - View As List', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('Computer');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ClickonAdvancedSearchCheckBox();
+   await searchbar.SelectCategoryFromDropdown('Computers');
+   await searchbar.ClickonAutomaticallySearchSubCategoriesCheckBox();
+   await searchbar.ClickonSearchInProductDescriptionCheckBox();
+   await searchbar.ClickonAdnacedSearchButton();
+   await searchbar.clickonViewAsCheckBox('List');
 });

@@ -1,5 +1,4 @@
-const { expect } = require('@playwright/test');
-const { searchData } = require('../test-data/Users');
+const {expect} = require('@playwright/test');
 
 class SearchPage {
     constructor(page) {
@@ -37,6 +36,9 @@ class SearchPage {
         this.menufecturerDropdown = page.locator('//*[@id="Mid"]');
         this.sortbyPrice = page.locator('#products-orderby');
         this.displayPage = page.locator('#products-pagesize');
+        this.ViewAsCheckBox = page.locator('//*[@id="products-viewmode"]');
+        this.ProductViewAsGrid = page.locator('.product-grid');
+        this.ProductViewAsList = page.locator('.product-list');
     }
 
     async verifySearchBarVisible() {
@@ -58,12 +60,12 @@ class SearchPage {
         await this.EnterTextInSearchBox.press('Enter');
         await expect(this.page).toHaveURL(/.*search/);
     }
-    async minSearchError() {
+    async minSearchError(){
         const warningText = await this.searchWarning.textContent();
         console.log('Displayed Warning Message:', warningText.trim());
         await expect(this.searchWarning).toHaveText('Search term minimum length is 3 characters');
     }
-    async longSearch() {
+    async longSearch(){
         const Text = await this.longSearchResult.textContent();
         console.log('Displayed Message:', Text.trim());
         await expect(this.longSearchResult).toHaveText('No products were found that matched your criteria.');
@@ -211,15 +213,27 @@ class SearchPage {
         await this.AdnacedSearchButton.click();
         await expect(this.page).toHaveURL(/.*search/);
     }
+
+    async clickonViewAsCheckBox(category) {
+        await this.ViewAsCheckBox.selectOption({ label: category });
+        if (category.toLowerCase() === 'grid') {
+            await expect(this.ProductViewAsGrid).toBeVisible();
+        } else if (category.toLowerCase() === 'list') {
+            await expect(this.ProductViewAsList).toBeVisible();
+        }
+    }
+
     async validSearchText(searchText1) {
         await this.SearchbarField.fill(searchText1);
         await this.SearchButton.click();
 
     }
+
     async selectOptionFromMenufecturer(menufecturerOptionText) {
         await this.menufecturerDropdown.selectOption({ label: menufecturerOptionText });
         await this.AdvancedSearchButton.click();
     }
+
     async verifyingVisibilityOfProduct() {
         const productCount = await this.numericTextResult.count();
         if (productCount > 0) {
@@ -232,17 +246,20 @@ class SearchPage {
             return;
         }
     }
+
     async sortByPriceLowToHigh() {
         await this.sortbyPrice.selectOption({ label: 'Price: Low to High' });
-
     }
+
     async giftSearchText(giftSearchText) {
         await this.SearchbarField.fill(giftSearchText);
         await this.SearchButton.click();
     }
+
     async selectDisplayPage(displayPageValue) {
         await this.displayPage.selectOption({ label: displayPageValue });
     }
+
     async verifyingVisibilityOfProductByDisplayPage() {
 
         await Promise.race([
