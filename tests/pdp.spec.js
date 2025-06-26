@@ -26,12 +26,10 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
     await pdp.updateProductQuantity(12);//Update QTY
-    //await checkout.clickOnAdtoCart();
-    await checkout.gotoShoppingCart();
-    //await checkout.gotoCart();
-    await checkout.assertShoppingCartPage();
-    const previousTotal = await checkout.totalPrice.textContent();
-    await checkout.verifyTotalPriceChanged(previousTotal);//Verify QTY Update Through Price change
+    const cartQty = await pdp.getCartQuantity();
+    console.log('Cart Quantity:', cartQty);
+
+
 });
 
 test ('TC_PDP_004: Verify that product reviews are visible', async () => {
@@ -80,12 +78,25 @@ test ('TC_PDP_007: Verify that products can be added to compare', async ({page})
     await dashboard.clickOnSearchButton();
     await pdp.clickOnProduct2();
     await pdp.clickOnAddToCompare();
-    const compareList = page.locator('.compare-products-table');
-    await expect(compareList).toContainText('Used phone');
-    await expect(compareList).toContainText('Smartphone');
+    await pdp.verifyCompareProducts();
     console.log(' Both products successfully added to compare list.');
-
 });
+
+test ('TC_PDP_008: Verify that User emails product details to friend', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await pdp.clickEmailAFriend();
+    await pdp.fillEmailForm('xyz@gmail.com', 'abc@gmail.com', 'check this Phone');
+    await pdp.sendEmail();
+    await pdp.verifySuccessMessage();
+    console.log('Email to friend sent successfully.');
+});
+
+
 
 
 

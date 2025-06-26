@@ -14,10 +14,20 @@ class PDP {
     this.QtyUpdate = page.locator("#addtocart_43_EnteredQuantity");
     this.addToCart = page.locator("#add-to-cart-button-43");
     this.assertProduct2 = page.locator("img[title='Show details for Used phone']");
-
-
+    this.emailAFriendButton = page.locator('input[value="Email a friend"]');
+    this.friendEmailField = page.locator('#FriendEmail');
+    this.yourEmailField = page.locator('#YourEmailAddress');
+    this.personalMessageField = page.locator('#PersonalMessage');
+    this.sendEmailButton = page.locator('input[name="send-email"]');
+    this.successMessage = page.locator('.result');
+    this.compare = page.locator('.compare-products-table');
+    this.cartQuantityField = page.locator('.cart-qty');
   }
 
+
+  async getCartQuantity() {
+    return await this.cartQuantityField.textContent();
+  }
   async verifyProductReviews(){
     await this.productReviews.click();
     await expect(this.assertReviews).toHaveText('Existing reviews');
@@ -41,12 +51,26 @@ class PDP {
   async clickOnAddToCompare(){
     await this.addtoCompare.click();
   }
+  async verifyCompareProducts(){
+    const compareList = await this.compare
+    await expect(compareList).toContainText('Used phone');
+    await expect(compareList).toContainText('Smartphone');
 
-  
-
-
+  }
+  async clickEmailAFriend() {
+    await this.emailAFriendButton.click();
+  }
+  async fillEmailForm(friendEmail, yourEmail, message) {
+    await this.friendEmailField.fill(friendEmail);
+    await this.yourEmailField.fill(yourEmail);
+    await this.personalMessageField.fill(message);
+  }
+  async sendEmail() {
+    await this.sendEmailButton.click();
+  }
+  async verifySuccessMessage() {
+    await expect(this.successMessage).toHaveText("Your message has been sent.");
+  }
 }
-
-
 
 module.exports = { PDP };
