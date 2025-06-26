@@ -156,7 +156,7 @@ test('TC_SEARCH_0025: Verify functionality of Filter - View As Grid', async ({ p
    await searchbar.clickonViewAsCheckBox('Grid');
 });
 
-test.only('TC_SEARCH_026: Verify functionality of Filter - View As List', async ({ page }) => {
+test('TC_SEARCH_026: Verify functionality of Filter - View As List', async ({ page }) => {
    await searchbar.SearchbarFieldFill('Computer');
    await searchbar.clickOnSearchButton();
    await searchbar.ClickonAdvancedSearchCheckBox();
