@@ -163,3 +163,10 @@ test('TC__SEARCH_023 : Sort results by price (low to high)	', async ({ page }) =
    await searchbar.sortByPriceLowToHigh();
 
 });
+test.only('TC_SEARCH_024 : Filter - Display Per Page', async ({ page }) => {
+   await searchbar.validSearchText(searchData.giftSearchText);
+   await searchbar.selectDisplayPage();
+   await searchbar.verifyingVisibilityOfProductByDisplayPage();
+
+
+});

@@ -30,6 +30,7 @@ class SearchPage {
         this.AdnacedSearchButton = page.locator('//input[@class="button-1 search-button"]');
         this.menufecturerDropdown = page.locator('//*[@id="Mid"]');
         this.sortbyPrice = page.locator('#products-orderby');
+        this.displayPage = page.locator('#products-pagesize');
     }
 
     async verifySearchBarVisible() {
@@ -228,6 +229,30 @@ class SearchPage {
     async sortByPriceLowToHigh() {
         await this.sortbyPrice.selectOption({ label: 'Price: Low to High' });
 
+    }
+    async giftSearchText(giftSearchText) {
+        await this.SearchbarField.fill(giftSearchText);
+        await this.SearchButton.click();
+    }
+    async selectDisplayPage(displayPageValue) {
+        await this.displayPage.selectOption({ label: displayPageValue });
+    }
+    async verifyingVisibilityOfProductByDisplayPage() {
+
+        await Promise.race([
+            this.numericTextResult.first().waitFor({ state: 'visible', timeout: 5000 }).catch(() => { }),
+            this.errorMessageForNoProducts.waitFor({ state: 'visible', timeout: 5000 }).catch(() => { })
+        ]);
+
+        const productCount = await this.numericTextResult.count();
+        console.log(`Product Count found: ${productCount}`);
+
+        if (productCount === 4) {
+            console.log(' Products are visible as selected in Display Page.');
+        } else {
+            await expect(this.errorMessageForNoProducts).toHaveText('No products were found that matched your criteria.');
+            console.log(' No products are visible.');
+        }
     }
 
 }
