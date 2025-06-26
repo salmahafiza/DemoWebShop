@@ -27,6 +27,9 @@ class SearchPage {
         this.AutomaticallySearchSubCategoriesCheckBox = page.locator('//*[@id="Isc"]');
         this.SearchInProductDescriptionCheckBox = page.locator('//*[@id="Sid"]');
         this.AdnacedSearchButton = page.locator('//input[@class="button-1 search-button"]');
+        this.ViewAsCheckBox = page.locator('//*[@id="products-viewmode"]'); 
+        this.ProductViewAsGrid = page.locator('.product-grid');
+        this.ProductViewAsList = page.locator('.product-list');
     }
 
     async verifySearchBarVisible() {
@@ -201,7 +204,15 @@ class SearchPage {
         await this.AdnacedSearchButton.click();
         await expect(this.page).toHaveURL(/.*search/);
     }
+
+    async clickonViewAsCheckBox(category) {
+        await this.ViewAsCheckBox.selectOption({ label: category });
+        if (category.toLowerCase() === 'grid') {
+            await expect(this.ProductViewAsGrid).toBeVisible();
+        } else if (category.toLowerCase() === 'list') {
+            await expect(this.ProductViewAsList).toBeVisible();
+        }
+    }
 }
 
 module.exports = {SearchPage};
-
