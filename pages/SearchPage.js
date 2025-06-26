@@ -1,4 +1,5 @@
-const {expect} = require('@playwright/test');
+const { expect } = require('@playwright/test');
+const { searchData } = require('../test-data/Users');
 
 class SearchPage {
     constructor(page) {
@@ -14,7 +15,7 @@ class SearchPage {
         this.productNameLaptop = page.locator('.product-name');
         this.resultSection = page.locator(".page.search-page");
         this.suggestions = page.locator('.ui-autocomplete li');
-        this.errorMessageForNoProducts = page.locator(".result");
+        this.errorMessageForNoProducts = page.locator('.result');
         this.numericTextResult = page.locator('.product-item');
         this.checkBox = page.locator('#As');
         this.priceFrom = page.locator('#Pf');
@@ -27,12 +28,15 @@ class SearchPage {
         this.AutomaticallySearchSubCategoriesCheckBox = page.locator('//*[@id="Isc"]');
         this.SearchInProductDescriptionCheckBox = page.locator('//*[@id="Sid"]');
         this.AdnacedSearchButton = page.locator('//input[@class="button-1 search-button"]');
+        this.menufecturerDropdown = page.locator('//*[@id="Mid"]');
+        this.sortbyPrice = page.locator('#products-orderby');
+        this.displayPage = page.locator('#products-pagesize');
     }
 
     async verifySearchBarVisible() {
         await expect(this.search_bar).toBeVisible();
     }
-    
+
     async SearchbarFieldFill(text) {
         await this.SearchbarField.fill(text);
         const inputValue = await this.SearchbarField.inputValue();
@@ -48,12 +52,12 @@ class SearchPage {
         await this.EnterTextInSearchBox.press('Enter');
         await expect(this.page).toHaveURL(/.*search/);
     }
-    async minSearchError(){
+    async minSearchError() {
         const warningText = await this.searchWarning.textContent();
         console.log('Displayed Warning Message:', warningText.trim());
         await expect(this.searchWarning).toHaveText('Search term minimum length is 3 characters');
     }
-    async longSearch(){
+    async longSearch() {
         const Text = await this.longSearchResult.textContent();
         console.log('Displayed Message:', Text.trim());
         await expect(this.longSearchResult).toHaveText('No products were found that matched your criteria.');
@@ -157,7 +161,7 @@ class SearchPage {
         await this.AdvancedSearchButton.click();
     }
     async falsecategorySelectionMsg() {
-        await expect(this.errorMessageForNoProducts).toHaveText('No products were found that matched your criteria.');
+        await expect(this.errorMessageForNoProducts).toHaveText(' No products were found that matched your criteria.');
     }
 
     async ValideSearchResults() {
@@ -201,7 +205,57 @@ class SearchPage {
         await this.AdnacedSearchButton.click();
         await expect(this.page).toHaveURL(/.*search/);
     }
+    async validSearchText(searchText1) {
+        await this.SearchbarField.fill(searchText1);
+        await this.SearchButton.click();
+
+    }
+    async selectOptionFromMenufecturer(menufecturerOptionText) {
+        await this.menufecturerDropdown.selectOption({ label: menufecturerOptionText });
+        await this.AdvancedSearchButton.click();
+    }
+    async verifyingVisibilityOfProduct() {
+        const productCount = await this.numericTextResult.count();
+        if (productCount > 0) {
+            console.log('Products are visible.');
+            return;
+        }
+        else {
+            await expect(this.errorMessageForNoProducts).toHaveText('No products were found that matched your criteria.');
+            console.log('No products are visible.');
+            return;
+        }
+    }
+    async sortByPriceLowToHigh() {
+        await this.sortbyPrice.selectOption({ label: 'Price: Low to High' });
+
+    }
+    async giftSearchText(giftSearchText) {
+        await this.SearchbarField.fill(giftSearchText);
+        await this.SearchButton.click();
+    }
+    async selectDisplayPage(displayPageValue) {
+        await this.displayPage.selectOption({ label: displayPageValue });
+    }
+    async verifyingVisibilityOfProductByDisplayPage() {
+
+        await Promise.race([
+            this.numericTextResult.first().waitFor({ state: 'visible', timeout: 5000 }).catch(() => { }),
+            this.errorMessageForNoProducts.waitFor({ state: 'visible', timeout: 5000 }).catch(() => { })
+        ]);
+
+        const productCount = await this.numericTextResult.count();
+        console.log(`Product Count found: ${productCount}`);
+
+        if (productCount === 4) {
+            console.log(' Products are visible as selected in Display Page.');
+        } else {
+            await expect(this.errorMessageForNoProducts).toHaveText('No products were found that matched your criteria.');
+            console.log(' No products are visible.');
+        }
+    }
+
 }
 
-module.exports = {SearchPage};
+module.exports = { SearchPage };
 

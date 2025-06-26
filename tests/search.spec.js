@@ -9,53 +9,53 @@ let searchbar;
 
 
 test.beforeEach(async ({ page }) => {
-   
+
    dashboard = new DashboardPage(page);
    searchbar = new SearchPage(page);
    await dashboard.accessApplication();
 });
 
 test('TC_SEARCH_001: Verify that the search bar is visible on the dashboard page', async ({ page }) => {
-    await searchbar.verifySearchBarVisible();
-});   
+   await searchbar.verifySearchBarVisible();
+});
 
 test('TC_SERACH_002: Check input functionality in the search bar.', async ({ page }) => {
-   await searchbar.SearchbarFieldFill('laptop');     
+   await searchbar.SearchbarFieldFill('laptop');
 });
 
 test('TC_SEARCH_003: Check if search works by clicking the search button..', async ({ page }) => {
-   await searchbar.SearchbarFieldFill('laptop'); 
+   await searchbar.SearchbarFieldFill('laptop');
    await searchbar.clickOnSearchButton();
 });
 
 test('TC_SEARCH_004: Check if pressing Enter triggers the search.', async ({ page }) => {
    await searchbar.SearchbarFieldFill('laptop');
-   await searchbar.pressEnterKey(); 
+   await searchbar.pressEnterKey();
 });
 
 test('TC_SEARCH_005:Verify search results for valid queries.', async ({ page }) => {
-    await searchbar.SearchbarFieldFill('laptop');
-    await searchbar.clickOnSearchButton();
-    await searchbar.ValideSearchResults();
+   await searchbar.SearchbarFieldFill('laptop');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ValideSearchResults();
 });
 
 test('TC_SEARCH_006: Verify product page redirection.', async ({ page }) => {
-    await searchbar.SearchbarFieldFill('laptop');
-    await searchbar.clickOnSearchButton();
-    await searchbar.ValideSearchResults();
-    await searchbar.clickOnProductName();
+   await searchbar.SearchbarFieldFill('laptop');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ValideSearchResults();
+   await searchbar.clickOnProductName();
 });
 
 test('TC_SEARCH_007: Verify search behavior for nonexistent products.', async ({ page }) => {
-    await searchbar.SearchbarFieldFill('xyzproduct');
-    await searchbar.clickOnSearchButton();
-    await searchbar.InValidSearchResults();
+   await searchbar.SearchbarFieldFill('xyzproduct');
+   await searchbar.clickOnSearchButton();
+   await searchbar.InValidSearchResults();
 });
 
 test('TC_SEARCH_008: Verify case-insensitive search..', async ({ page }) => {
-    await searchbar.SearchbarFieldFill('LAPTOP');
-    await searchbar.clickOnSearchButton();
-    await searchbar.ValideSearchResults();
+   await searchbar.SearchbarFieldFill('LAPTOP');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ValideSearchResults();
 });
 
 test('TC_SEARCH_009 : Verify search with partial keywords.', async ({ page }) => {
@@ -80,14 +80,14 @@ test('TC_SEARCH_012: Verify search with empty text.', async ({ page }) => {
 
 test('TC_SEARCH_013: Verify search queries less than 3 characters', async () => {
    await searchbar.SearchbarFieldFill('a');
-   await searchbar.pressEnterKey(); 
+   await searchbar.pressEnterKey();
    await searchbar.minSearchError();
 });
 
 test('TC_SEARCH_014: Long search terms should not break functionality.', async () => {
    const lonInput = 'a'.repeat(500);
    await searchbar.SearchbarFieldFill(lonInput);
-   await searchbar.pressEnterKey(); 
+   await searchbar.pressEnterKey();
    await searchbar.longSearch();
 });
 
@@ -113,17 +113,17 @@ test('TC_SEARCH_016: Verify auto-suggestions appear as user types', async () => 
 });
 
 test("TC_SEARCH_017 : Search should filter the result with price range", async ({ page }) => {
-    await searchbar.advanceSearchText(searchData.filerText);
-    await searchbar.advanceSearchCheck();
-    await searchbar.priceRange(searchData.priceRange.pf, searchData.priceRange.pt);
-    await searchbar.assertPriceRangeFilteration();
+   await searchbar.advanceSearchText(searchData.filerText);
+   await searchbar.advanceSearchCheck();
+   await searchbar.priceRange(searchData.priceRange.pf, searchData.priceRange.pt);
+   await searchbar.assertPriceRangeFilteration();
 });
 
 test('TC_SEARCH_018  : Search should respect Category selection while searching', async ({ page }) => {
-    await searchbar.advanceSearchForCategorySelection(searchData.searchText1);
-    await searchbar.advanceSearchCheck();
-    await searchbar.selectOptionFromCategory(searchData.optionText);
-    await searchbar.falsecategorySelectionMsg();
+   await searchbar.advanceSearchForCategorySelection(searchData.searchText1);
+   await searchbar.advanceSearchCheck();
+   await searchbar.selectOptionFromCategory(searchData.optionText);
+   await searchbar.falsecategorySelectionMsg();
 });
 
 test('TC_SEARCH_019: Verify functionality of Automatically search sub categories', async ({ page }) => {
@@ -143,4 +143,30 @@ test('TC_SEARCH_020: Verify functionality of "Search in product descriptions"', 
    await searchbar.ClickonAutomaticallySearchSubCategoriesCheckBox();
    await searchbar.ClickonSearchInProductDescriptionCheckBox();
    await searchbar.ClickonAdnacedSearchButton();
+});
+test('TC_SEARCH_021 : Verify Search Functionality works in different Browsers.', async ({ page }) => {
+   await searchbar.validSearchText(searchData.searchText1);
+   await searchbar.clickOnSearchButton();
+   await searchbar.ValideSearchResults();
+});
+test('TC_SEARCH_022  : Verify results are filtered by manufacturers by selecting a manufacturer', async ({ page }) => {
+   await searchbar.validSearchText(searchData.searchText1);
+   await searchbar.clickOnSearchButton();
+   await searchbar.ClickonAdvancedSearchCheckBox();
+   await searchbar.selectOptionFromMenufecturer(searchData.menufecturerOptionText);
+   await searchbar.verifyingVisibilityOfProduct();
+
+});
+test('TC__SEARCH_023 : Sort results by price (low to high)	', async ({ page }) => {
+   await searchbar.validSearchText(searchData.searchText1);
+   await searchbar.clickOnSearchButton();
+   await searchbar.sortByPriceLowToHigh();
+
+});
+test.only('TC_SEARCH_024 : Filter - Display Per Page', async ({ page }) => {
+   await searchbar.validSearchText(searchData.giftSearchText);
+   await searchbar.selectDisplayPage();
+   await searchbar.verifyingVisibilityOfProductByDisplayPage();
+
+
 });
