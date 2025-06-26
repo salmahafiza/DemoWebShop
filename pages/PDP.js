@@ -12,7 +12,7 @@ class PDP_Page {
             .locator(".product-item")
             .nth(0)
             .locator("span.price.actual-price");
-        // this.addToCartButton = page.locator('#add-to-cart-button-4'); ("//p[@class='content']")
+    this.addToCartButton = page.locator("#add-to-cart-button-43"); 
         // this.addToWishlistButton = page.locator('.add-to-wishlist-button');
         // this.productDescriptionTab = page.locator('#product-tabs .product-description-tab');
         // this.productReviewsTab = page.locator('#product-tabs .product-reviews-tab');
@@ -57,6 +57,19 @@ class PDP_Page {
         expect(pdpProductName).toBe(plpProductName);
         expect(pdpProductPrice).toBe(plpProductPrice);
     }
+
+    async addToCart() {
+        await this.addToCartButton.click();
+    }
+
+    async verifyProductAddedToCart() {
+        const cartNotification = this.page.locator(".bar-notification.success");
+        await expect(cartNotification).toBeVisible();
+        await expect(cartNotification).toContainText(
+            "The product has been added to your shopping cart"
+        );
+    }
+
 
 }
 
