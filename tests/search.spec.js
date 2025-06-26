@@ -145,7 +145,7 @@ test('TC_SEARCH_020: Verify functionality of "Search in product descriptions"', 
    await searchbar.ClickonAdnacedSearchButton();
 });
 
-test('TC_SEARCH_021: Verify functionality of Filter - View As Grid', async ({ page }) => {
+test('TC_SEARCH_0025: Verify functionality of Filter - View As Grid', async ({ page }) => {
    await searchbar.SearchbarFieldFill('Computer');
    await searchbar.clickOnSearchButton();
    await searchbar.ClickonAdvancedSearchCheckBox();
@@ -154,4 +154,15 @@ test('TC_SEARCH_021: Verify functionality of Filter - View As Grid', async ({ pa
    await searchbar.ClickonSearchInProductDescriptionCheckBox();
    await searchbar.ClickonAdnacedSearchButton();
    await searchbar.clickonViewAsCheckBox('Grid');
+});
+
+test.only('TC_SEARCH_026: Verify functionality of Filter - View As List', async ({ page }) => {
+   await searchbar.SearchbarFieldFill('Computer');
+   await searchbar.clickOnSearchButton();
+   await searchbar.ClickonAdvancedSearchCheckBox();
+   await searchbar.SelectCategoryFromDropdown('Computers');
+   await searchbar.ClickonAutomaticallySearchSubCategoriesCheckBox();
+   await searchbar.ClickonSearchInProductDescriptionCheckBox();
+   await searchbar.ClickonAdnacedSearchButton();
+   await searchbar.clickonViewAsCheckBox('List');
 });
