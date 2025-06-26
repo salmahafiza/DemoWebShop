@@ -1,13 +1,13 @@
 import { test, expect } from '@playwright/test';
 const { DashboardPage } = require('../pages/DashboardPage');
-const { PDP_Page } = require('../pages/PDP');
+const { PDP } = require('../pages/PDP');
 
 let dashboard;
 let pdp;
 
 test.beforeEach(async ({ page }) => {
     dashboard = new DashboardPage(page);
-    pdp = new PDP_Page(page);
+    pdp = new PDP(page);
     await dashboard.accessApplication();
 });
 

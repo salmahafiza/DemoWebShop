@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 
-class PDP_Page {
+class PDP{
     constructor(page) {
         this.page = page;
         this.PDPproductName = page.locator('.product-name');
@@ -73,4 +73,4 @@ class PDP_Page {
 
 }
 
-module.exports = { PDP_Page };
+module.exports = { PDP };
