@@ -201,6 +201,10 @@ class SearchPage {
         await this.AdnacedSearchButton.click();
         await expect(this.page).toHaveURL(/.*search/);
     }
+    async validSearchText(searchText1) {
+        await this.SearchbarField.fill(searchText1);
+        await this.SearchButton.click();
+    }
 }
 
 module.exports = {SearchPage};

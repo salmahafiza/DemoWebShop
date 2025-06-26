@@ -144,3 +144,8 @@ test('TC_SEARCH_020: Verify functionality of "Search in product descriptions"', 
    await searchbar.ClickonSearchInProductDescriptionCheckBox();
    await searchbar.ClickonAdnacedSearchButton();
 });
+test.only('TC_SEARCH_021 : Verify Search Functionality works in different Browsers.', async ({ page }) => {
+    await searchbar.validSearchText(searchData.searchText1);
+    await searchbar.clickOnSearchButton();
+    await searchbar.ValideSearchResults();
+});
