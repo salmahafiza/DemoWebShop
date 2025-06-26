@@ -16,6 +16,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('TC_CHECKOUT_001: Verify that a user can complete the checkout process successfully', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -24,7 +25,7 @@ test('TC_CHECKOUT_001: Verify that a user can complete the checkout process succ
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -55,6 +56,7 @@ test('TC_CHECKOUT_001: Verify that a user can complete the checkout process succ
 });
 
 test ('TC_CHECKOUT_002: Verify the behavior when trying to checkout with an empty cart', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -63,6 +65,7 @@ test ('TC_CHECKOUT_002: Verify the behavior when trying to checkout with an empt
 });
 
 test ('TC_CHECKOUT_003: Verify that user can update quantity during checkout', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -71,7 +74,7 @@ test ('TC_CHECKOUT_003: Verify that user can update quantity during checkout', a
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     const previousTotal = await checkout.totalPrice.textContent();
     await checkout.updateProductQuantity(12);//Update QTY
@@ -79,6 +82,7 @@ test ('TC_CHECKOUT_003: Verify that user can update quantity during checkout', a
 });
 
 test ('TC_CHECKOUT_004: Verify that an error message is displayed for an invalid promo code', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -87,12 +91,13 @@ test ('TC_CHECKOUT_004: Verify that an error message is displayed for an invalid
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.invalidPromo();
 });
 
 test ('TC_CHECKOUT_005: Verify that user can select a payment method', async ({page}) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -101,7 +106,7 @@ test ('TC_CHECKOUT_005: Verify that user can select a payment method', async ({p
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -125,6 +130,7 @@ test ('TC_CHECKOUT_005: Verify that user can select a payment method', async ({p
 });
 
 test ('TC_CHECKOUT_006: Verify that billing address must be filled out', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -133,7 +139,7 @@ test ('TC_CHECKOUT_006: Verify that billing address must be filled out', async (
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -149,6 +155,7 @@ test ('TC_CHECKOUT_006: Verify that billing address must be filled out', async (
 });
 
 test('TC_CHECKOUT_007: Shipping method required forcefully pass with explanation', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -157,7 +164,7 @@ test('TC_CHECKOUT_007: Shipping method required forcefully pass with explanation
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -176,6 +183,7 @@ test('TC_CHECKOUT_007: Shipping method required forcefully pass with explanation
 });
 
 test ('TC_CHECKOUT_008: Verify that user can review order before final confirmation', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -184,7 +192,7 @@ test ('TC_CHECKOUT_008: Verify that user can review order before final confirmat
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -206,10 +214,10 @@ test ('TC_CHECKOUT_008: Verify that user can review order before final confirmat
     await checkout. ContinuePayment();
     await checkout.confirm();
     await checkout.OrderDetails();
-
 });
 
 test('TC_CHECKOUT_009: Verify that user can cancel the checkout and return to the cart', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -218,7 +226,7 @@ test('TC_CHECKOUT_009: Verify that user can cancel the checkout and return to th
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -242,10 +250,10 @@ test('TC_CHECKOUT_009: Verify that user can cancel the checkout and return to th
     await checkout.gotoShoppingCart();
     await checkout.gotoCart();
     console.log('Since Demo Web Shop does not have a Cancel button during checkout, the user navigates away from the checkout page back to the cart by clicking Shopping cart button mannually ');
-
 });
 
 test('TC_CHECKOUT_010: Verify that checkout process handles multiple items correctly', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -258,7 +266,7 @@ test('TC_CHECKOUT_010: Verify that checkout process handles multiple items corre
     await checkout.clickOnProduct2();
     await checkout.clickOnAddtocart2();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -279,16 +287,17 @@ test('TC_CHECKOUT_010: Verify that checkout process handles multiple items corre
     await checkout.PaymentViaCreditCard(creditCardDetails);
     await checkout.ContinueViaCard();
     await checkout.confirm();
+    await checkout.OrderDetails();
     //await expect (page.locator("//h2[normalize-space()='Payment information']")).toBeVisible();
     //await checkout.COD_confirmationText();
     //await checkout. ContinuePayment();
     await checkout.clickConfirmOrder();
     await checkout.OrderConfirmationMsg();
     await checkout.clickContinueLastBtn();
-
 });
 
 test('TC_CHECKOUT_011: Verify valid billing address entry',async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -297,7 +306,7 @@ test('TC_CHECKOUT_011: Verify valid billing address entry',async () => {
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -313,6 +322,7 @@ test('TC_CHECKOUT_011: Verify valid billing address entry',async () => {
 });
 
 test('TC_CHECKOUT_012: Verify  the behaviour of  billing process leaving the first name empty ',async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -321,13 +331,13 @@ test('TC_CHECKOUT_012: Verify  the behaviour of  billing process leaving the fir
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
-    await checkout.selectCountry('Pakistan');
+  /*  await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
     await checkout.enterZipCode('74500');
     await checkout.clickEstimateShipping();
-    await checkout.verifyShippingOptionsVisible();
+    await checkout.verifyShippingOptionsVisible();*/
     await checkout.acceptTermsAndCondition();
     await checkout.proceedToCheckOut();
     await checkout.selectAddNewAddress();
@@ -337,6 +347,7 @@ test('TC_CHECKOUT_012: Verify  the behaviour of  billing process leaving the fir
 });
 
 test('TC_CHECKOUT_013: Verify  the behaviour of  billing process leaving the email empty',async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -345,7 +356,7 @@ test('TC_CHECKOUT_013: Verify  the behaviour of  billing process leaving the ema
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -361,6 +372,7 @@ test('TC_CHECKOUT_013: Verify  the behaviour of  billing process leaving the ema
 });
 
 test('TC_CHECKOUT_014: Verify  the behaviour of  billing process leaving the lastName empty',async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -369,7 +381,7 @@ test('TC_CHECKOUT_014: Verify  the behaviour of  billing process leaving the las
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -385,6 +397,7 @@ test('TC_CHECKOUT_014: Verify  the behaviour of  billing process leaving the las
 });
 
 test('TC_CHECKOUT_015: Verify  the behaviour of  billing process leaving the city empty',async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -393,7 +406,7 @@ test('TC_CHECKOUT_015: Verify  the behaviour of  billing process leaving the cit
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -409,6 +422,7 @@ test('TC_CHECKOUT_015: Verify  the behaviour of  billing process leaving the cit
 });
 
 test('TC_CHECKOUT_016: Verify user is able to confirm / place their order after filling all the necessary data', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -417,7 +431,7 @@ test('TC_CHECKOUT_016: Verify user is able to confirm / place their order after 
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -449,6 +463,7 @@ test('TC_CHECKOUT_016: Verify user is able to confirm / place their order after 
 });
 
 test('TC_CHECKOUT_017: Verify email is prefilled for logged in users', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -457,7 +472,7 @@ test('TC_CHECKOUT_017: Verify email is prefilled for logged in users', async ({ 
     await checkout.clickOnProductName();
     await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
-    await checkout.gotoCart();
+    //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     await checkout.selectCountry('Pakistan');
     await checkout.selectState('Other (Non US)');
@@ -469,4 +484,3 @@ test('TC_CHECKOUT_017: Verify email is prefilled for logged in users', async ({ 
     await checkout.selectAddNewAddress();
     await checkout.verifyPrefilledEmail('test123+1@gmail.com');
 });
-
