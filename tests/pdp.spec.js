@@ -44,5 +44,18 @@ test ('TC_PDP_004: Verify that product reviews are visible', async () => {
     await pdp.verifyProductReviews()
 });
 
+test ('TC_PDP_005: Verify that the price of the product is displayed correctly', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    const price = await pdp.verifyProductPrice();
+    console.log(`Product Price: ${price?.trim()}`);
+    expect(price).not.toBeNull();
+});
+
+
 
 
