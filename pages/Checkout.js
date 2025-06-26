@@ -221,6 +221,7 @@ class Checkout {
   async verifyTotalPriceChanged(previousPrice) {
     const newPrice = await this.totalPrice.textContent();
     expect(newPrice.trim()).not.toBe(previousPrice.trim());
+    console.log('updated Price is: ',newPrice)
   }
   async invalidPromo(){
     await this.promoCode.fill('123456');
