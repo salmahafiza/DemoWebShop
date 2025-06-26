@@ -140,5 +140,6 @@ module.exports = {
         },
         searchText1: 'Laptop',
         optionText: 'Computers',
+        menufecturerOptionText : 'Tricentis',
     }
 };
