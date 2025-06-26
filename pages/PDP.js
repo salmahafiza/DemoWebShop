@@ -10,6 +10,11 @@ class PDP {
     this.assertReviews = page.locator("div[class='product-review-list'] div[class='title'] strong");
     this.productPrice = page.locator('.product-price');
     this.availabilityStatus = page.locator('.stock .value');
+    this.addtoCompare = page.locator("input[value='Add to compare list']");
+    this.QtyUpdate = page.locator("#addtocart_43_EnteredQuantity");
+    this.addToCart = page.locator("#add-to-cart-button-43");
+    this.assertProduct2 = page.locator("img[title='Show details for Used phone']");
+
 
   }
 
@@ -24,7 +29,18 @@ class PDP {
     const availabilityLocator = this.availabilityStatus;
     await availabilityLocator.waitFor({ state: 'visible', timeout: 5000 });
     return await availabilityLocator.textContent();
-}
+  }
+  async updateProductQuantity(quantity) {
+    await this.QtyUpdate.fill(''); // Clear existing quantity
+    await this.QtyUpdate.type(quantity.toString());
+    await this.addToCart.click();
+  }
+  async clickOnProduct2(){
+    await this.assertProduct2.click();
+  }
+  async clickOnAddToCompare(){
+    await this.addtoCompare.click();
+  }
 
   
 

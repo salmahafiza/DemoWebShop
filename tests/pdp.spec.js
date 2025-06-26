@@ -25,12 +25,12 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
-    await checkout.clickOnAdtoCart();
+    await pdp.updateProductQuantity(12);//Update QTY
+    //await checkout.clickOnAdtoCart();
     await checkout.gotoShoppingCart();
     //await checkout.gotoCart();
     await checkout.assertShoppingCartPage();
     const previousTotal = await checkout.totalPrice.textContent();
-    await checkout.updateProductQuantity(12);//Update QTY
     await checkout.verifyTotalPriceChanged(previousTotal);//Verify QTY Update Through Price change
 });
 
@@ -41,7 +41,7 @@ test ('TC_PDP_004: Verify that product reviews are visible', async () => {
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
-    await pdp.verifyProductReviews()
+    await pdp.verifyProductReviews();
 });
 
 test ('TC_PDP_005: Verify that the price of the product is displayed correctly', async () => {
@@ -66,6 +66,25 @@ test ('TC_PDP_006: Verify the availability status of the product', async () => {
     const availability = await pdp.getProductAvailability();
     console.log(`Availability Status: ${availability?.trim()}`);
     expect(availability).toMatch(/In stock|Out of stock/i); 
+});
+
+test ('TC_PDP_007: Verify that products can be added to compare', async ({page}) => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await pdp.clickOnAddToCompare();
+    await checkout.searchTextBox('used phone');
+    await dashboard.clickOnSearchButton();
+    await pdp.clickOnProduct2();
+    await pdp.clickOnAddToCompare();
+    const compareList = page.locator('.compare-products-table');
+    await expect(compareList).toContainText('Used phone');
+    await expect(compareList).toContainText('Smartphone');
+    console.log(' Both products successfully added to compare list.');
+
 });
 
 
