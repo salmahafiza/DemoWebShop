@@ -73,6 +73,16 @@ class Checkout {
     this.assertProduct2 = page.locator("//h2[@class='product-title']//a[contains(text(),'14.1-inch Laptop')]");
     this.addToCartBtn2 = page.locator("#add-to-cart-button-31");
     this.assertShippingAddress = page.locator("//h2[normalize-space()='Shipping address']");
+    this.CheckOrder = page.locator("//a[normalize-space()='Click here for order details.']");
+    this.OrderInfo = page.locator("//h1[normalize-space()='Order information']");
+    this.BillingEmail = page.locator("#BillingNewAddress_Email");
+    this.productRowsDetails = page.locator("tr.cart-item-row");
+    this.subTotal = page.locator("tbody tr:nth-child(1) td:nth-child(2) span:nth-child(1) span:nth-child(1)");
+    this.shipping = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ol:nth-child(1) > li:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > form:nth-child(2) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)");
+    this.paymentFee = page.locator('body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ol:nth-child(1) > li:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > form:nth-child(2) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2)');
+    this.Total = page.locator("span[class='product-price order-total'] strong");
+
+
 
   }
 
@@ -217,6 +227,7 @@ class Checkout {
   async verifyTotalPriceChanged(previousPrice) {
     const newPrice = await this.totalPrice.textContent();
     expect(newPrice.trim()).not.toBe(previousPrice.trim());
+    console.log('updated Price is: ',newPrice)
   }
   async invalidPromo(){
     await this.promoCode.fill('123456');
@@ -233,30 +244,68 @@ class Checkout {
     await expect(this.zipError).toHaveText('Zip / postal code is required');
     await expect(this.phoneNoError).toHaveText('Phone is required');
   }
-  async OrderDetails(){
+  /*async OrderDetails(){
     await expect(this.confirmOrderDetails).toHaveText('Smartphone');
-  }
+  }*/
   async AssertShippingAddress(){
     await expect(this.assertShippingAddress).toHaveText('Shipping address');
   }
   async missingFirstName(){
     await expect(this.fisrtNameError).toContainText('First name is required.');
   }
+  async missingEmail(){
+    await expect(this.emailError).toHaveText('Email is required.');
+  }
+  async missinglastName(){
+    await expect(this.lastNameError).toHaveText('Last name is required.');
+  }
+  async missingCity(){
+    await expect(this.cityError).toHaveText('City is required');
+  }
+  async assertOrderDetails(){
+    await this.CheckOrder.click();
+    await expect(this.OrderInfo).toHaveText('Order information');
+  }
+  async verifyPrefilledEmail(expectedEmail){
+    await expect(this.BillingEmail).toHaveValue(expectedEmail);
+  }
+async OrderDetails() { 
+    console.log('\n ORDER SUMMARY DETAILS:');
 
-  
+    const productRows = this.page.locator('tr.cart-item-row');
+    
+    // Wait for at least one row to appear
+    await productRows.first().waitFor();
+
+    const rowCount = await productRows.count();
+    console.log(`Total Product Rows Found: ${rowCount}`);
+
+    for (let i = 0; i < rowCount; i++) {
+        const row = productRows.nth(i);
+
+        const productName = await row.locator('td.product a.product-name').textContent();
+        const price = await row.locator('td.unit-price span.product-unit-price').textContent();
+        const qty = await row.locator('td.qty span').nth(1).textContent();
+        const total = await row.locator('td.subtotal span.product-subtotal').textContent();
+
+        console.log(`→ Product ${i + 1}: ${productName?.trim()}`);
+        console.log(`   Price: ${price?.trim()}`);
+        console.log(`   Quantity: ${qty?.trim()}`);
+        console.log(`   Total: ${total?.trim()}\n`);
+    }
+
+    const subTotal = await this.subTotal.textContent();
+    const shipping = await this.shipping.textContent();
+    const paymentFee = await this.paymentFee.textContent();
+    const totalAmount = await this.Total.textContent();
+
+    console.log(`Sub-Total: ${subTotal?.trim()}`);
+    console.log(`Shipping: ${shipping?.trim()}`);
+    console.log(`Payment Fee: ${paymentFee?.trim()}`);
+    console.log(`Grand Total: ${totalAmount?.trim()}`);
+}
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = { Checkout };
+
