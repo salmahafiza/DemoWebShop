@@ -135,9 +135,17 @@ test('TC_PDP_016: Verify that product rating stars are visible.', async () => {
     await checkout.clickOnProductName();
     await pdp.verifyRatingStars();
     console.log('Rating stars are visible on the Product Detail Page.');
-
-
 });
+
+test('TC_PDP_017: Verify that the product picture is displayed', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+    await pdp.verifyImgOfProduct();
+    console.log('Image is visible on th Product Detail Page.')
+});
+
+
 
 
 

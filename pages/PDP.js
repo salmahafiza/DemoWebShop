@@ -24,10 +24,16 @@ class PDP {
     this.cartQuantityField = page.locator('.cart-qty');
     this.quantityErrorMessage = page.locator(".content");
     this.ratingStars = page.locator("div[class='product-review-box'] div[class='rating'] div");
-
+    this.img = page.locator("#main-product-img-43");
+    this.productName = page.locator("div[class='master-wrapper-content'] div:nth-child(1) div:nth-child(1) div:nth-child(2) h2:nth-child(1) a:nth-child(1)");
+    this.relatedProducts = page.locator("div[class='related-products-grid product-grid'] strong");
+    this.relatedProductAddToCart = page.locator("div[class='related-products-grid product-grid'] input[value='Add to cart']"); 
+    this.productAddedMessage = page.locator('.bar-notification.success');
   }
 
-
+  async ProductName(){
+    await this.productName.click();
+  }
   async getCartQuantity() {
     return await this.cartQuantityField.textContent();
   }
@@ -88,6 +94,15 @@ class PDP {
   }
   async verifyRatingStars(){
     await expect(this.ratingStars).toBeVisible();
+  }
+  async verifyImgOfProduct(){
+    await expect(this.img).toBeVisible();
+  }
+  async addRelatedProductToCart() {
+    await this.relatedProductAddToCart.click(); 
+  }
+  async verifyProductAddedMessage() {
+    await expect(this.productAddedMessage).toContainText('The product has been added to your shopping cart');
   }
 }
 
