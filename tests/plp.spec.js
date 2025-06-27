@@ -33,3 +33,9 @@ test('TC_PLP_003: Verify Desktops category displays desktop items', async () => 
     await plp.clickOnSubCategory('Desktops');
     await plp.verifyPageTitle('Desktops');
 });
+
+test('TC_PLP_004: Verify Notebooks category displays notebook items', async () => {
+    await plp.clickOnCategory('Computers');
+    await plp.clickOnSubCategory('Notebooks');
+    await plp.verifyPageTitle('Notebooks');
+});
