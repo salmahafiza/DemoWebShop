@@ -180,6 +180,14 @@ test('TC_PDP_021: Verify Virtual Gift Card cannot be added without recipient ema
     await pdp.verifyGiftCardErrorMessagesForEmail();
 });
 
+test('TC_PDP_022: Verify Virtual Gift Card cannot be added without recipient Name', async () => {
+    await pdp.clickOnCategory('Gift Cards');
+    await pdp.clickOnProductByName('$5 Virtual Gift Card');
+    await pdp.enterGiftCardDetails(withoutNameGiftCardDetails);
+    await pdp.clickAddToCart();
+    await pdp.verifyGiftCardErrorMessagesForName();
+});
+
 
 
 
