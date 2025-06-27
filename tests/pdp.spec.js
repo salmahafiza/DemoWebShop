@@ -129,6 +129,16 @@ test ('TC_PDP_015: Verify the Product added quantity matches the Cart quantity',
     console.log('Cart Quantity:', cartQty);
 });
 
+test('TC_PDP_016: Verify that product rating stars are visible.', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+    await pdp.verifyRatingStars();
+    console.log('Rating stars are visible on the Product Detail Page.');
+
+
+});
+
 
 
 

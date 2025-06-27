@@ -23,7 +23,8 @@ class PDP {
     this.compare = page.locator('.compare-products-table');
     this.cartQuantityField = page.locator('.cart-qty');
     this.quantityErrorMessage = page.locator(".content");
-    this.Product = page.locator("")
+    this.ratingStars = page.locator("div[class='product-review-box'] div[class='rating'] div");
+
   }
 
 
@@ -84,6 +85,9 @@ class PDP {
   }
   async clickOnSubCategory(subCategoryName) {
     await this.page.locator(`div.block-category-navigation a:has-text("${subCategoryName}")`).first().click();
+  }
+  async verifyRatingStars(){
+    await expect(this.ratingStars).toBeVisible();
   }
 }
 
