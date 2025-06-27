@@ -26,6 +26,12 @@ class PDP {
     this.cameraSubcategory = page
       .getByRole("heading", { name: "Camera, photo" })
       .getByRole("link");
+    this.computerSubcategory = page
+      .getByRole("heading", { name: "Desktop" })
+      .getByRole("link");
+    this.desktopSubcategory = page
+      .getByRole("heading", { name: "Build your own cheap computer" })
+      .getByRole("link");
     this.logoutHyperLink = page.locator(".ico-logout");
     this.PDPbox = page.locator('.product-essential');
     this.AvailabilityStatus = page.locator('.value');
@@ -36,6 +42,7 @@ class PDP {
     this.MessageInput = page.locator('//textarea[@id="PersonalMessage"]');
     this.SendEmailButton = page.locator('//input[@name="send-email"]');
     this.ThankYouMessage = page.locator('.result');
+    this.addBuildYourOwnComputertoCart = page.locator('#add-to-cart-button-72');
   }
 
 
@@ -177,8 +184,26 @@ class PDP {
       await expect(this.ThankYouMessage).toContainText("Your message has been sent.");
     }
   }
-}
+  async clickOnComputersSubcategory() {
+    await this.computerSubcategory.click();
+  }
+  async clickOnDesktopSubcategory() {
+    await this.desktopSubcategory.click();
+  }
+  async addBuildYourOwnComputerToCart() {
+    await this.addBuildYourOwnComputertoCart.click();
+   
+  } 
+    async verifyProductAddedToCart() {
+    const cartNotification = this.page.locator(".bar-notification.success");
+    await expect(cartNotification).toBeVisible();
+    await expect(cartNotification).toContainText(
+      "The product has been added to your shopping cart"
+    );
+  }
+    
 
+}
 
 
 module.exports = { PDP };

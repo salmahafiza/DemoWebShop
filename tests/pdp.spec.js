@@ -110,12 +110,12 @@ test('TC_PDP_010 - Verify Product Description Loads Properly on Different Device
     //run Command: npx playwright test pdp.spec.js --project=firefox
     //run Command: npx playwright test pdp.spec.js --project=webkit
 });
-test('TC_PDP_011 - verify that stock availability is shown for respective product',async({page})=>{
+test('TC_PDP_011 - verify that stock availability is shown for respective product', async ({ page }) => {
     await pdp.navigateToDifferentCategoriesWithAssert("Books");
     await pdp.NavigateToProductPDP("Computing and Internet");
     await pdp.verifyAvailability();
 });
-test('TC_PDP_012 - Validate Email a Friend functionality with Empty fields',async({page})=>{
+test('TC_PDP_012 - Validate Email a Friend functionality with Empty fields', async ({ page }) => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
@@ -125,8 +125,22 @@ test('TC_PDP_012 - Validate Email a Friend functionality with Empty fields',asyn
     await pdp.clickOnElectronicsSubcategory();
     await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
     await pdp.ClickOnEmailaFriendButton();
-    await pdp.FillDetailsForEmailAFriend(pdpData.email,pdpData.friendEmail,pdpData.message);
+    await pdp.FillDetailsForEmailAFriend(pdpData.email, pdpData.friendEmail, pdpData.message);
     await pdp.VerifyEmailSent();
+});
+test('TC_PDP_023 :adding to cart with default selected options', async ({ page }) => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.verifyUserInfoVisible();
+    await pdp.navigateToDifferentCategoriesWithAssert("Computers");
+    await pdp.clickOnComputersSubcategory();
+    await pdp.clickOnDesktopSubcategory();
+    await pdp.addBuildYourOwnComputerToCart();
+    await pdp.verifyProductAddedToCart();
+    console.log('Product added to cart successfully with default selected options.');
+
 });
 
 
