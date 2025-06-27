@@ -57,3 +57,8 @@ test('TC_PLP_010: Verify Jewelry category displays variety of jewelry products',
     await plp.clickOnCategory('Jewelry');
     await plp.verifyPageTitle('Jewelry');
 });
+
+test('TC_PLP_011: Verify Gift Cards category displays different types of gift cards', async () => {
+    await plp.clickOnCategory('Gift Cards');
+    await plp.verifyPageTitle('Gift Cards');
+});
