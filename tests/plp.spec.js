@@ -45,3 +45,10 @@ test('TC_PLP_005: Verify Accessories category displays accessories', async () =>
     await plp.clickOnSubCategory('Accessories');
     await plp.verifyPageTitle('Accessories');
 });
+
+test('TC_PLP_006: Verify Electronics category displays cameras, photo, and cell phones', async () => {
+    await plp.clickOnCategory('Electronics');
+    await plp.verifyPageTitle('Electronics');
+    await plp.verifySubCategory('Camera, photo');
+    await plp.verifySubCategory('Cell phones');
+});
