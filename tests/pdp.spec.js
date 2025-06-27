@@ -155,6 +155,16 @@ test('TC_PDP_018: Veirfy user is able to add  a related product to cart', async 
 
 });
 
+test('TC_PDP_019: Veirfy user is able to add  a Customers who bought this item also bought product to cart', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Camera, photo');
+    await pdp.ProductName();
+    await pdp.addSuggestedProductToCart();
+    await pdp.verifySuccessMessage();
+
+
+});
+
 
 
 

@@ -29,6 +29,8 @@ class PDP {
     this.relatedProducts = page.locator("div[class='related-products-grid product-grid'] strong");
     this.relatedProductAddToCart = page.locator("div[class='related-products-grid product-grid'] input[value='Add to cart']"); 
     this.productAddedMessage = page.locator('.bar-notification.success');
+    this.suggestedProductSection = page.locator("div.product-grid div.item-box");
+    this.Message = page.locator(".content");
   }
 
   async ProductName(){
@@ -104,6 +106,18 @@ class PDP {
   async verifyProductAddedMessage() {
     await expect(this.productAddedMessage).toContainText('The product has been added to your shopping cart');
   }
+  async addSuggestedProductToCart() {
+    const suggestedProductSection = await this.suggestedProductSection.nth(1); // Adjust index if needed
+    await suggestedProductSection.scrollIntoViewIfNeeded();
+    const addToCartButton = suggestedProductSection.locator('input[value="Add to cart"]');
+    await addToCartButton.click();
+  }
+  async verifySuccessMessage(expectedMessage = 'The product has been added to your shopping cart') {
+    const message = await this.Message.textContent();
+    console.log('Displayed Success Message:', message.trim());
+    await expect(this.Message).toContainText(expectedMessage);
+  }
+
 }
 
 module.exports = { PDP };
