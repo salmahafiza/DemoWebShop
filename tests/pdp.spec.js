@@ -3,7 +3,7 @@ const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { Checkout } = require('../pages/Checkout');
 const {PDP} = require('../pages/PDP');
-const {Users, GiftCardDetails} = require('../test-data/Users');
+const {Users, GiftCardDetails,withoutEmailGiftCardDetails,withoutNameGiftCardDetails} = require('../test-data/Users');
 
 let login;
 let dashboard;
@@ -168,8 +168,16 @@ test('TC_PDP_020: Verify Virtual Gift Card cannot be added without recipient nam
     await pdp.clickOnProductByName('$5 Virtual Gift Card');
     await pdp.enterGiftCardDetails(GiftCardDetails);
     await pdp.clickAddToCart();
-    await pdp.verifyGiftCardErrorMessages();
+    await pdp.verifyGiftCardErrorMessagesForEmail();
+    await pdp.verifyGiftCardErrorMessagesForName();
+});
 
+test('TC_PDP_021: Verify Virtual Gift Card cannot be added without recipient email', async () => {
+    await pdp.clickOnCategory('Gift Cards');
+    await pdp.clickOnProductByName('$5 Virtual Gift Card');
+    await pdp.enterGiftCardDetails(withoutEmailGiftCardDetails);
+    await pdp.clickAddToCart();
+    await pdp.verifyGiftCardErrorMessagesForEmail();
 });
 
 

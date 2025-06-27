@@ -146,5 +146,12 @@ module.exports = {
         recipientEmail: '',
         yourName: 'Hassan',
         yourEmail: 'abc@gmail.com',
+    },
+    withoutEmailGiftCardDetails: {
+        recipientName: 'abc',
+        recipientEmail: '',
+        yourName: 'Hassan',
+        yourEmail: 'abc@gmail.com',
     }
+
 };

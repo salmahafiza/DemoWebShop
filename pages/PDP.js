@@ -93,7 +93,7 @@ class PDP {
     const actualMessage = await this.quantityErrorMessage.textContent();
     console.log('Displayed Error Message:', actualMessage.trim());
     await expect(this.quantityErrorMessage).toContainText(expectedMessage);
-}
+  }
   async clickOnCategory(categoryName) {
     await this.page.locator(`ul.top-menu a:has-text("${categoryName}")`).first().click();
   }
@@ -131,16 +131,16 @@ class PDP {
     await this.recipientEmailField.fill(data.recipientEmail);
     await this.yourNameField.fill(data.yourName);
     await this.yourEmailField.fill(data.yourEmail);
-}
-
-async clickAddToCart() {
+  }
+  async clickAddToCart() {
     await this.addToCart.click();
-}
-
-async verifyGiftCardErrorMessages() {
+  }
+  async verifyGiftCardErrorMessagesForName() {
     await expect(this.errorMessage).toContainText('Enter valid recipient name')
+  }
+  async verifyGiftCardErrorMessagesForEmail() {
     await expect(this.errorMessage).toContainText('Enter valid recipient email');
-}
-}
+  }
 
+}
 module.exports = { PDP };
