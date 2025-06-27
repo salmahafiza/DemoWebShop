@@ -24,10 +24,9 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
     await pdp.updateProductQuantity(12);//Update QTY
+    await page.reload();
     const cartQty = await pdp.getCartQuantity();
     console.log('Cart Quantity:', cartQty);
-
-
 });
 
 test ('TC_PDP_004: Verify that product reviews are visible', async () => {
@@ -111,6 +110,26 @@ test('TC_PDP_014: Add Product to Cart with Empty Quantity field.', async () => {
     await checkout.clickOnAdtoCart();   
     await pdp.verifyQuantityErrorMessage();
 });
+
+test ('TC_PDP_015: Verify the Product added quantity matches the Cart quantity', async ({page}) => {
+    //Repeated test case TC_PDP_003
+    //await dashboard.navigateToLoginPage();
+    //await login.enterUsername(Users.username);
+    //await login.enterPassword(Users.password);
+    //await login.clickLoginButton();
+    //await checkout.searchTextBox('Smartphone');
+    //await dashboard.clickOnSearchButton();
+    //await checkout.clickOnProductName();
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+    await pdp.updateProductQuantity(12);//Update QTY
+    await page.reload();
+    const cartQty = await pdp.getCartQuantity();
+    console.log('Cart Quantity:', cartQty);
+});
+
+
 
 
 

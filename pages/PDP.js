@@ -12,7 +12,7 @@ class PDP {
     this.availabilityStatus = page.locator('.stock .value');
     this.addtoCompare = page.locator("input[value='Add to compare list']");
     this.QtyUpdate = page.locator("#addtocart_43_EnteredQuantity");
-    this.addToCart = page.locator("#add-to-cart-button-43");
+    this.addToCart = page.locator('#add-to-cart-button-43');
     this.assertProduct2 = page.locator("img[title='Show details for Used phone']");
     this.emailAFriendButton = page.locator('input[value="Email a friend"]');
     this.friendEmailField = page.locator('#FriendEmail');
@@ -46,6 +46,7 @@ class PDP {
     await this.QtyUpdate.fill(''); // Clear existing quantity
     await this.QtyUpdate.type(quantity.toString());
     await this.addToCart.click();
+    await this.page.reload();
   }
   async clickOnProduct2(){
     await this.assertProduct2.click();
