@@ -27,3 +27,9 @@ test('TC_PLP_002: Verify Computers category displays desktops, notebooks, and ac
     await plp.verifySubCategory('Notebooks');
     await plp.verifySubCategory('Accessories');
 });
+
+test('TC_PLP_003: Verify Desktops category displays desktop items', async () => {
+    await plp.clickOnCategory('Computers');
+    await plp.clickOnSubCategory('Desktops');
+    await plp.verifyPageTitle('Desktops');
+});
