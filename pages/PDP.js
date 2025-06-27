@@ -31,6 +31,12 @@ class PDP {
     this.productAddedMessage = page.locator('.bar-notification.success');
     this.suggestedProductSection = page.locator("div.product-grid div.item-box");
     this.Message = page.locator(".content");
+    this.recipientNameField = page.locator('#giftcard_1_RecipientName');
+    this.recipientEmailField = page.locator('#giftcard_1_RecipientEmail');
+    this.yourNameField = page.locator('#giftcard_1_SenderName');
+    this.yourEmailField = page.locator('#giftcard_1_SenderEmail');
+    this.addToCart = page.locator('#add-to-cart-button-1');
+    this.errorMessage = page.locator('#bar-notification');
   }
 
   async ProductName(){
@@ -117,7 +123,24 @@ class PDP {
     console.log('Displayed Success Message:', message.trim());
     await expect(this.Message).toContainText(expectedMessage);
   }
+  async clickOnProductByName(productName) {
+    await this.page.locator(`a:has-text("${productName}")`).click();
+  }
+  async enterGiftCardDetails(data) {
+    await this.recipientNameField.fill(data.recipientName);
+    await this.recipientEmailField.fill(data.recipientEmail);
+    await this.yourNameField.fill(data.yourName);
+    await this.yourEmailField.fill(data.yourEmail);
+}
 
+async clickAddToCart() {
+    await this.addToCart.click();
+}
+
+async verifyGiftCardErrorMessages() {
+    await expect(this.errorMessage).toContainText('Enter valid recipient name')
+    await expect(this.errorMessage).toContainText('Enter valid recipient email');
+}
 }
 
 module.exports = { PDP };

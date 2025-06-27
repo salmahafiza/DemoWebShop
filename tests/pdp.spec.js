@@ -3,7 +3,7 @@ const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { Checkout } = require('../pages/Checkout');
 const {PDP} = require('../pages/PDP');
-const {Users} = require('../test-data/Users');
+const {Users, GiftCardDetails} = require('../test-data/Users');
 
 let login;
 let dashboard;
@@ -161,9 +161,19 @@ test('TC_PDP_019: Veirfy user is able to add  a Customers who bought this item a
     await pdp.ProductName();
     await pdp.addSuggestedProductToCart();
     await pdp.verifySuccessMessage();
+});
 
+test('TC_PDP_020: Verify Virtual Gift Card cannot be added without recipient name and email', async () => {
+    await pdp.clickOnCategory('Gift Cards');
+    await pdp.clickOnProductByName('$5 Virtual Gift Card');
+    await pdp.enterGiftCardDetails(GiftCardDetails);
+    await pdp.clickAddToCart();
+    await pdp.verifyGiftCardErrorMessages();
 
 });
+
+
+
 
 
 

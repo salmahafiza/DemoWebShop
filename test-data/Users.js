@@ -140,5 +140,11 @@ module.exports = {
         },
         searchText1: 'Laptop',
         optionText: 'Computers',
+    },
+    GiftCardDetails: {
+        recipientName: '',
+        recipientEmail: '',
+        yourName: 'Hassan',
+        yourEmail: 'abc@gmail.com',
     }
 };
