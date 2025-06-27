@@ -22,6 +22,8 @@ class PDP {
     this.successMessage = page.locator('.result');
     this.compare = page.locator('.compare-products-table');
     this.cartQuantityField = page.locator('.cart-qty');
+    this.quantityErrorMessage = page.locator(".content");
+    this.Product = page.locator("")
   }
 
 
@@ -70,6 +72,17 @@ class PDP {
   }
   async verifySuccessMessage() {
     await expect(this.successMessage).toHaveText("Your message has been sent.");
+  }
+  async verifyQuantityErrorMessage(expectedMessage = 'Quantity should be positive') {
+    const actualMessage = await this.quantityErrorMessage.textContent();
+    console.log('Displayed Error Message:', actualMessage.trim());
+    await expect(this.quantityErrorMessage).toContainText(expectedMessage);
+}
+  async clickOnCategory(categoryName) {
+    await this.page.locator(`ul.top-menu a:has-text("${categoryName}")`).first().click();
+  }
+  async clickOnSubCategory(subCategoryName) {
+    await this.page.locator(`div.block-category-navigation a:has-text("${subCategoryName}")`).first().click();
   }
 }
 

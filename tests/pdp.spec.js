@@ -84,6 +84,24 @@ test ('TC_PDP_008: Verify that User emails product details to friend', async () 
     console.log('Email to friend sent successfully.');
 });
 
+test('TC_PDP_013: Verify invalid quantities show appropriate error on PDP', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+// Test with negative quantity
+    await pdp.updateProductQuantity(-1);//Update QTY
+    await checkout.clickOnAdtoCart();
+    await pdp.verifyQuantityErrorMessage();
+// Test with non-numeric quantity
+    await pdp.updateProductQuantity('a');//Update QTY
+    await checkout.clickOnAdtoCart();
+    await pdp.verifyQuantityErrorMessage();
+// Test with zero quantity
+    await pdp.updateProductQuantity(0);//Update QTY
+    await checkout.clickOnAdtoCart();   
+    await pdp.verifyQuantityErrorMessage();
+});
+
 
 
 
