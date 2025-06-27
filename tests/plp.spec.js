@@ -1,0 +1,69 @@
+import { test, expect } from '@playwright/test';
+const { LoginPage } = require('../pages/LoginPage');
+const { DashboardPage } = require('../pages/DashboardPage');
+const { PLP } = require('../pages/PLP')
+
+
+let login;
+let dashboard;
+let plp;
+
+test.beforeEach(async ({ page }) => {
+    login = new LoginPage(page);
+    dashboard = new DashboardPage(page);
+    plp = new PLP(page);
+    await dashboard.accessApplication();
+});
+
+test('TC_PLP_001: Verify Books category displays correct products', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.verifyPageTitle('Books');
+});
+
+test('TC_PLP_002: Verify Computers category displays desktops, notebooks, and accessories', async () => {
+    await plp.clickOnCategory('Computers');
+    await plp.verifyPageTitle('Computers');
+    await plp.verifySubCategory('Desktops');
+    await plp.verifySubCategory('Notebooks');
+    await plp.verifySubCategory('Accessories');
+});
+
+test('TC_PLP_003: Verify Desktops category displays desktop items', async () => {
+    await plp.clickOnCategory('Computers');
+    await plp.clickOnSubCategory('Desktops');
+    await plp.verifyPageTitle('Desktops');
+});
+
+test('TC_PLP_004: Verify Notebooks category displays notebook items', async () => {
+    await plp.clickOnCategory('Computers');
+    await plp.clickOnSubCategory('Notebooks');
+    await plp.verifyPageTitle('Notebooks');
+});
+
+test('TC_PLP_005: Verify Accessories category displays accessories', async () => {
+    await plp.clickOnCategory('Computers');
+    await plp.clickOnSubCategory('Accessories');
+    await plp.verifyPageTitle('Accessories');
+});
+
+test('TC_PLP_006: Verify Electronics category displays cameras, photo, and cell phones', async () => {
+    await plp.clickOnCategory('Electronics');
+    await plp.verifyPageTitle('Electronics');
+    await plp.verifySubCategory('Camera, photo');
+    await plp.verifySubCategory('Cell phones');
+});
+
+test('TC_PLP_009: Verify Apparel & Shoes displays various clothing and footwear..', async () => {
+    await plp.clickOnCategory('Apparel & Shoes');
+    await plp.verifyPageTitle('Apparel & Shoes');
+});
+
+test('TC_PLP_010: Verify Jewelry category displays variety of jewelry products', async () => {
+    await plp.clickOnCategory('Jewelry');
+    await plp.verifyPageTitle('Jewelry');
+});
+
+test('TC_PLP_011: Verify Gift Cards category displays different types of gift cards', async () => {
+    await plp.clickOnCategory('Gift Cards');
+    await plp.verifyPageTitle('Gift Cards');
+});
