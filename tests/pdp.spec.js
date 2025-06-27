@@ -145,7 +145,15 @@ test('TC_PDP_017: Verify that the product picture is displayed', async () => {
     console.log('Image is visible on th Product Detail Page.')
 });
 
+test('TC_PDP_018: Veirfy user is able to add  a related product to cart', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Camera, photo');
+    await pdp.ProductName();
+    await pdp.addRelatedProductToCart();
+    await pdp.verifyProductAddedMessage();
+    console.log('Related product successfully added to cart.');
 
+});
 
 
 
