@@ -19,3 +19,11 @@ test('TC_PLP_001: Verify Books category displays correct products', async () => 
     await plp.clickOnCategory('Books');
     await plp.verifyPageTitle('Books');
 });
+
+test('TC_PLP_002: Verify Computers category displays desktops, notebooks, and accessories', async () => {
+    await plp.clickOnCategory('Computers');
+    await plp.verifyPageTitle('Computers');
+    await plp.verifySubCategory('Desktops');
+    await plp.verifySubCategory('Notebooks');
+    await plp.verifySubCategory('Accessories');
+});
