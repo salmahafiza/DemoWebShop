@@ -22,17 +22,22 @@ class PDP {
     this.successMessage = page.locator('.result');
     this.compare = page.locator('.compare-products-table');
     this.cartQuantityField = page.locator('.cart-qty');
+    this.PDPImageGallery = page.locator('div[class="picture-thumbs"] div');
+    this.cameraSubcategory = page
+      .getByRole("heading", { name: "Camera, photo" })
+      .getByRole("link");
+    this.logoutHyperLink = page.locator(".ico-logout");
   }
 
 
   async getCartQuantity() {
     return await this.cartQuantityField.textContent();
   }
-  async verifyProductReviews(){
+  async verifyProductReviews() {
     await this.productReviews.click();
     await expect(this.assertReviews).toHaveText('Existing reviews');
   }
-  async verifyProductPrice(){
+  async verifyProductPrice() {
     return await this.productPrice.textContent();
   }
   async getProductAvailability() {
@@ -45,13 +50,13 @@ class PDP {
     await this.QtyUpdate.type(quantity.toString());
     await this.addToCart.click();
   }
-  async clickOnProduct2(){
+  async clickOnProduct2() {
     await this.assertProduct2.click();
   }
-  async clickOnAddToCompare(){
+  async clickOnAddToCompare() {
     await this.addtoCompare.click();
   }
-  async verifyCompareProducts(){
+  async verifyCompareProducts() {
     const compareList = await this.compare
     await expect(compareList).toContainText('Used phone');
     await expect(compareList).toContainText('Smartphone');
@@ -71,6 +76,43 @@ class PDP {
   async verifySuccessMessage() {
     await expect(this.successMessage).toHaveText("Your message has been sent.");
   }
+  async VerifyProductImageGallery() {
+    let GalleryCount = await this.PDPImageGallery.count();
+    if (GalleryCount > 0) {
+      await this.PDPGalleryImage.click();
+      await expect(this.POPUpImage).toBeVisible();
+    }
+    else {
+      console.log("No Image Gallery Found in this Product.");
+    }
+  }
+  async navigateToDifferentCategoriesWithAssert(category) {
+    await this.page
+      .locator(`//li[@class='inactive']//a[normalize-space()='${category}']`)
+      .click();
+    await expect(
+      this.page.locator(`//h1[normalize-space()='${category}']`)
+    ).toHaveText(category);
+  }
+  async clickOnElectronicsSubcategory() {
+    await this.cameraSubcategory.click();
+  }
+  async clickOnLogout() {
+    await this.logoutHyperLink.click();
+  }
+
+  async assertPageTitle(title) {
+    await expect(this.pageTitle).toHaveText(title);
+  }
+  async wait() {
+    await this.page.waitForTimeout(3000);
+  }
+  async NavigateToProductPDP(ProductName) {
+    await this.page.locator(`//a[normalize-space()='${ProductName}']`).click();
+    await expect(await this.page.locator(`//h1[normalize-space()='${ProductName}']`)).toBeVisible();
+  }
 }
+
+
 
 module.exports = { PDP };
