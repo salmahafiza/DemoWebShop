@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { Checkout } = require('../pages/Checkout');
-const {PDP} = require('../pages/PDP');
-const {Users} = require('../test-data/Users');
+const { PDP } = require('../pages/PDP');
+const { Users, pdpData } = require('../test-data/Users');
 
 let login;
 let dashboard;
@@ -44,6 +44,8 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
     await pdp.updateProductQuantity(12);//Update QTY
     const cartQty = await pdp.getCartQuantity();
     console.log('Cart Quantity:', cartQty);
+
+
 });
 
 test ('TC_PDP_004: Verify that product reviews are visible', async () => {
@@ -68,7 +70,7 @@ test ('TC_PDP_006: Verify the availability status of the product', async () => {
     await checkout.clickOnProductName();
     const availability = await pdp.getProductAvailability();
     console.log(`Availability Status: ${availability?.trim()}`);
-    expect(availability).toMatch(/In stock|Out of stock/i);
+    expect(availability).toMatch(/In stock|Out of stock/i); 
 });
 
 test ('TC_PDP_007: Verify that products can be added to compare', async ({page}) => {
@@ -99,6 +101,68 @@ test ('TC_PDP_008: Verify that User emails product details to friend', async () 
     console.log('Email to friend sent successfully.');
 });
 
+test('TC_PDP_009 - Verify that clicking on the product image enlarges it', async ({ page }) => {
+    await pdp.navigateToDifferentCategoriesWithAssert("Electronics");
+    await pdp.clickOnElectronicsSubcategory();
+    await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
+    await pdp.VerifyProductImageGallery();
+});
+
+test('TC_PDP_010 - Verify Product Description Loads Properly on Different Devices', async ({ page }) => {
+    await pdp.navigateToDifferentCategoriesWithAssert("Electronics");
+    await pdp.clickOnElectronicsSubcategory();
+    await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
+    await pdp.VerifyPDPisVisible();
+    //run Command: npx playwright test pdp.spec.js --project=chromium
+    //run Command: npx playwright test pdp.spec.js --project=firefox
+    //run Command: npx playwright test pdp.spec.js --project=webkit
+});
+
+test('TC_PDP_011 - verify that stock availability is shown for respective product', async ({ page }) => {
+    await pdp.navigateToDifferentCategoriesWithAssert("Books");
+    await pdp.NavigateToProductPDP("Computing and Internet");
+    await pdp.verifyAvailability();
+});
+
+test('TC_PDP_012 - Validate Email a Friend functionality with Empty fields', async ({ page }) => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.verifyUserInfoVisible();
+    await pdp.navigateToDifferentCategoriesWithAssert("Electronics");
+    await pdp.clickOnElectronicsSubcategory();
+    await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
+    await pdp.ClickOnEmailaFriendButton();
+    await pdp.FillDetailsForEmailAFriend(pdpData.email, pdpData.friendEmail, pdpData.message);
+    await pdp.VerifyEmailSent();
+});
+
+test('TC_PDP_023 :adding to cart with default selected options', async ({ page }) => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.verifyUserInfoVisible();
+    await pdp.navigateToDifferentCategoriesWithAssert("Computers");
+    await pdp.clickOnComputersSubcategory();
+    await pdp.clickOnDesktopSubcategory();
+    await pdp.addBuildYourOwnComputerToCart();
+    await pdp.verifyProductAddedToCart();
+    console.log('Product added to cart successfully with default selected options.');
+});
+
+test('TC_PDP_024 :Verify Product Description', async ({ page }) => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.verifyUserInfoVisible();
+    await pdp.navigateToDifferentCategoriesWithAssert("Electronics");
+    await pdp.clickOnElectronicsSubcategory();
+    await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
+    await pdp.VerifyProductDescription();
+});
 
 
 
