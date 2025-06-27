@@ -102,6 +102,17 @@ test('TC_PDP_013: Verify invalid quantities show appropriate error on PDP', asyn
     await pdp.verifyQuantityErrorMessage();
 });
 
+test('TC_PDP_014: Add Product to Cart with Empty Quantity field.', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+// Test with zero quantity
+    await pdp.updateProductQuantity(0);//Update QTY
+    await checkout.clickOnAdtoCart();   
+    await pdp.verifyQuantityErrorMessage();
+});
+
+
 
 
 
