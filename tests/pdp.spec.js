@@ -110,6 +110,11 @@ test('TC_PDP_010 - Verify Product Description Loads Properly on Different Device
     //run Command: npx playwright test pdp.spec.js --project=firefox
     //run Command: npx playwright test pdp.spec.js --project=webkit
 });
+test('TC_PDP_011 - verify that stock availability is shown for respective product',async({page})=>{
+    await pdp.navigateToDifferentCategoriesWithAssert("Books");
+    await pdp.NavigateToProductPDP("Computing and Internet");
+    await pdp.verifyAvailability();
+});
 
 
 

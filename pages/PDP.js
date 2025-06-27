@@ -28,6 +28,8 @@ class PDP {
       .getByRole("link");
     this.logoutHyperLink = page.locator(".ico-logout");
     this.PDPbox = page.locator('.product-essential');
+    this.AvailabilityStatus = page.locator('.value');
+    this.PDPAddtoCartButton = page.locator('#add-to-cart-button-13');
   }
 
 
@@ -114,6 +116,30 @@ class PDP {
   }
   async VerifyPDPisVisible() {
     await expect(this.PDPbox).toBeVisible();
+  }
+  async verifyAvailability() {
+    let Status = await this.AvailabilityStatus.textContent();
+    if (Status.trim() === "In stock") {
+      let PDPAddtoCartButtonText = "";
+      if (!this.page.isClosed()) {
+        const count = await this.PDPAddtoCartButton.count();
+        if (count > 0) {
+          PDPAddtoCartButtonText = await this.PDPAddtoCartButton.textContent();
+        }
+        else {
+          PDPAddtoCartButtonText = "";
+        }
+      }
+      if (PDPAddtoCartButtonText.trim() === "Add to cart") {
+        console.log("Product is available and can be added to cart");
+      }
+      if (PDPAddtoCartButtonText.trim() === "") {
+        console.log("Product is available but cannot be added to cart");
+      }
+    }
+    else {
+      console.log("Product is not available");
+    }
   }
 }
 
