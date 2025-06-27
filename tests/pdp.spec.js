@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { Checkout } = require('../pages/Checkout');
-const { PDP } = require('../pages/PDP');
-const { Users, pdpData } = require('../test-data/Users');
+const {PDP} = require('../pages/PDP');
+const {Users,pdpData, GiftCardDetails,withoutEmailGiftCardDetails,withoutNameGiftCardDetails} = require('../test-data/Users');
 
 let login;
 let dashboard;
@@ -42,10 +42,9 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
     await pdp.updateProductQuantity(12);//Update QTY
+    await page.reload();
     const cartQty = await pdp.getCartQuantity();
     console.log('Cart Quantity:', cartQty);
-
-
 });
 
 test ('TC_PDP_004: Verify that product reviews are visible', async () => {
@@ -138,6 +137,110 @@ test('TC_PDP_012 - Validate Email a Friend functionality with Empty fields', asy
     await pdp.VerifyEmailSent();
 });
 
+test('TC_PDP_013: Verify invalid quantities show appropriate error on PDP', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+// Test with negative quantity
+    await pdp.updateProductQuantity(-1);//Update QTY
+    await checkout.clickOnAdtoCart();
+    await pdp.verifyQuantityErrorMessage();
+// Test with non-numeric quantity
+    await pdp.updateProductQuantity('a');//Update QTY
+    await checkout.clickOnAdtoCart();
+    await pdp.verifyQuantityErrorMessage();
+// Test with zero quantity
+    await pdp.updateProductQuantity(0);//Update QTY
+    await checkout.clickOnAdtoCart();
+    await pdp.verifyQuantityErrorMessage();
+});
+
+test('TC_PDP_014: Add Product to Cart with Empty Quantity field.', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+// Test with zero quantity
+    await pdp.updateProductQuantity(0);//Update QTY
+    await checkout.clickOnAdtoCart();
+    await pdp.verifyQuantityErrorMessage();
+});
+
+test ('TC_PDP_015: Verify the Product added quantity matches the Cart quantity', async ({page}) => {
+    //Repeated test case TC_PDP_003
+    //await dashboard.navigateToLoginPage();
+    //await login.enterUsername(Users.username);
+    //await login.enterPassword(Users.password);
+    //await login.clickLoginButton();
+    //await checkout.searchTextBox('Smartphone');
+    //await dashboard.clickOnSearchButton();
+    //await checkout.clickOnProductName();
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+    await pdp.updateProductQuantity(12);//Update QTY
+    await page.reload();
+    const cartQty = await pdp.getCartQuantity();
+    console.log('Cart Quantity:', cartQty);
+});
+
+test('TC_PDP_016: Verify that product rating stars are visible.', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+    await pdp.verifyRatingStars();
+    console.log('Rating stars are visible on the Product Detail Page.');
+});
+
+test('TC_PDP_017: Verify that the product picture is displayed', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Cell phones');
+    await checkout.clickOnProductName();
+    await pdp.verifyImgOfProduct();
+    console.log('Image is visible on th Product Detail Page.')
+});
+
+test('TC_PDP_018: Veirfy user is able to add  a related product to cart', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Camera, photo');
+    await pdp.ProductName();
+    await pdp.addRelatedProductToCart();
+    await pdp.verifyProductAddedMessage();
+    console.log('Related product successfully added to cart.');
+});
+
+test('TC_PDP_019: Veirfy user is able to add  a Customers who bought this item also bought product to cart', async () => {
+    await pdp.clickOnCategory('Electronics');
+    await pdp.clickOnSubCategory('Camera, photo');
+    await pdp.ProductName();
+    await pdp.addSuggestedProductToCart();
+    await pdp.verifySuccessMessage();
+});
+
+test('TC_PDP_020: Verify Virtual Gift Card cannot be added without recipient name and email', async () => {
+    await pdp.clickOnCategory('Gift Cards');
+    await pdp.clickOnProductByName('$5 Virtual Gift Card');
+    await pdp.enterGiftCardDetails(GiftCardDetails);
+    await pdp.clickAddToCart();
+    await pdp.verifyGiftCardErrorMessagesForEmail();
+    await pdp.verifyGiftCardErrorMessagesForName();
+});
+
+test('TC_PDP_021: Verify Virtual Gift Card cannot be added without recipient email', async () => {
+    await pdp.clickOnCategory('Gift Cards');
+    await pdp.clickOnProductByName('$5 Virtual Gift Card');
+    await pdp.enterGiftCardDetails(withoutEmailGiftCardDetails);
+    await pdp.clickAddToCart();
+    await pdp.verifyGiftCardErrorMessagesForEmail();
+});
+
+test('TC_PDP_022: Verify Virtual Gift Card cannot be added without recipient Name', async () => {
+    await pdp.clickOnCategory('Gift Cards');
+    await pdp.clickOnProductByName('$5 Virtual Gift Card');
+    await pdp.enterGiftCardDetails(withoutNameGiftCardDetails);
+    await pdp.clickAddToCart();
+    await pdp.verifyGiftCardErrorMessagesForName();
+});
+
 test('TC_PDP_023 :adding to cart with default selected options', async ({ page }) => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
@@ -163,6 +266,15 @@ test('TC_PDP_024 :Verify Product Description', async ({ page }) => {
     await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
     await pdp.VerifyProductDescription();
 });
+
+
+
+
+
+
+
+
+
 
 
 

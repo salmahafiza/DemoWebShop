@@ -33,9 +33,9 @@ class PDP {
    this.addToCartButton = page.locator("#add-to-cart-button-43");
     // this.addToWishlistButton = page.locator('.add-to-wishlist-button');
     // this.productDescriptionTab = page.locator('#product-tabs .product-description-tab');
-      // this.productReviewsTab = page.locator('#product-tabs .product-reviews-tab');
-      // this.productReviewsCount = page.locator('.review-count');
-      // this.GoToElectronicCategory = page.locator('.Electronics');
+    // this.productReviewsTab = page.locator('#product-tabs .product-reviews-tab');
+    // this.productReviewsCount = page.locator('.review-count');
+    // this.GoToElectronicCategory = page.locator('.Electronics');
     this.PDPImageGallery = page.locator('div[class="picture-thumbs"] div');
     this.cameraSubcategory = page
       .getByRole("heading", { name: "Camera, photo" })
@@ -58,6 +58,21 @@ class PDP {
     this.ThankYouMessage = page.locator('.result');
     this.addBuildYourOwnComputertoCart = page.locator('#add-to-cart-button-72');
     this.pdpDescription = page.locator('.full-description');
+    this.quantityErrorMessage = page.locator(".content");
+    this.ratingStars = page.locator("div[class='product-review-box'] div[class='rating'] div");
+    this.img = page.locator("#main-product-img-43");
+    this.productName = page.locator("div[class='master-wrapper-content'] div:nth-child(1) div:nth-child(1) div:nth-child(2) h2:nth-child(1) a:nth-child(1)");
+    this.relatedProducts = page.locator("div[class='related-products-grid product-grid'] strong");
+    this.relatedProductAddToCart = page.locator("div[class='related-products-grid product-grid'] input[value='Add to cart']");
+    this.productAddedMessage = page.locator('.bar-notification.success');
+    this.suggestedProductSection = page.locator("div.product-grid div.item-box");
+    this.Message = page.locator(".content");
+    this.recipientNameField = page.locator('#giftcard_1_RecipientName');
+    this.recipientEmailField = page.locator('#giftcard_1_RecipientEmail');
+    this.yourNameField = page.locator('#giftcard_1_SenderName');
+    this.yourEmailField = page.locator('#giftcard_1_SenderEmail');
+    this.addToCart = page.locator('#add-to-cart-button-1');
+    this.errorMessage = page.locator('#bar-notification');
   }
 
     async NavigateToDifferentCategoriesWithAssert(category) {
@@ -74,6 +89,9 @@ class PDP {
         await heading.locator("a").click();
     }
 
+  async ProductName(){
+    await this.productName.click();
+  }
     async getPLPProductDetails() {
         const PLPPrice = (await this.PLPPrice.textContent()).trim();
         const PLPTitle = (await this.PLPtitle.textContent()).trim();
@@ -129,6 +147,7 @@ class PDP {
     await this.QtyUpdate.fill(''); // Clear existing quantity
     await this.QtyUpdate.type(quantity.toString());
     await this.addToCart.click();
+    await this.page.reload();
   }
   async clickOnProduct2(){
     await this.assertProduct2.click();
@@ -269,7 +288,57 @@ class PDP {
     await expect(this.pdpDescription).toBeVisible();
     }
 
+  async verifyQuantityErrorMessage(expectedMessage = 'Quantity should be positive') {
+    const actualMessage = await this.quantityErrorMessage.textContent();
+    console.log('Displayed Error Message:', actualMessage.trim());
+    await expect(this.quantityErrorMessage).toContainText(expectedMessage);
+  }
+  async clickOnCategory(categoryName) {
+    await this.page.locator(`ul.top-menu a:has-text("${categoryName}")`).first().click();
+  }
+  async clickOnSubCategory(subCategoryName) {
+    await this.page.locator(`div.block-category-navigation a:has-text("${subCategoryName}")`).first().click();
+  }
+  async verifyRatingStars(){
+    await expect(this.ratingStars).toBeVisible();
+  }
+  async verifyImgOfProduct(){
+    await expect(this.img).toBeVisible();
+  }
+  async addRelatedProductToCart() {
+    await this.relatedProductAddToCart.click();
+  }
+  async verifyProductAddedMessage() {
+    await expect(this.productAddedMessage).toContainText('The product has been added to your shopping cart');
+  }
+  async addSuggestedProductToCart() {
+    const suggestedProductSection = await this.suggestedProductSection.nth(1); // Adjust index if needed
+    await suggestedProductSection.scrollIntoViewIfNeeded();
+    const addToCartButton = suggestedProductSection.locator('input[value="Add to cart"]');
+    await addToCartButton.click();
+  }
+  async verifySuccessMessage(expectedMessage = 'The product has been added to your shopping cart') {
+    const message = await this.Message.textContent();
+    console.log('Displayed Success Message:', message.trim());
+    await expect(this.Message).toContainText(expectedMessage);
+  }
+  async clickOnProductByName(productName) {
+    await this.page.locator(`a:has-text("${productName}")`).click();
+  }
+  async enterGiftCardDetails(data) {
+    await this.recipientNameField.fill(data.recipientName);
+    await this.recipientEmailField.fill(data.recipientEmail);
+    await this.yourNameField.fill(data.yourName);
+    await this.yourEmailField.fill(data.yourEmail);
+  }
+  async clickAddToCart() {
+    await this.addToCart.click();
+  }
+  async verifyGiftCardErrorMessagesForName() {
+    await expect(this.errorMessage).toContainText('Enter valid recipient name')
+  }
+  async verifyGiftCardErrorMessagesForEmail() {
+    await expect(this.errorMessage).toContainText('Enter valid recipient email');
+  }
 }
-
-
-module.exports = { PDP };
+    module.exports = { PDP };
