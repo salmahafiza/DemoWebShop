@@ -43,6 +43,7 @@ class PDP {
     this.SendEmailButton = page.locator('//input[@name="send-email"]');
     this.ThankYouMessage = page.locator('.result');
     this.addBuildYourOwnComputertoCart = page.locator('#add-to-cart-button-72');
+    this.pdpDescription = page.locator('.full-description');
   }
 
 
@@ -201,7 +202,9 @@ class PDP {
       "The product has been added to your shopping cart"
     );
   }
-    
+    async VerifyProductDescription() {
+    await expect(this.pdpDescription).toBeVisible();
+    }
 
 }
 

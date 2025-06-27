@@ -142,6 +142,17 @@ test('TC_PDP_023 :adding to cart with default selected options', async ({ page }
     console.log('Product added to cart successfully with default selected options.');
 
 });
+test.only('TC_PDP_024 :Verify Product Description', async ({ page }) => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.verifyUserInfoVisible();
+    await pdp.navigateToDifferentCategoriesWithAssert("Electronics");
+    await pdp.clickOnElectronicsSubcategory();
+    await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
+    await pdp.VerifyProductDescription();
+});
 
 
 
