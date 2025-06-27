@@ -52,3 +52,8 @@ test('TC_PLP_006: Verify Electronics category displays cameras, photo, and cell 
     await plp.verifySubCategory('Camera, photo');
     await plp.verifySubCategory('Cell phones');
 });
+
+test('TC_PLP_010: Verify Jewelry category displays variety of jewelry products', async () => {
+    await plp.clickOnCategory('Jewelry');
+    await plp.verifyPageTitle('Jewelry');
+});

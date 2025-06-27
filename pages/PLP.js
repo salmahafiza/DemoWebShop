@@ -7,6 +7,7 @@ class PLP {
     this.categoryMenu = page.locator('ul.top-menu');
     this.subCategoryBlock = page.locator('div.block-category-navigation');
     this.pageTitle = page.locator('div.page-title h1');
+    this.productTitles = page.locator('.product-title');
   }
 
   async clickOnCategory(categoryName) {
@@ -27,6 +28,7 @@ class PLP {
     console.log(`Verifying Subcategory is Visible: ${subCategoryText}`);
     await expect(subCategory).toBeVisible();
   }
+
 }
 
 module.exports = { PLP };
