@@ -39,3 +39,9 @@ test('TC_PLP_004: Verify Notebooks category displays notebook items', async () =
     await plp.clickOnSubCategory('Notebooks');
     await plp.verifyPageTitle('Notebooks');
 });
+
+test('TC_PLP_005: Verify Accessories category displays accessories', async () => {
+    await plp.clickOnCategory('Computers');
+    await plp.clickOnSubCategory('Accessories');
+    await plp.verifyPageTitle('Accessories');
+});
