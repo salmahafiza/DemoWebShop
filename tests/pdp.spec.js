@@ -19,6 +19,24 @@ test.beforeEach(async ({ page }) => {
     await dashboard.accessApplication();
 });
 
+test('TC_PDP_001: Verify that product details are displayed correctly', async ({ page }) => {
+    await pdp.NavigateToDifferentCategoriesWithAssert('Electronics');
+    await pdp.NavigateToSubcategory('Cell phones');
+    const { plpProductPrice, plpProductName } = await pdp.getPLPProductDetails();
+    await pdp.NavigateToProductPDP('Smartphone');
+    await pdp.VerifyandAssertPDPWithPLP(plpProductName, plpProductPrice);
+});
+
+test('TC_PDP_002: Verify that product can be added to the cart', async ({ page }) => {
+    await pdp.NavigateToDifferentCategoriesWithAssert('Electronics');
+    await pdp.NavigateToSubcategory('Cell phones');
+    const { plpProductPrice, plpProductName } = await pdp.getPLPProductDetails();
+    await pdp.NavigateToProductPDP('Smartphone');
+    await pdp.VerifyandAssertPDPWithPLP(plpProductName, plpProductPrice);
+    await pdp.addToCart();
+    await pdp.verifyProductAddedToCart();
+});
+
 test ('TC_PDP_003: Verify that user can update quantity during checkout', async () => {
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
@@ -26,8 +44,6 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
     await pdp.updateProductQuantity(12);//Update QTY
     const cartQty = await pdp.getCartQuantity();
     console.log('Cart Quantity:', cartQty);
-
-
 });
 
 test ('TC_PDP_004: Verify that product reviews are visible', async () => {
@@ -38,7 +54,6 @@ test ('TC_PDP_004: Verify that product reviews are visible', async () => {
 });
 
 test ('TC_PDP_005: Verify that the price of the product is displayed correctly', async () => {
-
     await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
@@ -53,7 +68,7 @@ test ('TC_PDP_006: Verify the availability status of the product', async () => {
     await checkout.clickOnProductName();
     const availability = await pdp.getProductAvailability();
     console.log(`Availability Status: ${availability?.trim()}`);
-    expect(availability).toMatch(/In stock|Out of stock/i); 
+    expect(availability).toMatch(/In stock|Out of stock/i);
 });
 
 test ('TC_PDP_007: Verify that products can be added to compare', async ({page}) => {
