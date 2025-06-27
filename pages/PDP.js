@@ -30,6 +30,12 @@ class PDP {
     this.PDPbox = page.locator('.product-essential');
     this.AvailabilityStatus = page.locator('.value');
     this.PDPAddtoCartButton = page.locator('#add-to-cart-button-13');
+    this.EmailaFriendButton = page.locator('//input[@value="Email a friend"]');
+    this.FriednEmailInput = page.locator('//input[@id="FriendEmail"]');
+    this.SenderEmailInput = page.locator('//input[@id="YourEmailAddress"]');
+    this.MessageInput = page.locator('//textarea[@id="PersonalMessage"]');
+    this.SendEmailButton = page.locator('//input[@name="send-email"]');
+    this.ThankYouMessage = page.locator('.result');
   }
 
 
@@ -139,6 +145,36 @@ class PDP {
     }
     else {
       console.log("Product is not available");
+    }
+  }
+  async navigateToLoginPage() {
+    await this.page.goto("https://demowebshop.tricentis.com/login");
+  }
+  async ClickOnEmailaFriendButton() {
+    await this.EmailaFriendButton.click();
+  }
+  async FillDetailsForEmailAFriend(email, friendEmail, message) {
+    await this.FriednEmailInput.fill(email);
+    await this.SenderEmailInput.fill(friendEmail);
+    await this.MessageInput.fill(message);
+    await this.SendEmailButton.click();
+  }
+  async VerifyEmailSent() {
+    let ThankyouMessageCount = 0;
+    ThankyouMessageCount = await this.ThankYouMessage.count();
+    let ErrorMessages = ["FriendEmail", "YourEmailAddress"];
+    if (ThankyouMessageCount === 0) {
+      for (let i = 0; i < ErrorMessages.length; i++) {
+        let errorMessage = this.page.locator(`.field-validation-error[data-valmsg-for="${ErrorMessages[i]}"]`);
+        if (await errorMessage.isVisible()) {
+          console.log(`Error message for ${ErrorMessages[i]}: ${await errorMessage.textContent()}`);
+        }
+      }
+      return;
+    }
+    else {
+      await expect(this.ThankYouMessage).toBeVisible();
+      await expect(this.ThankYouMessage).toContainText("Your message has been sent.");
     }
   }
 }

@@ -143,5 +143,10 @@ module.exports = {
         menufecturerOptionText: 'Tricentis',
         displayPageValue: '4',
         giftSearchText: 'gift',
+    },
+    pdpData:{
+        email:'sam123@gmail.com',
+        friendEmail : 'sana123@gmail.com',
+        message: 'recomended',
     }
 };

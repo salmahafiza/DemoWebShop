@@ -3,7 +3,7 @@ const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { Checkout } = require('../pages/Checkout');
 const { PDP } = require('../pages/PDP');
-const { Users } = require('../test-data/Users');
+const { Users, pdpData } = require('../test-data/Users');
 
 let login;
 let dashboard;
@@ -115,7 +115,19 @@ test('TC_PDP_011 - verify that stock availability is shown for respective produc
     await pdp.NavigateToProductPDP("Computing and Internet");
     await pdp.verifyAvailability();
 });
-
+test('TC_PDP_012 - Validate Email a Friend functionality with Empty fields',async({page})=>{
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await dashboard.verifyUserInfoVisible();
+    await pdp.navigateToDifferentCategoriesWithAssert("Electronics");
+    await pdp.clickOnElectronicsSubcategory();
+    await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
+    await pdp.ClickOnEmailaFriendButton();
+    await pdp.FillDetailsForEmailAFriend(pdpData.email,pdpData.friendEmail,pdpData.message);
+    await pdp.VerifyEmailSent();
+});
 
 
 
