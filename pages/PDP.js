@@ -27,6 +27,7 @@ class PDP {
       .getByRole("heading", { name: "Camera, photo" })
       .getByRole("link");
     this.logoutHyperLink = page.locator(".ico-logout");
+    this.PDPbox = page.locator('.product-essential');
   }
 
 
@@ -110,6 +111,9 @@ class PDP {
   async NavigateToProductPDP(ProductName) {
     await this.page.locator(`//a[normalize-space()='${ProductName}']`).click();
     await expect(await this.page.locator(`//h1[normalize-space()='${ProductName}']`)).toBeVisible();
+  }
+  async VerifyPDPisVisible() {
+    await expect(this.PDPbox).toBeVisible();
   }
 }
 

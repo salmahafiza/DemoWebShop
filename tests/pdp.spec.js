@@ -101,6 +101,15 @@ test('TC_PDP_009 - Verify that clicking on the product image enlarges it', async
     await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
     await pdp.VerifyProductImageGallery();
 });
+test('TC_PDP_010 - Verify Product Description Loads Properly on Different Devices', async ({ page }) => {
+    await pdp.navigateToDifferentCategoriesWithAssert("Electronics");
+    await pdp.clickOnElectronicsSubcategory();
+    await pdp.NavigateToProductPDP("1MP 60GB Hard Drive Handycam Camcorder");
+    await pdp.VerifyPDPisVisible();
+    //run Command: npx playwright test pdp.spec.js --project=chromium
+    //run Command: npx playwright test pdp.spec.js --project=firefox
+    //run Command: npx playwright test pdp.spec.js --project=webkit
+});
 
 
 
