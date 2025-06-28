@@ -53,7 +53,7 @@ test('TC_PLP_006: Verify Electronics category displays cameras, photo, and cell 
     await plp.verifySubCategory('Cell phones');
 });
 
-test('TC_PLP_009: Verify Apparel & Shoes displays various clothing and footwear..', async () => {
+test('TC_PLP_009: Verify Apparel & Shoes displays various clothing and footwear', async () => {
     await plp.clickOnCategory('Apparel & Shoes');
     await plp.verifyPageTitle('Apparel & Shoes');
 });
@@ -67,3 +67,11 @@ test('TC_PLP_011: Verify Gift Cards category displays different types of gift ca
     await plp.clickOnCategory('Gift Cards');
     await plp.verifyPageTitle('Gift Cards');
 });
+
+test('TC_PLP_020: Verify products displayed within display per page', async () => {
+    await plp.clickOnCategory('Digital downloads');
+    await plp.selectProductsPerPage(4);
+    const displayedCount = await plp.getDisplayedProductCount();
+    expect(displayedCount).toBeLessThanOrEqual(4);
+});
+

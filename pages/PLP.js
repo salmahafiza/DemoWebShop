@@ -8,6 +8,8 @@ class PLP {
     this.subCategoryBlock = page.locator('div.block-category-navigation');
     this.pageTitle = page.locator('div.page-title h1');
     this.productTitles = page.locator('.product-title');
+    this.productPerPage = page.locator("#products-pagesize");
+    this.productGridItems = page.locator(".product-item");
   }
 
   async clickOnCategory(categoryName) {
@@ -27,6 +29,16 @@ class PLP {
     const subCategory = this.subCategoryBlock.locator(`a:has-text("${subCategoryText}")`);
     console.log(`Verifying Subcategory is Visible: ${subCategoryText}`);
     await expect(subCategory).toBeVisible();
+  }
+  async selectProductsPerPage(count) {
+    console.log(`Selecting ${count} products per page`);
+    await this.productPerPage.selectOption(count.toString());
+    await this.productGridItems.first().waitFor({ state: 'visible', timeout: 5000 });
+  }
+  async getDisplayedProductCount() {
+    const count = await this.productGridItems.count();
+    console.log(`Displayed Product Count: ${count}`);
+    return count;
   }
 
 }
