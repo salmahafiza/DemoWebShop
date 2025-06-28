@@ -94,6 +94,16 @@ test('TC_PLP_022: Verify user can navigate to previous page', async () => {
     await plp.clickPreviousPage();
     const ProductCount = await plp.getDisplayedProductCount();
     expect(ProductCount).toBeGreaterThan(0);
+});
+
+test('TC_PLP_023: Verify no next button on last page', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.selectProductsPerPage(4);
+    while (await plp.isNextButtonVisible()){
+        await plp.clickNextPage();
+    }
+
+    console.log('Reached last page, verifying no next button');
 
 });
 

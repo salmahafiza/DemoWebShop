@@ -48,6 +48,9 @@ class PLP {
   async clickPreviousPage(){
     await this.previousPage.click();
   }
+  async isNextButtonVisible() {
+    return await this.nextPage.isVisible();
+  }
 
 }
 
