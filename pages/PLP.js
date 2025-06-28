@@ -11,6 +11,7 @@ class PLP {
     this.productPerPage = page.locator("#products-pagesize");
     this.productGridItems = page.locator(".product-item");
     this.nextPage = page.locator(".next-page");
+    this.previousPage = page.locator(".previous-page");
   }
 
   async clickOnCategory(categoryName) {
@@ -41,8 +42,11 @@ class PLP {
     console.log(`Displayed Product Count: ${count}`);
     return count;
   }
-    async clickNextPage() {
+  async clickNextPage() {
     await this.nextPage.click();
+  }
+  async clickPreviousPage(){
+    await this.previousPage.click();
   }
 
 }

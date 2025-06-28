@@ -87,4 +87,14 @@ test('TC_PLP_021: Verify user can navigate to next page', async () => {
     expect(newProductCount).toBeGreaterThan(0);
 });
 
+test('TC_PLP_022: Verify user can navigate to previous page', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.selectProductsPerPage(4);
+    await plp.clickNextPage();
+    await plp.clickPreviousPage();
+    const ProductCount = await plp.getDisplayedProductCount();
+    expect(ProductCount).toBeGreaterThan(0);
+
+});
+
 
