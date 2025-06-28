@@ -75,3 +75,16 @@ test('TC_PLP_020: Verify products displayed within display per page', async () =
     expect(displayedCount).toBeLessThanOrEqual(4);
 });
 
+test('TC_PLP_021: Verify user can navigate to next page', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.selectProductsPerPage(4);
+
+    const initialProductCount = await plp.getDisplayedProductCount();
+    expect(initialProductCount).toBeGreaterThan(0);
+
+    await plp.clickNextPage();
+    const newProductCount = await plp.getDisplayedProductCount();
+    expect(newProductCount).toBeGreaterThan(0);
+});
+
+
