@@ -15,12 +15,28 @@ test.beforeEach(async ({ page }) => {
     atc = new ATC(page);
     await dashboard.accessApplication();
 });
-test('Verify user is able to checkout after ticking the terms of service checkbox', async ({ page }) => {
 
+test('TC_ShoppingCart_001: Verify user is able to checkout after ticking the terms of service checkbox', async ({ page }) => {
     await atc.clickOnAddToCartButton();
     await atc.navigateToShoppingCart();
     await atc.verifyItemAddedToCart();
     await atc.acceptTermsAndConditions();
     await atc.clickOnCheckoutButton();
-
 }); 
+
+test('TC_ShoppingCart_003: Verify user can remove item from cart', async () => {
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await atc.removeItemFromCart();
+    await atc.verifyItemRemovedFromCart();
+});
+
+test('TC_ShoppingCart_004: verify updating Qty in cart page', async () => {
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await atc.updateQtyonCart();
+    await atc.verifyQtyUpdated();
+});
+
