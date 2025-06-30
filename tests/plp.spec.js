@@ -2,15 +2,17 @@ import { test, expect } from '@playwright/test';
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { PLP } = require('../pages/PLP')
+const { PDP } = require('../pages/PDP');
 
 
 let login;
 let dashboard;
 let plp;
-
+let pdp
 test.beforeEach(async ({ page }) => {
     login = new LoginPage(page);
     dashboard = new DashboardPage(page);
+    pdp = new PDP(page);
     plp = new PLP(page);
     await dashboard.accessApplication();
 });
@@ -92,8 +94,15 @@ test('TC_PLP_018 : Verify that on clicking  Name : A to Z, products are sorted a
     await plp.selectSortForAlphabet();
     await plp.verifySortingOptionsInAlphabeticalOrder();
 });
-test.only('TC_PLP_019 : Product sorted from Z to A  on PLP', async ({ page }) => {
+test('TC_PLP_019 : Product sorted from Z to A  on PLP', async ({ page }) => {
    await plp.clickOnCategory('Apparel & Shoes');
    await plp.selectReverseSortForAlphabet();
    await plp.verifySortingOptionsInReverseAlphabeticalOrder();
+});
+test('TC_PLP_024 : Verify Add to Cart Button disables when product is out of stock or unavailable',async ({ page }) => {
+   await pdp.NavigateToDifferentCategoriesWithAssert('Books');
+   await pdp.NavigateToProductPDP('Computing and Internet');
+   await plp.verifyAvailabilityStatus();
+
+  
 });

@@ -8,6 +8,11 @@ class PLP {
     this.subCategoryBlock = page.locator('div.block-category-navigation');
     this.pageTitle = page.locator('div.page-title h1');
     this.productTitles = page.locator('.product-title a');
+    this.availabilityStatus = this.page.locator('div.stock span.value');
+    this.addToCartButtons = this.page.locator('input[value="Add to cart"]');
+
+
+
 
   }
 
@@ -61,11 +66,11 @@ class PLP {
 
     console.log(' Products are sorted alphabetically A to Z.');
   }
-    async selectReverseSortForAlphabet() {
+  async selectReverseSortForAlphabet() {
     console.log('Selecting Name: Z to A');
     await this.page.locator('#products-orderby').selectOption({ label: 'Name: Z to A' });
   }
-    async verifySortingOptionsInReverseAlphabeticalOrder() {
+  async verifySortingOptionsInReverseAlphabeticalOrder() {
     console.log('Verifying products displayed are sorted alphabetically Z to A');
     await this.productTitles.first().waitFor({ state: 'visible', timeout: 5000 });
 
@@ -77,7 +82,22 @@ class PLP {
 
     console.log(' Products are sorted alphabetically Z to A.');
   }
+  async verifyAvailabilityStatus() {
+    const statusText = await this.availabilityStatus.textContent();
+    console.log(` Product availability: ${statusText.trim()}`);
 
+ 
+    const pdpAddToCartButton = this.page.locator('input#add-to-cart-button-13'); 
+
+    if (statusText.trim() === 'In stock') {
+        await expect(pdpAddToCartButton).toBeEnabled();
+        console.log(' Add to Cart button is enabled when product is in stock.');
+    }
+    else if (statusText.trim() === 'Out of stock') {
+        await expect(pdpAddToCartButton).toBeDisabled();
+        console.log(' Add to Cart button is disabled when product is out of stock.');
+    }
+}
 
 }
 
