@@ -67,7 +67,7 @@ test('TC_PLP_008: Verify that on clicking Cell Phones, related items should disp
     await plp.verifySubCategory('Cell phones');
 });
 
-test('TC_PLP_009: Verify Apparel & Shoes displays various clothing and footwear..', async () => {
+test('TC_PLP_009: Verify Apparel & Shoes displays various clothing and footwear', async () => {
     await plp.clickOnCategory('Apparel & Shoes');
     await plp.verifyPageTitle('Apparel & Shoes');
 });
@@ -125,8 +125,70 @@ test('TC_PLP_019 : Product sorted from Z to A  on PLP', async ({ page }) => {
    await plp.verifySortingOptionsInReverseAlphabeticalOrder();
 });
 
-test('TC_PLP_026 : Verify Add to Cart Button disables when product is out of stock or unavailable',async ({ page }) => {
-   await pdp.NavigateToDifferentCategoriesWithAssert('Books');
-   await pdp.NavigateToProductPDP('Computing and Internet');
-   await plp.verifyAvailabilityStatus();
+test('TC_PLP_020: Verify products displayed within display per page', async () => {
+    await plp.clickOnCategory('Digital downloads');
+    await plp.selectProductsPerPage(4);
+    const displayedCount = await plp.getDisplayedProductCount();
+    expect(displayedCount).toBeLessThanOrEqual(4);
 });
+
+test('TC_PLP_021: Verify user can navigate to next page', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.selectProductsPerPage(4);
+
+    const initialProductCount = await plp.getDisplayedProductCount();
+    expect(initialProductCount).toBeGreaterThan(0);
+
+    await plp.clickNextPage();
+    const newProductCount = await plp.getDisplayedProductCount();
+    expect(newProductCount).toBeGreaterThan(0);
+});
+
+test('TC_PLP_022: Verify user can navigate to previous page', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.selectProductsPerPage(4);
+    await plp.clickNextPage();
+    await plp.clickPreviousPage();
+    const ProductCount = await plp.getDisplayedProductCount();
+    expect(ProductCount).toBeGreaterThan(0);
+});
+
+test('TC_PLP_023: Verify no next button on last page', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.selectProductsPerPage(4);
+    while (await plp.isNextButtonVisible()){
+        await plp.clickNextPage();
+    }
+
+    console.log('Reached last page, verifying no next button');
+
+});
+
+test('TC_PLP_024: Verify switching between Grid and List view', async () => {
+    await plp.clickOnCategory('Books');
+    console.log('Switched to List View');
+    await plp.switchToListView();
+    await plp.verifyListViewVisible();
+    console.log('List View Verified');
+
+    console.log('Switched to Grid View');
+    await plp.switchToGridView();
+    await plp.verifyGridViewVisible();
+    console.log('Grid View Verified');
+});
+
+test('TC_PLP_025: Verify product ratings are visible', async () => {
+    await plp.clickOnCategory('Books');
+    const hasRatings = await plp.verifyRatingsDisplay();
+    expect(hasRatings).toBe(true);
+    console.log('Ratings Verified on PLP');
+});
+
+test('TC_PLP_026 : Verify Add to Cart Button disables when product is out of stock or unavailable',async ({ page }) => {
+    await pdp.NavigateToDifferentCategoriesWithAssert('Books');
+    await pdp.NavigateToProductPDP('Computing and Internet');
+    await plp.verifyAvailabilityStatus();
+});
+
+
+

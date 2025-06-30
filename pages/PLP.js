@@ -14,6 +14,15 @@ class PLP {
     this.productImages = page.locator('.product-item img');
     this.productPrices = page.locator('.prices');
     this.addToCartButtons = this.page.locator('input.button-2.product-box-add-to-cart-button');
+    this.productPerPage = page.locator("#products-pagesize");
+    this.productGridItems = page.locator(".product-item");
+    this.nextPage = page.locator(".next-page");
+    this.previousPage = page.locator(".previous-page");
+    this.listViewProducts = page.locator('.product-list');
+    this.gridViewProducts = page.locator('.product-grid');
+    this.viewModeDropdown = page.locator('#products-viewmode');
+    this.ratingStars = page.locator('.rating');
+
   }
 
   async clickOnCategory(categoryName) {
@@ -143,6 +152,44 @@ class PLP {
 
     expect(totalButtons).toBeGreaterThan(0);
   }
+  async selectProductsPerPage(count) {
+    console.log(`Selecting ${count} products per page`);
+    await this.productPerPage.selectOption(count.toString());
+    await this.productGridItems.first().waitFor({ state: 'visible', timeout: 5000 });
+  }
+  async getDisplayedProductCount() {
+    const count = await this.productGridItems.count();
+    console.log(`Displayed Product Count: ${count}`);
+    return count;
+  }
+  async clickNextPage() {
+    await this.nextPage.click();
+  }
+  async clickPreviousPage(){
+    await this.previousPage.click();
+  }
+  async isNextButtonVisible() {
+    return await this.nextPage.isVisible();
+  }
+  async switchToListView() {
+    await this.viewModeDropdown.selectOption({ label: 'List' });
+  }
+  async switchToGridView() {
+    await this.viewModeDropdown.selectOption({ label: 'Grid' });
+  }
+  async verifyListViewVisible() {
+    return await this.listViewProducts.isVisible();
+  }
+
+  async verifyGridViewVisible() {
+    return await this.gridViewProducts.isVisible();
+  }
+  async verifyRatingsDisplay() {
+    const ratingVisible = await this.ratingStars.first().isVisible();
+    console.log('Ratings Visible:', ratingVisible);
+    return ratingVisible;
+  }
+
 
 }
 
