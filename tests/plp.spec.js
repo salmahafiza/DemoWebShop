@@ -78,3 +78,7 @@ test('TC_PLP_008: Verify that on clicking Cell Phones, related items should disp
     await plp.clickOnSubCategory('Cell phones');
     await plp.verifySubCategory('Cell phones');
 });
+test('TC_PLP_016 : Filter narrowws down the result', async ({ page }) => {
+    await plp.clickOnCategory('Apparel & Shoes');
+    await plp.verifySubCategory('Apparel & Shoes');
+});
