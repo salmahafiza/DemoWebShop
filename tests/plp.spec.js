@@ -107,4 +107,18 @@ test('TC_PLP_023: Verify no next button on last page', async () => {
 
 });
 
+test('TC_PLP_024: Verify switching between Grid and List view', async () => {
+    await plp.clickOnCategory('Books');
+    console.log('Switched to List View');
+    await plp.switchToListView();
+    await plp.verifyListViewVisible();
+    console.log('List View Verified');
+
+    console.log('Switched to Grid View');
+    await plp.switchToGridView();
+    await plp.verifyGridViewVisible();
+    console.log('Grid View Verified');
+});
+
+
 

@@ -12,6 +12,11 @@ class PLP {
     this.productGridItems = page.locator(".product-item");
     this.nextPage = page.locator(".next-page");
     this.previousPage = page.locator(".previous-page");
+    this.listViewProducts = page.locator('.product-list');
+    this.gridViewProducts = page.locator('.product-grid');
+    this.viewModeDropdown = page.locator('#products-viewmode');
+    this.ratingStars = page.locator('.rating');
+
   }
 
   async clickOnCategory(categoryName) {
@@ -51,6 +56,25 @@ class PLP {
   async isNextButtonVisible() {
     return await this.nextPage.isVisible();
   }
+  async switchToListView() {
+    await this.viewModeDropdown.selectOption({ label: 'List' });
+  }
+  async switchToGridView() {
+    await this.viewModeDropdown.selectOption({ label: 'Grid' });
+  }
+  async verifyListViewVisible() {
+    return await this.listViewProducts.isVisible();
+  }
+
+  async verifyGridViewVisible() {
+    return await this.gridViewProducts.isVisible();
+  }
+  async verifyRatingsDisplay() {
+    const ratingVisible = await this.ratingStars.first().isVisible();
+    console.log('Ratings Visible:', ratingVisible);
+    return ratingVisible;
+  }
+
 
 }
 
