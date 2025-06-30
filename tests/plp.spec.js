@@ -67,3 +67,9 @@ test('TC_PLP_011: Verify Gift Cards category displays different types of gift ca
     await plp.clickOnCategory('Gift Cards');
     await plp.verifyPageTitle('Gift Cards');
 });
+
+test('TC_PLP_012: Ensure all products title should be displayed', async () => {
+  await plp.clickOnCategory('Books');
+  await plp.verifyAllProductTitlesDisplayed();
+});
+

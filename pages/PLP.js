@@ -28,6 +28,14 @@ class PLP {
     console.log(`Verifying Subcategory is Visible: ${subCategoryText}`);
     await expect(subCategory).toBeVisible();
   }
+  async verifyAllProductTitlesDisplayed() {
+    const titles = await this.productTitles.allTextContents();
+    console.log(`All Product Titles Displayed: ${titles}`);
+    expect(titles.length).toBeGreaterThan(0);
+    for (const title of titles) {
+      expect(title.trim().length).toBeGreaterThan(0);
+    }
+  }
 
 }
 
