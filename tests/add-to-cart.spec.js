@@ -8,16 +8,24 @@ let dashboard;
 let atc;
 
 test.beforeEach(async ({ page }) => {
-  login = new LoginPage(page);
-  dashboard = new DashboardPage(page);
-  atc = new ATC(page);
-  await dashboard.accessApplication();
+    login = new LoginPage(page);
+    dashboard = new DashboardPage(page);
+    atc = new ATC(page);
+    await dashboard.accessApplication();
 });
 
 test('TC_ATC_003: Verify user can remove item from cart', async () => {
-  await atc.clickOnAddToCartButton();
-  await atc.verifyItemAddedToCart();
-  await atc.navigateToShoppingCart();
-  await atc.removeItemFromCart();
-  await atc.verifyItemRemovedFromCart();
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await atc.removeItemFromCart();
+    await atc.verifyItemRemovedFromCart();
+});
+
+test('TC_ATC_004: verify updating Qty in cart page', async () => {
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await atc.updateQtyonCart();
+    await atc.verifyQtyUpdated();
 });
