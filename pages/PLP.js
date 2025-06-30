@@ -10,6 +10,7 @@ class PLP {
     this.productTitles = page.locator('.product-title');
     this.productImages = page.locator('.product-item img');
     this.productPrices = page.locator('.prices');
+    this.addToCartButtons = this.page.locator('input.button-2.product-box-add-to-cart-button');
   }
 
   async clickOnCategory(categoryName) {
@@ -56,6 +57,26 @@ class PLP {
       expect(price.trim().length).toBeGreaterThan(0);
     }
   }
+  async verifyAllAddToCartButtonsDisplayed() {
+    const totalProducts = await this.productTitles.count();
+    const totalButtons = await this.addToCartButtons.count();
+
+    console.log(`Total Products on Page: ${totalProducts}`);
+    console.log(`Total 'Add to Cart' Buttons Found: ${totalButtons}`);
+
+    if (totalButtons < totalProducts) {
+      console.warn(`Missing 'Add to cart' buttons for ${totalProducts - totalButtons} products`);
+    }
+
+    for (let i = 0; i < totalButtons; i++) {
+      const value = await this.addToCartButtons.nth(i).getAttribute('value');
+      console.log(`Button ${i + 1} Value: ${value}`);
+      expect(value?.trim().toLowerCase()).toBe('add to cart');
+    }
+
+    expect(totalButtons).toBeGreaterThan(0);
+  }
+
 }
 
 module.exports = { PLP };

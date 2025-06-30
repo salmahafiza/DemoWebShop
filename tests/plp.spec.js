@@ -82,3 +82,8 @@ test('TC_PLP_014: Price should be diisplayed on all products on PLP', async () =
     await plp.clickOnCategory('Books');
     await plp.verifyAllProductPricesDisplayed();
 });
+
+test('TC_PLP_015: Add to cart button should exists on each item', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.verifyAllAddToCartButtonsDisplayed();
+}); 
