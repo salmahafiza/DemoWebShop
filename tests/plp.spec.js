@@ -82,3 +82,8 @@ test('TC_PLP_016 : Filter narrowws down the result', async ({ page }) => {
     await plp.clickOnCategory('Apparel & Shoes');
     await plp.verifySubCategory('Apparel & Shoes');
 });
+test('TC_PLP_017 : Verify that on clicking Price: Low to High, products are sorted accordingly', async ({ page }) => {
+    await plp.clickOnCategory('Apparel & Shoes');
+    await plp.selectPriceLowToHigh();
+    await plp.verifyPriceRange(0, 1000);
+});
