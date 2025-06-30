@@ -73,3 +73,8 @@ test('TC_PLP_007 : Verify that on clicking Cameras, pHoto option, related items 
     await plp.verifySubCategory('Camera, photo');
 
 });
+test('TC_PLP_008: Verify that on clicking Cell Phones, related items should displayed', async () => {
+    await plp.clickOnCategory('Electronics');
+    await plp.clickOnSubCategory('Cell phones');
+    await plp.verifySubCategory('Cell phones');
+});
