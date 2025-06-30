@@ -8,6 +8,7 @@ class PLP {
     this.subCategoryBlock = page.locator('div.block-category-navigation');
     this.pageTitle = page.locator('div.page-title h1');
     this.productTitles = page.locator('.product-title');
+    this.productImages = page.locator('.product-item img');
   }
 
   async clickOnCategory(categoryName) {
@@ -36,6 +37,16 @@ class PLP {
       expect(title.trim().length).toBeGreaterThan(0);
     }
   }
+  async verifyAllProductImagesDisplayed() {
+    const images = await this.productImages.all();
+    console.log(`Total Product Images Found: ${images.length}`);
+    expect(images.length).toBeGreaterThan(0);
+
+    for (const image of images) {
+      await expect(image).toBeVisible();
+    }
+  }
+
 
 }
 
