@@ -92,3 +92,8 @@ test('TC_PLP_018 : Verify that on clicking  Name : A to Z, products are sorted a
     await plp.selectSortForAlphabet();
     await plp.verifySortingOptionsInAlphabeticalOrder();
 });
+test.only('TC_PLP_019 : Product sorted from Z to A  on PLP', async ({ page }) => {
+   await plp.clickOnCategory('Apparel & Shoes');
+   await plp.selectReverseSortForAlphabet();
+   await plp.verifySortingOptionsInReverseAlphabeticalOrder();
+});

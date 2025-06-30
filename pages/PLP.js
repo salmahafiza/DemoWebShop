@@ -61,6 +61,22 @@ class PLP {
 
     console.log(' Products are sorted alphabetically A to Z.');
   }
+    async selectReverseSortForAlphabet() {
+    console.log('Selecting Name: Z to A');
+    await this.page.locator('#products-orderby').selectOption({ label: 'Name: Z to A' });
+  }
+    async verifySortingOptionsInReverseAlphabeticalOrder() {
+    console.log('Verifying products displayed are sorted alphabetically Z to A');
+    await this.productTitles.first().waitFor({ state: 'visible', timeout: 5000 });
+
+    const productNames = await this.productTitles.allTextContents();
+
+    const sortedProductNames = [...productNames].sort((a, b) => b.localeCompare(a));
+
+    expect(productNames).toEqual(sortedProductNames);
+
+    console.log(' Products are sorted alphabetically Z to A.');
+  }
 
 
 }
