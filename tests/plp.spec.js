@@ -87,3 +87,8 @@ test('TC_PLP_017 : Verify that on clicking Price: Low to High, products are sort
     await plp.selectPriceLowToHigh();
     await plp.verifyPriceRange(0, 1000);
 });
+test('TC_PLP_018 : Verify that on clicking  Name : A to Z, products are sorted accordingly', async ({ page }) => {
+    await plp.clickOnCategory('Apparel & Shoes');
+    await plp.selectSortForAlphabet();
+    await plp.verifySortingOptionsInAlphabeticalOrder();
+});

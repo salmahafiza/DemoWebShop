@@ -7,7 +7,8 @@ class PLP {
     this.categoryMenu = page.locator('ul.top-menu');
     this.subCategoryBlock = page.locator('div.block-category-navigation');
     this.pageTitle = page.locator('div.page-title h1');
-    this.productTitles = page.locator('.product-title');
+    this.productTitles = page.locator('.product-title a');
+
   }
 
   async clickOnCategory(categoryName) {
@@ -34,7 +35,7 @@ class PLP {
   }
   async verifyPriceRange(minPrice, maxPrice) {
     const priceLocator = this.page.locator("//span[@class='price actual-price']");
-    // Wait for at least one price to be visible after navigation/sorting
+
     await priceLocator.first().waitFor({ state: 'visible', timeout: 5000 });
     const prices = await priceLocator.allTextContents();
     console.log(`Verifying Price Range: ${minPrice} - ${maxPrice}`);
@@ -44,7 +45,24 @@ class PLP {
       expect(numericPrice).toBeLessThanOrEqual(maxPrice);
     }
   }
-  
+  async selectSortForAlphabet() {
+    console.log('Selecting Name: A to Z');
+    await this.page.locator('#products-orderby').selectOption({ label: 'Name: A to Z' });
+  }
+  async verifySortingOptionsInAlphabeticalOrder() {
+    console.log('Verifying products displayed are sorted alphabetically A to Z');
+    await this.productTitles.first().waitFor({ state: 'visible', timeout: 5000 });
+
+    const productNames = await this.productTitles.allTextContents();
+
+    const sortedProductNames = [...productNames].sort((a, b) => a.localeCompare(b));
+
+    expect(productNames).toEqual(sortedProductNames);
+
+    console.log(' Products are sorted alphabetically A to Z.');
+  }
+
+
 }
 
 module.exports = { PLP };
