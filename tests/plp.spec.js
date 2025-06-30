@@ -120,5 +120,12 @@ test('TC_PLP_024: Verify switching between Grid and List view', async () => {
     console.log('Grid View Verified');
 });
 
+test('TC_PLP_025: Verify product ratings are visible', async () => {
+    await plp.clickOnCategory('Books');
+    const hasRatings = await plp.verifyRatingsDisplay();
+    expect(hasRatings).toBe(true);
+    console.log('Ratings Verified on PLP');
+});
+
 
 
