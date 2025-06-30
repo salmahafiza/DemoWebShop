@@ -7,13 +7,13 @@ class PLP {
     this.categoryMenu = page.locator('ul.top-menu');
     this.subCategoryBlock = page.locator('div.block-category-navigation');
     this.pageTitle = page.locator('div.page-title h1');
-    this.productTitles = page.locator('.product-title a');
+    //this.productTitles = page.locator('.product-title a');
     this.availabilityStatus = this.page.locator('div.stock span.value');
     this.addToCartButtons = this.page.locator('input[value="Add to cart"]');
-
-
-
-
+    this.productTitles = page.locator('.product-title');
+    this.productImages = page.locator('.product-item img');
+    this.productPrices = page.locator('.prices');
+    this.addToCartButtons = this.page.locator('input.button-2.product-box-add-to-cart-button');
   }
 
   async clickOnCategory(categoryName) {
@@ -86,8 +86,8 @@ class PLP {
     const statusText = await this.availabilityStatus.textContent();
     console.log(` Product availability: ${statusText.trim()}`);
 
- 
-    const pdpAddToCartButton = this.page.locator('input#add-to-cart-button-13'); 
+
+    const pdpAddToCartButton = this.page.locator('input#add-to-cart-button-13');
 
     if (statusText.trim() === 'In stock') {
         await expect(pdpAddToCartButton).toBeEnabled();
@@ -98,6 +98,51 @@ class PLP {
         console.log(' Add to Cart button is disabled when product is out of stock.');
     }
 }
+  async verifyAllProductTitlesDisplayed() {
+    const titles = await this.productTitles.allTextContents();
+    console.log(`All Product Titles Displayed: ${titles}`);
+    expect(titles.length).toBeGreaterThan(0);
+    for (const title of titles) {
+      expect(title.trim().length).toBeGreaterThan(0);
+    }
+  }
+  async verifyAllProductImagesDisplayed() {
+    const images = await this.productImages.all();
+    console.log(`Total Product Images Found: ${images.length}`);
+    expect(images.length).toBeGreaterThan(0);
+
+    for (const image of images) {
+      await expect(image).toBeVisible();
+    }
+  }
+  async verifyAllProductPricesDisplayed() {
+    const prices = await this.productPrices.allTextContents();
+    console.log(`All Product Prices Displayed: ${prices.join(', ')}`);
+    expect(prices.length).toBeGreaterThan(0);
+
+    for (const price of prices) {
+      expect(price.trim().length).toBeGreaterThan(0);
+    }
+  }
+  async verifyAllAddToCartButtonsDisplayed() {
+    const totalProducts = await this.productTitles.count();
+    const totalButtons = await this.addToCartButtons.count();
+
+    console.log(`Total Products on Page: ${totalProducts}`);
+    console.log(`Total 'Add to Cart' Buttons Found: ${totalButtons}`);
+
+    if (totalButtons < totalProducts) {
+      console.warn(`Missing 'Add to cart' buttons for ${totalProducts - totalButtons} products`);
+    }
+
+    for (let i = 0; i < totalButtons; i++) {
+      const value = await this.addToCartButtons.nth(i).getAttribute('value');
+      console.log(`Button ${i + 1} Value: ${value}`);
+      expect(value?.trim().toLowerCase()).toBe('add to cart');
+    }
+
+    expect(totalButtons).toBeGreaterThan(0);
+  }
 
 }
 

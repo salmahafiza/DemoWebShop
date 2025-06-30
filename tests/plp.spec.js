@@ -55,6 +55,18 @@ test('TC_PLP_006: Verify Electronics category displays cameras, photo, and cell 
     await plp.verifySubCategory('Cell phones');
 });
 
+test('TC_PLP_007 : Verify that on clicking Cameras, pHoto option, related items should displayed', async () => {
+    await plp.clickOnCategory('Electronics');
+    await plp.clickOnSubCategory('Camera, photo');
+    await plp.verifySubCategory('Camera, photo');
+});
+
+test('TC_PLP_008: Verify that on clicking Cell Phones, related items should displayed', async () => {
+    await plp.clickOnCategory('Electronics');
+    await plp.clickOnSubCategory('Cell phones');
+    await plp.verifySubCategory('Cell phones');
+});
+
 test('TC_PLP_009: Verify Apparel & Shoes displays various clothing and footwear..', async () => {
     await plp.clickOnCategory('Apparel & Shoes');
     await plp.verifyPageTitle('Apparel & Shoes');
@@ -69,40 +81,52 @@ test('TC_PLP_011: Verify Gift Cards category displays different types of gift ca
     await plp.clickOnCategory('Gift Cards');
     await plp.verifyPageTitle('Gift Cards');
 });
-test('TC_PLP_007 : Verify that on clicking Cameras, pHoto option, related items should displayed', async () => {
-    await plp.clickOnCategory('Electronics');
-    await plp.clickOnSubCategory('Camera, photo');
-    await plp.verifySubCategory('Camera, photo');
 
+test('TC_PLP_012: Ensure all products title should be displayed', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.verifyAllProductTitlesDisplayed();
 });
-test('TC_PLP_008: Verify that on clicking Cell Phones, related items should displayed', async () => {
-    await plp.clickOnCategory('Electronics');
-    await plp.clickOnSubCategory('Cell phones');
-    await plp.verifySubCategory('Cell phones');
+
+test('TC_PLP_013: Ensure Each Product has image', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.verifyAllProductImagesDisplayed();
 });
+
+test('TC_PLP_014: Price should be diisplayed on all products on PLP', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.verifyAllProductPricesDisplayed();
+});
+
+test('TC_PLP_015: Add to cart button should exists on each item', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.verifyAllAddToCartButtonsDisplayed();
+});
+
 test('TC_PLP_016 : Filter narrowws down the result', async ({ page }) => {
     await plp.clickOnCategory('Apparel & Shoes');
     await plp.verifySubCategory('Apparel & Shoes');
 });
+
 test('TC_PLP_017 : Verify that on clicking Price: Low to High, products are sorted accordingly', async ({ page }) => {
     await plp.clickOnCategory('Apparel & Shoes');
     await plp.selectPriceLowToHigh();
     await plp.verifyPriceRange(0, 1000);
 });
+
 test('TC_PLP_018 : Verify that on clicking  Name : A to Z, products are sorted accordingly', async ({ page }) => {
     await plp.clickOnCategory('Apparel & Shoes');
     await plp.selectSortForAlphabet();
     await plp.verifySortingOptionsInAlphabeticalOrder();
 });
+
 test('TC_PLP_019 : Product sorted from Z to A  on PLP', async ({ page }) => {
    await plp.clickOnCategory('Apparel & Shoes');
    await plp.selectReverseSortForAlphabet();
    await plp.verifySortingOptionsInReverseAlphabeticalOrder();
 });
-test('TC_PLP_024 : Verify Add to Cart Button disables when product is out of stock or unavailable',async ({ page }) => {
+
+test('TC_PLP_026 : Verify Add to Cart Button disables when product is out of stock or unavailable',async ({ page }) => {
    await pdp.NavigateToDifferentCategoriesWithAssert('Books');
    await pdp.NavigateToProductPDP('Computing and Internet');
    await plp.verifyAvailabilityStatus();
-
-  
 });
