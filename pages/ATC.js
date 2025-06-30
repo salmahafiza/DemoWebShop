@@ -1,0 +1,55 @@
+import { expect } from '@playwright/test';
+
+class ATC {
+    constructor(page) {
+        this.page = page;
+
+        // Locators
+        this.addToCartButtons = page.locator('input.button-2.product-box-add-to-cart-button');
+        this.clickOnCart = this.page.locator('a.ico-cart:has(span.cart-label:has-text("Shopping cart"))');
+        this.cartCount = page.locator('.cart-qty');
+        this.removeItemCheckbox = page.locator('input[name="removefromcart"]');
+        this.updateCartBtn = this.page.locator('input[name="updatecart"]');
+        this.checkTermsConditions = page.locator('input#termsofservice');
+        this.checkoutButton = page.locator('button#checkout');
+    }
+
+    async clickOnAddToCartButton() {
+        await this.addToCartButtons.nth(1).click();
+        console.log('Clicking on Add to Cart button');
+    }
+
+    async navigateToShoppingCart() {
+        await this.clickOnCart.click();
+        console.log('Navigating to Shopping Cart');
+    }
+
+    async verifyItemAddedToCart() {
+        const quantityValue = await this.page.locator('div.quantity span').textContent();
+        console.log(`Quantity is: ${quantityValue.trim()}`);
+        expect(quantityValue.trim()).toBe('1');
+    }
+
+    async removeItemFromCart() {
+        await this.removeItemCheckbox.first().check();
+        await this.updateCartBtn.click();
+        console.log('Removing item from cart');
+    }
+
+    async verifyItemRemovedFromCart() {
+        const countText = await this.cartCount.textContent();
+        console.log(`Cart Count Displayed: "${countText.trim()}"`);
+        expect(countText.trim()).toBe('(0)');
+    }
+    async acceptTermsAndConditions() {
+        await this.checkTermsConditions.check();
+        console.log('Accepting terms and conditions');
+
+    }
+    async clickOnCheckoutButton() {
+        await this.checkoutButton.click();
+        console.log('Clicking on Checkout button');
+    }
+}
+
+module.exports = { ATC };
