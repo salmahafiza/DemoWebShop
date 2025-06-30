@@ -11,6 +11,8 @@ class ATC {
         this.removeItemCheckbox = page.locator('input[name="removefromcart"]');
         this.updateCartBtn = this.page.locator('input[name="updatecart"]');
         this.quantityInput = page.locator('input.qty-input');
+        this.checkTermsConditions = page.locator('input#termsofservice');
+        this.checkoutButton = page.locator('button#checkout');
     }
 
     async clickOnAddToCartButton() {
@@ -52,6 +54,17 @@ class ATC {
         const updatedQuantity = await this.page.locator('div.quantity span').textContent();
         console.log(`Updated Quantity is: ${updatedQuantity.trim()}`);
         expect(updatedQuantity.trim()).toBe('2');
+    }
+
+    async acceptTermsAndConditions() {
+        await this.checkTermsConditions.check();
+        console.log('Accepting terms and conditions');
+
+    }
+  
+    async clickOnCheckoutButton() {
+        await this.checkoutButton.click();
+        console.log('Clicking on Checkout button');
     }
 }
 
