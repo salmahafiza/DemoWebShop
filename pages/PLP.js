@@ -9,6 +9,7 @@ class PLP {
     this.pageTitle = page.locator('div.page-title h1');
     this.productTitles = page.locator('.product-title');
     this.productImages = page.locator('.product-item img');
+    this.productPrices = page.locator('.prices');
   }
 
   async clickOnCategory(categoryName) {
@@ -46,8 +47,15 @@ class PLP {
       await expect(image).toBeVisible();
     }
   }
+  async verifyAllProductPricesDisplayed() {
+    const prices = await this.productPrices.allTextContents();
+    console.log(`All Product Prices Displayed: ${prices.join(', ')}`);
+    expect(prices.length).toBeGreaterThan(0);
 
-
+    for (const price of prices) {
+      expect(price.trim().length).toBeGreaterThan(0);
+    }
+  }
 }
 
 module.exports = { PLP };

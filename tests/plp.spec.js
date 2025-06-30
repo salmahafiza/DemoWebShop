@@ -77,3 +77,8 @@ test('TC_PLP_013: Ensure Each Product has image', async () => {
     await plp.clickOnCategory('Books');
     await plp.verifyAllProductImagesDisplayed();
 });
+
+test('TC_PLP_014: Price should be diisplayed on all products on PLP', async () => {
+    await plp.clickOnCategory('Books');
+    await plp.verifyAllProductPricesDisplayed();
+});
