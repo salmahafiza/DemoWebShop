@@ -51,4 +51,14 @@ test('  TC_ShoppingCart_002 : Verify navigation from cart to checckout', async (
     await atc.assertWithCheckoutButton();
 
 });
+test.only('TC_ShoppingCart_010 : Verify product is removed using checkbox and update', async () => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await atc.clickOnAddToCartButton();
+    await atc.navigateToShoppingCart();
+    await atc.removeItemFromCart();
+    await atc.verifyItemRemovedFromCart();
+});
 

@@ -14,6 +14,7 @@ class ATC {
         this.checkTermsConditions = page.locator('input#termsofservice');
         this.checkoutButton = page.locator('button#checkout');
         this.continueShoppingButton = page.locator('button.button-2 continue-shopping-button');
+        
     }
 
     async clickOnAddToCartButton() {
