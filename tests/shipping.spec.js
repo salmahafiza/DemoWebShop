@@ -90,7 +90,7 @@ test('TC_Shipping_004: Verify that shipping cost is calculated correctly', async
     await checkout.assertOrderDetails();
 });
 
-test('TC_CHECKOUT_005: Shipping method required forcefully pass with explanation', async () => {
+test('TC_Shipping_005: Shipping method required forcefully pass with explanation', async () => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
@@ -118,7 +118,7 @@ test('TC_CHECKOUT_005: Shipping method required forcefully pass with explanation
     console.log('Skipping this negative test as at least one shipping method is pre-selected by default, unchecking all is impossible via UI.');
 });
 
-test('TC_CHECKOUT_006: Verify that shipping address must be correct', async () => {
+test('TC_Shipping_006: Verify that shipping address must be correct', async () => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
@@ -148,7 +148,7 @@ test('TC_CHECKOUT_006: Verify that shipping address must be correct', async () =
     console.log('Skipping this negative test as ther is no validation check on address/phone/cit/etc.');
 });
 
-test('TC_CHECKOUT_007: Verify that shipping address must be correct', async () => {
+test('TC_Shipping_007: Verify that shipping address must be correct', async () => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
@@ -178,7 +178,7 @@ test('TC_CHECKOUT_007: Verify that shipping address must be correct', async () =
     console.log('Skipping this negative test as ther is no option for assign diff shipping address to each item.');
 });
 
-test('TC_CHECKOUT_008: Verify that in-store pickup is available and works correctly', async () => {
+test('TC_Shipping_008: Verify that in-store pickup is available and works correctly', async () => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
