@@ -14,6 +14,9 @@ class ATC {
         this.checkTermsConditions = page.locator('input#termsofservice');
         this.checkoutButton = page.locator('button#checkout');
         this.emptyCartMessage = page.locator('.order-summary-content');
+        this.ProductPriceOnCart = page.locator('.product-unit-price');
+        this.pricePerItemElement = page.locator('span.product-unit-price');
+        this.totalPriceElement = page.locator('span.product-price.order-total > strong');
     }
 
     async clickOnAddToCartButton() {
@@ -72,6 +75,24 @@ class ATC {
         const message = this.emptyCartMessage;
         await expect(message).toHaveText('Your Shopping Cart is empty!');
         console.log('Verifying empty cart message');
+    }
+
+    async priceUpdatedWithQty() {
+        const qty = await this.quantityInput.first().inputValue();
+        console.log(`Quantity: ${qty}`);
+
+        const priceText = await this.pricePerItemElement.first().textContent();
+        const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+        console.log(`Price per item: ${price}`);
+
+        const expectedTotal = price * parseInt(qty);
+
+        const totalText = await this.totalPriceElement.textContent();
+        const total = parseFloat(totalText.replace(/[^0-9.]/g, ''));
+        console.log(`Total displayed: ${total}`);
+
+        expect(total).toBeCloseTo(expectedTotal, 2);
+        console.log(`Price updated with quantity: ${expectedTotal}`);
     }
 }
 

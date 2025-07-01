@@ -49,3 +49,11 @@ test('TC_ShoppingCart_005: Verify cart shows empty cart message when no items ar
     await atc.verifyEmptyCartMessage();
 });
 
+test('TC_ShoppingCart_006: verify whether the price of the products changing according to the quantity during shipping', async ({ page }) => {
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await atc.updateQtyonCart();
+    await atc.verifyQtyUpdated();
+    await atc.priceUpdatedWithQty();
+});
