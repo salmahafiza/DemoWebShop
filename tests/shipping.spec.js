@@ -27,7 +27,7 @@ test('TC_SHIPPING_014: validate website logo redirected to home page', async ({ 
     await dashboard.LogoVisibility();
 });
 
-test.only('TC_SHIPPING_015: Verify user can enter a new Shipping Address different from Billing Address', async () => {
+test('TC_SHIPPING_015: Verify user can enter a new Shipping Address different from Billing Address', async () => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
