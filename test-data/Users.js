@@ -63,6 +63,28 @@ module.exports = {
         zip: '74000',
         phone: '03001234567'
     },
+    shippingAddressData: {
+        firstName: 'Hassan',
+        lastName: 'Mehmood',
+        email: 'hassan.mehmood@test.com',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: 'Karachi',
+        address1: '123 Street',
+        zip: '74000',
+        phone: '03001234567'
+    },
+    InvalidshippingAddressData: {
+        firstName: 'Hassan',
+        lastName: 'Mehmood',
+        email: 'hassan.mehmood@test.com',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: '111i',
+        address1: 'xyz',
+        zip: '74000',
+        phone: '03001234567'
+    },
     missingCityInBillingAddressData: {
         firstName: 'Hassan',
         lastName: 'Mehmood',
