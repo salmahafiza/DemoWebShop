@@ -205,6 +205,7 @@ test('TC_Shipping_008: Verify that in-store pickup is available and works correc
     await checkout.clickContinue();
     await checkout.verifyPickUp();
     await checkout.clickContinueShippingSave();
+    //a
 });
 
 test('TC_Shipping_010: Verify user is able to select Check / Money Order as their payment option', async () => {
