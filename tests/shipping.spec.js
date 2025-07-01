@@ -208,7 +208,7 @@ test('TC_Shipping_008: Verify that in-store pickup is available and works correc
     //a
 });
 
-test('TC_Shipping_010: Verify user is able to select Check / Money Order as their payment option', async () => {
+test('TC_Shipping_011: Verify user is able to select Check / Money Order as their payment option', async () => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
@@ -237,6 +237,40 @@ test('TC_Shipping_010: Verify user is able to select Check / Money Order as thei
     // Options: Cash On Delivery (COD) (7.00), Check / Money Order (5.00), Credit Card, Purchase Order
     await checkout.clickContinuePaymentMethod();
     await checkout.clickContinueWithMoneyOrder();
+});
+
+test('TC_Shipping_012: Verify user is able to select Credit Card as their payment option', async () => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    //await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(billingAddressData);
+    await checkout.clickContinue();
+    await checkout.clickContinueShippingSave();
+    await checkout.selectShippingMethod('Next Day Air');  // Options: Ground, Next Day Air, Second Day Air
+    await checkout.clickContinueShippingMethod();
+    await checkout.selectPaymentMethod('Credit Card'); 
+    // Options: Cash On Delivery (COD) (7.00), Check / Money Order (5.00), Credit Card, Purchase Order
+    await checkout.clickContinuePaymentMethod();
+    await checkout.PaymentViaCreditCard(creditCardDetails);
+    await checkout.ContinueViaCard();
+    await checkout.confirm();
+    await checkout.OrderDetails();
 });
 
 
