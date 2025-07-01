@@ -17,6 +17,7 @@ class ATC {
         this.ProductPriceOnCart = page.locator('.product-unit-price');
         this.pricePerItemElement = page.locator('span.product-unit-price');
         this.totalPriceElement = page.locator('span.product-price.order-total > strong');
+        this.termsErrorMessageBox = page.locator('#terms-of-service-warning-box');
     }
 
     async clickOnAddToCartButton() {
@@ -93,6 +94,11 @@ class ATC {
 
         expect(total).toBeCloseTo(expectedTotal, 2);
         console.log(`Price updated with quantity: ${expectedTotal}`);
+    }
+
+    async verifyTermsErrorMessageDisplayed() {
+        await expect(this.termsErrorMessageBox).toHaveText('Please accept the terms of service before the next step.');
+        console.log('Verifying terms error message is displayed');
     }
 }
 

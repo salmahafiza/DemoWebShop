@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
+const { Checkout } = require('../pages/Checkout');
 const { ATC } = require('../pages/ATC');
 const { Users } = require('../test-data/Users');
 
@@ -8,10 +9,12 @@ const { Users } = require('../test-data/Users');
 let login;
 let dashboard;
 let atc;
+let checkout
 
 test.beforeEach(async ({ page }) => {
     login = new LoginPage(page);
     dashboard = new DashboardPage(page);
+    checkout = new Checkout(page);
     atc = new ATC(page);
     await dashboard.accessApplication();
 });
@@ -56,4 +59,12 @@ test('TC_ShoppingCart_006: verify whether the price of the products changing acc
     await atc.updateQtyonCart();
     await atc.verifyQtyUpdated();
     await atc.priceUpdatedWithQty();
+});
+
+test('TC_ShoppingCart_007: moving to checkout without agreeing to the terms and conditions', async ({ page }) => {
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await checkout.proceedToCheckOut();
+    await atc.verifyTermsErrorMessageDisplayed();
 });
