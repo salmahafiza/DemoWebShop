@@ -13,6 +13,7 @@ class ATC {
         this.quantityInput = page.locator('input.qty-input');
         this.checkTermsConditions = page.locator('input#termsofservice');
         this.checkoutButton = page.locator('button#checkout');
+        this.emptyCartMessage = page.locator('.order-summary-content');
     }
 
     async clickOnAddToCartButton() {
@@ -61,10 +62,16 @@ class ATC {
         console.log('Accepting terms and conditions');
 
     }
-  
+
     async clickOnCheckoutButton() {
         await this.checkoutButton.click();
         console.log('Clicking on Checkout button');
+    }
+
+    async verifyEmptyCartMessage() {
+        const message = this.emptyCartMessage;
+        await expect(message).toHaveText('Your Shopping Cart is empty!');
+        console.log('Verifying empty cart message');
     }
 }
 
