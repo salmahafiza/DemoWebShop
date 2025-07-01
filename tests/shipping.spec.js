@@ -178,6 +178,32 @@ test('TC_CHECKOUT_007: Verify that shipping address must be correct', async () =
     console.log('Skipping this negative test as ther is no option for assign diff shipping address to each item.');
 });
 
+test('TC_CHECKOUT_008: Verify that in-store pickup is available and works correctly', async () => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    //await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(billingAddressData);
+    await checkout.clickContinue();
+    await checkout.verifyPickUp();
+    await checkout.clickContinueShippingSave();
+});
+
 
 
 
