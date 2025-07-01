@@ -19,6 +19,8 @@ class ATC {
         this.totalPriceElement = page.locator('span.product-price.order-total > strong');
         this.termsErrorMessageBox = page.locator('#terms-of-service-warning-box');
         this.productTitleLinkOnCart = page.locator('a.product-name');
+        this.AddGiftCardButton = page.locator('//input[@name="applygiftcardcouponcode"]');
+        this.giftCardErrorMessageBox = page.locator('.message');
     }
 
     async clickOnAddToCartButton() {
@@ -114,6 +116,16 @@ class ATC {
             .replace(/\s+/g, '-');
         expect(currentUrl).toContain(expectedSlug);
         console.log(`Navigated to product page: ${expectedSlug}`);
+    }
+
+    async clickOnAddGiftCardButton() {
+        await this.AddGiftCardButton.click();
+        console.log('Clicking on Add Gift Card button');
+    }
+
+    async verifyEmptyGiftCardCodeErrorMessage() {
+        await expect(this.giftCardErrorMessageBox).toHaveText("The coupon code you entered couldn't be applied to your order");
+        console.log('Verifying empty gift card code error message is displayed');
     }
 }
 

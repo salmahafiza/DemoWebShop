@@ -75,3 +75,11 @@ test('TC_ShoppingCart_008: vVerify user is able to navigate to specific product 
     await atc.navigateToShoppingCart();
     await atc.navigateToProductFromCart();
 });
+
+test('TC_ShoppingCart_016: verify that user should receive an error on clicking " add gift card" without adding a giftcard code', async ({ page }) => {
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await atc.clickOnAddGiftCardButton();
+    await atc.verifyEmptyGiftCardCodeErrorMessage();
+});
