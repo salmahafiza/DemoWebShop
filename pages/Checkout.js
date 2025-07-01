@@ -49,7 +49,7 @@ class Checkout {
     this.COD = page.locator('input#paymentmethod_0');
     this.Check_MoneyOrder = page.locator('input#paymentmethod_1');
     this.creditCard = page.locator('input#paymentmethod_2');
-    this.purchaseOrder = page.locator('input#paymentmethod_03');
+    this.purchaseOrderBtn = page.locator('input#paymentmethod_3');
     this.continuePayment = page.locator("input[class='button-1 payment-method-next-step-button']");
     this.paymentConfirmationText_COD = page.locator("//p[normalize-space()='You will pay by COD']");
     this.continuePaymentInfo = page.locator("input[class='button-1 payment-info-next-step-button']");
@@ -94,10 +94,8 @@ class Checkout {
     this.pickUp = page.locator("#PickUpInStore");
     this.moneyOrder = page.locator("tbody tr p:nth-child(2)");
     this.continueMoneyOrder = page.locator("input[class='button-1 payment-info-next-step-button']");
-
-
-
-
+    this.purchaseOrder = page.locator("#PurchaseOrderNumber");
+    this.continueWithPurchaseOrder = page.locator("input[class='button-1 payment-info-next-step-button']");
   }
   async verifyPickUp(){
     await this.pickUp.click();
@@ -216,7 +214,7 @@ class Checkout {
     }else if (method === 'Credit Card'){
         await this.creditCard.check();
     }else if (method === 'Purchase Order'){
-        await this.purchaseOrder.check();
+        await this.purchaseOrderBtn.check();
     }
   }
   async clickContinuePaymentMethod(){
@@ -231,6 +229,13 @@ class Checkout {
   async clickContinueWithMoneyOrder(){
     await this.continueMoneyOrder.click();
   }
+  async addPurchaseOrderNo(){
+    await this.purchaseOrder.fill('21213');
+  }
+  async clickOnContinueWithPurchaseOrder(){
+    await this.continueWithPurchaseOrder.click();
+  }
+
   async ContinuePayment(){
     await this.continuePaymentInfo.click();
   }
