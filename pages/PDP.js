@@ -58,7 +58,7 @@ class PDP {
     this.ThankYouMessage = page.locator('.result');
     this.addBuildYourOwnComputertoCart = page.locator('#add-to-cart-button-72');
     this.pdpDescription = page.locator('.full-description');
-    this.quantityErrorMessage = page.locator(".content");
+    this.quantityErrorMessage = page.locator(".bar-notification.error");
     this.ratingStars = page.locator("div[class='product-review-box'] div[class='rating'] div");
     this.img = page.locator("#main-product-img-43");
     this.productName = page.locator("div[class='master-wrapper-content'] div:nth-child(1) div:nth-child(1) div:nth-child(2) h2:nth-child(1) a:nth-child(1)");
@@ -146,8 +146,8 @@ class PDP {
   async updateProductQuantity(quantity) {
     await this.QtyUpdate.fill(''); // Clear existing quantity
     await this.QtyUpdate.type(quantity.toString());
-    await this.addToCart.click();
-    await this.page.reload();
+    await this.addToCartButton.click();
+    //await this.page.reload();
   }
   async clickOnProduct2(){
     await this.assertProduct2.click();
