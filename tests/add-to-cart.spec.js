@@ -40,7 +40,7 @@ test('TC_ShoppingCart_004: verify updating Qty in cart page', async () => {
     await atc.verifyQtyUpdated();
 });
 
-test.only('TC_ShoppingCart_005: Verify cart shows empty cart message when no items are present', async ({ page }) => {
+test('TC_ShoppingCart_005: Verify cart shows empty cart message when no items are present', async ({ page }) => {
     await atc.clickOnAddToCartButton();
     await atc.verifyItemAddedToCart();
     await atc.navigateToShoppingCart();
