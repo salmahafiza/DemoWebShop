@@ -13,6 +13,10 @@ class ATC {
         this.quantityInput = page.locator('input.qty-input');
         this.checkTermsConditions = page.locator('input#termsofservice');
         this.checkoutButton = page.locator('button#checkout');
+        this.continueShoppingButton = page.locator('button.button-2 continue-shopping-button');
+        this.discountCopun =page.locator('input.discount-coupon-code');
+        this.errorOnWrongCoupon = page.locator('.message');
+        this.discountCopunButton = page.locator("//input[@class='button-2 apply-discount-coupon-code-button']");
     }
 
     async clickOnAddToCartButton() {
@@ -66,6 +70,26 @@ class ATC {
         await this.checkoutButton.click();
         console.log('Clicking on Checkout button');
     }
+    async continueShopping() {
+        await this.continueShoppingButton.click();
+        console.log('Continuing shopping');
+    }
+    async assertWithCheckoutButton() {
+        await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/onepagecheckout');
+    }
+    async applyDiscountCoupon(couponCode) {
+        await this.discountCopun.fill(couponCode);
+        console.log(`Applying discount coupon: ${couponCode}`);
+      
+    }
+    async clickOnApplyCouponButton() {
+        await this.discountCopunButton.click();
+        console.log('Clicking on Apply Coupon button');
+    }
+    async assertingWithDiscountCoupon() {
+        await expect(this.errorOnWrongCoupon).toHaveText("The coupon code you entered couldn't be applied to your order");
+    }
+
 }
 
 module.exports = { ATC };
