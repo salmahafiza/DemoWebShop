@@ -13,6 +13,7 @@ class ATC {
         this.quantityInput = page.locator('input.qty-input');
         this.checkTermsConditions = page.locator('input#termsofservice');
         this.checkoutButton = page.locator('button#checkout');
+        this.continueShoppingButton = page.locator('button.button-2 continue-shopping-button');
     }
 
     async clickOnAddToCartButton() {
@@ -65,6 +66,13 @@ class ATC {
     async clickOnCheckoutButton() {
         await this.checkoutButton.click();
         console.log('Clicking on Checkout button');
+    }
+    async continueShopping() {
+        await this.continueShoppingButton.click();
+        console.log('Continuing shopping');
+    }
+    async assertWithCheckoutButton() {
+        await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/onepagecheckout');
     }
 }
 

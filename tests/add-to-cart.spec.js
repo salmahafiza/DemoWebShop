@@ -22,7 +22,7 @@ test('TC_ShoppingCart_001: Verify user is able to checkout after ticking the ter
     await atc.verifyItemAddedToCart();
     await atc.acceptTermsAndConditions();
     await atc.clickOnCheckoutButton();
-}); 
+});
 
 test('TC_ShoppingCart_003: Verify user can remove item from cart', async () => {
     await atc.clickOnAddToCartButton();
@@ -38,5 +38,17 @@ test('TC_ShoppingCart_004: verify updating Qty in cart page', async () => {
     await atc.navigateToShoppingCart();
     await atc.updateQtyonCart();
     await atc.verifyQtyUpdated();
+});
+test('  TC_ShoppingCart_002 : Verify navigation from cart to checckout', async () => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await atc.clickOnAddToCartButton();
+    await atc.navigateToShoppingCart();
+    await atc.acceptTermsAndConditions();
+    await atc.clickOnCheckoutButton();
+    await atc.assertWithCheckoutButton();
+
 });
 
