@@ -68,3 +68,10 @@ test('TC_ShoppingCart_007: moving to checkout without agreeing to the terms and 
     await checkout.proceedToCheckOut();
     await atc.verifyTermsErrorMessageDisplayed();
 });
+
+test('TC_ShoppingCart_008: vVerify user is able to navigate to specific product in cart by clicking on its title', async ({ page }) => {
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await atc.navigateToProductFromCart();
+});

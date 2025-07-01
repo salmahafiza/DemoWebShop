@@ -18,6 +18,7 @@ class ATC {
         this.pricePerItemElement = page.locator('span.product-unit-price');
         this.totalPriceElement = page.locator('span.product-price.order-total > strong');
         this.termsErrorMessageBox = page.locator('#terms-of-service-warning-box');
+        this.productTitleLinkOnCart = page.locator('a.product-name');
     }
 
     async clickOnAddToCartButton() {
@@ -100,6 +101,21 @@ class ATC {
         await expect(this.termsErrorMessageBox).toHaveText('Please accept the terms of service before the next step.');
         console.log('Verifying terms error message is displayed');
     }
+
+    async navigateToProductFromCart() {
+        const productTitle = await this.productTitleLinkOnCart.textContent();
+        console.log(`Product Title: ${productTitle}`);
+        await this.productTitleLinkOnCart.click();
+        const currentUrl = this.page.url();
+        console.log(`Current URL: ${currentUrl}`);
+        const expectedSlug = productTitle
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-');
+        expect(currentUrl).toContain(expectedSlug);
+        console.log(`Navigated to product page: ${expectedSlug}`);
+    }
 }
 
 module.exports = { ATC };
+
