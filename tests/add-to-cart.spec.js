@@ -56,3 +56,13 @@ test('TC_ShoppingCart_012: Verify adding negative values to the cart', async () 
     await pdp.verifyQuantityErrorMessage();
 });
 
+test('TC_ShoppingCart_013: Validate Read link to terms of service.', async () => {
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    await checkout.acceptTermsAndCondition();
+});
+
+

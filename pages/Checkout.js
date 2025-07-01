@@ -133,6 +133,7 @@ class Checkout {
   }
   async acceptTermsAndCondition(){
     await this.termsAndCondition.click();
+    await expect(this.termsAndCondition).toBeChecked();
   }
   async proceedToCheckOut(){
     await this.checkOut.click();
