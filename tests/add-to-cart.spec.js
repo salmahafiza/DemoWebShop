@@ -81,5 +81,13 @@ test('TC_ShoppingCart_016: verify that user should receive an error on clicking 
     await atc.verifyItemAddedToCart();
     await atc.navigateToShoppingCart();
     await atc.clickOnAddGiftCardButton();
-    await atc.verifyEmptyGiftCardCodeErrorMessage();
+    await atc.verifyEmptyGiftCardAndCouponCodeErrorMessage();
+});
+
+test('TC_ShoppingCart_017: verify that user should receive an error on clicking " apply discount coupon" without adding a discount coupon code', async ({ page }) => {
+    await atc.clickOnAddToCartButton();
+    await atc.verifyItemAddedToCart();
+    await atc.navigateToShoppingCart();
+    await atc.clickOnApplyCouponButton();
+    await atc.verifyEmptyGiftCardAndCouponCodeErrorMessage();
 });

@@ -21,6 +21,8 @@ class ATC {
         this.productTitleLinkOnCart = page.locator('a.product-name');
         this.AddGiftCardButton = page.locator('//input[@name="applygiftcardcouponcode"]');
         this.giftCardErrorMessageBox = page.locator('.message');
+        this.discountCopunButton = page.locator("//input[@class='button-2 apply-discount-coupon-code-button']");
+
     }
 
     async clickOnAddToCartButton() {
@@ -123,9 +125,14 @@ class ATC {
         console.log('Clicking on Add Gift Card button');
     }
 
-    async verifyEmptyGiftCardCodeErrorMessage() {
+    async verifyEmptyGiftCardAndCouponCodeErrorMessage() {
         await expect(this.giftCardErrorMessageBox).toHaveText("The coupon code you entered couldn't be applied to your order");
         console.log('Verifying empty gift card code error message is displayed');
+    }
+
+    async clickOnApplyCouponButton() {
+        await this.discountCopunButton.click();
+        console.log('Clicking on Apply Coupon button');
     }
 }
 
