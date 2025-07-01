@@ -51,7 +51,7 @@ test('  TC_ShoppingCart_002 : Verify navigation from cart to checckout', async (
     await atc.assertWithCheckoutButton();
 
 });
-test.only('TC_ShoppingCart_010 : Verify product is removed using checkbox and update', async () => {
+test('TC_ShoppingCart_010 : Verify product is removed using checkbox and update', async () => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
@@ -61,4 +61,15 @@ test.only('TC_ShoppingCart_010 : Verify product is removed using checkbox and up
     await atc.removeItemFromCart();
     await atc.verifyItemRemovedFromCart();
 });
+test('TC_ShoppingCart_011 : Verify error message appears for wrong coupon code', async () => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await atc.clickOnAddToCartButton();
+    await atc.navigateToShoppingCart();
+    await atc.applyDiscountCoupon('FAKE123');
+    await atc.clickOnApplyCouponButton();
+    await atc.assertingWithDiscountCoupon();
 
+});
