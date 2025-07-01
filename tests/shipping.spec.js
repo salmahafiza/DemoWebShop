@@ -90,3 +90,32 @@ test('TC_Shipping_004: Verify that shipping cost is calculated correctly', async
     await checkout.assertOrderDetails();
 });
 
+test('TC_CHECKOUT_005: Shipping method required forcefully pass with explanation', async () => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.gotoShoppingCart();
+    //await checkout.gotoCart();
+    await checkout.assertShoppingCartPage();
+    await checkout.selectCountry('Pakistan');
+    await checkout.selectState('Other (Non US)');
+    await checkout.enterZipCode('74500');
+    await checkout.clickEstimateShipping();
+    await checkout.verifyShippingOptionsVisible();
+    await checkout.acceptTermsAndCondition();
+    await checkout.proceedToCheckOut();
+    await checkout.selectAddNewAddress();
+    await checkout.fillBillingAddress(billingAddressData);
+    await checkout.clickContinue();
+    await checkout.clickContinueShippingSave();
+    await checkout.selectShippingMethod('');  // Options: Ground, Next Day Air, Second Day Air
+    await checkout.clickContinueShippingMethod();
+    console.log('Skipping this negative test as at least one shipping method is pre-selected by default, unchecking all is impossible via UI.');
+});
+
+
