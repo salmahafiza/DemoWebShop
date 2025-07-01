@@ -92,6 +92,9 @@ class Checkout {
     this.paymentFee = page.locator('body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ol:nth-child(1) > li:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > form:nth-child(2) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2)');
     this.Total = page.locator("span[class='product-price order-total'] strong");
     this.pickUp = page.locator("#PickUpInStore");
+    this.moneyOrder = page.locator("tbody tr p:nth-child(2)");
+    this.continueMoneyOrder = page.locator("input[class='button-1 payment-info-next-step-button']");
+
 
 
 
@@ -221,6 +224,12 @@ class Checkout {
   }
   async COD_confirmationText(){
     await expect(this.paymentConfirmationText_COD).toHaveText('You will pay by COD');
+  }
+  async MoneyOrderConfirmation(){
+    await expect(this.moneyOrder).toContainText(`Mail Personal or Business Check, Cashier's Check or money order to:`)
+  }
+  async clickContinueWithMoneyOrder(){
+    await this.continueMoneyOrder.click();
   }
   async ContinuePayment(){
     await this.continuePaymentInfo.click();
