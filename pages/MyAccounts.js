@@ -10,6 +10,11 @@ class MyAccountPage {
         this.logoutHyperLink = page.locator(".ico-logout");
         this.orderDetailsPageTitle = page.locator("div[class='page-title'] h1");
         this.orderDetailButton = page.locator(".button-2.order-details-button");
+        this.field_firstName = page.locator("input#FirstName");
+        this.saveBtn = page.locator(
+            "input[class='button-1 save-customer-info-button']"
+        );
+        this.pageTitle = page.locator("div[class='page-title'] h1");
 
 
     }
@@ -66,6 +71,19 @@ class MyAccountPage {
 
     async clickOnOrderDetails() {
         await this.orderDetailButton.first().click();
+    }
+    async assertPageTitle(title) {
+        await expect(this.pageTitle).toHaveText(title);
+    }
+    async wait() {
+        await this.page.waitForTimeout(3000);
+    }
+    async enterFirstName(firstName = "Ali") {
+        await this.field_firstName.fill(firstName);
+        console.log(firstName)
+    }
+    async clickOnSaveBtn() {
+        await this.saveBtn.click();
     }
 
 }

@@ -50,3 +50,9 @@ test("TC_MyAccount_004: Verify that clicking on the Details button for an order 
   await myAccount.clickOnOrderDetails();
   await myAccount.verifyOrderDetailsPageTitle("Order information");
 });
+test.only("TC_MyAccount_013: Ensure the user remains on the same page after saving changes", async () => {
+  await myAccount.assertPageTitle("My account - Customer info");
+  await myAccount.enterFirstName("Dummy");
+  await myAccount.clickOnSaveBtn();
+  await myAccount.assertPageTitle("My account - Customer info");
+});
