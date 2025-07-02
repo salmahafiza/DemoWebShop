@@ -33,10 +33,12 @@ class RegisterPage {
         this.passwordError = page.locator("span[for='Password']");
         this.confirmPasswordError = page.locator("span[for='ConfirmPassword']");
         this.error_alreadyexistsEmail = page.locator(".message-error");
+        this.field_LastName = page.locator("input#LastName");
+        this.field_firstName = page.locator("input#FirstName");
     }
 
     async EnterFirstName(firstname) {
-        await this.field_FirstName.fill(firstname);
+        await this.field_firstName.fill(firstname);
     }
 
     async EnterLastName(lastname) {
@@ -71,7 +73,7 @@ class RegisterPage {
         await expect(this.error_fieldVaildationMessage).toHaveText(/The password should have at least 6 characters./i);
     }
 
-    async verifyErrorMessageForInvalidCharacter(page){
+    async verifyErrorMessageForInvalidCharacter(page) {
         const currentUrl = page.url();
         expect(currentUrl).toContain('/register');
         console.warn('BUG: Registration succeeded with Invalid characters in First/Last Name');
@@ -182,11 +184,11 @@ class RegisterPage {
         const randomIndex = Math.floor(Math.random() * invalidEmails.length);
         return invalidEmails[randomIndex];
     }
-      async verifyErrorMessageForPasswordMismatched(page) {
+    async verifyErrorMessageForPasswordMismatched(page) {
         await expect(this.error_fieldVaildationMessage).toHaveText('The password and confirmation password do not match.');
-}
+    }
 
 
 }
 
-module.exports = {RegisterPage};
+module.exports = { RegisterPage };
