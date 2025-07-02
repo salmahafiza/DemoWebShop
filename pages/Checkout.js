@@ -30,6 +30,16 @@ class Checkout {
     this.address1Field = page.locator('#BillingNewAddress_Address1');
     this.zipField = page.locator('#BillingNewAddress_ZipPostalCode');
     this.phoneField = page.locator('#BillingNewAddress_PhoneNumber');
+    this.shippingAddressDropdown = page.locator('#shipping-address-select');
+    this.ShippingfirstNameField = page.locator('#ShippingNewAddress_FirstName');
+    this.ShippinglastNameField = page.locator('#ShippingNewAddress_LastName');
+    this.ShippingemailField = page.locator('#ShippingNewAddress_Email');
+    this.ShippingcountryDropdownB = page.locator('#ShippingNewAddress_CountryId');
+    this.ShippingstateDropdownB = page.locator('#ShippingNewAddress_StateProvinceId');
+    this.ShippingcityField = page.locator('#ShippingNewAddress_City');
+    this.Shippingaddress1Field = page.locator('#ShippingNewAddress_Address1');
+    this.ShippingzipField = page.locator('#ShippingNewAddress_ZipPostalCode');
+    this.ShippingphoneField = page.locator('#ShippingNewAddress_PhoneNumber');
     this.continueButton = page.locator("input[onclick='Billing.save()']");
     this.continueShippingsaveBtn = page.locator("input[onclick='Shipping.save()']");
     this.groundShippingOption = page.locator('#shippingoption_0');  // Adjust selector based on actual HTML
@@ -39,7 +49,7 @@ class Checkout {
     this.COD = page.locator('input#paymentmethod_0');
     this.Check_MoneyOrder = page.locator('input#paymentmethod_1');
     this.creditCard = page.locator('input#paymentmethod_2');
-    this.purchaseOrder = page.locator('input#paymentmethod_03');
+    this.purchaseOrderBtn = page.locator('input#paymentmethod_3');
     this.continuePayment = page.locator("input[class='button-1 payment-method-next-step-button']");
     this.paymentConfirmationText_COD = page.locator("//p[normalize-space()='You will pay by COD']");
     this.continuePaymentInfo = page.locator("input[class='button-1 payment-info-next-step-button']");
@@ -81,9 +91,15 @@ class Checkout {
     this.shipping = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ol:nth-child(1) > li:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > form:nth-child(2) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)");
     this.paymentFee = page.locator('body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > ol:nth-child(1) > li:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > form:nth-child(2) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2)');
     this.Total = page.locator("span[class='product-price order-total'] strong");
-
-
-
+    this.pickUp = page.locator("#PickUpInStore");
+    this.moneyOrder = page.locator("tbody tr p:nth-child(2)");
+    this.continueMoneyOrder = page.locator("input[class='button-1 payment-info-next-step-button']");
+    this.purchaseOrder = page.locator("#PurchaseOrderNumber");
+    this.continueWithPurchaseOrder = page.locator("input[class='button-1 payment-info-next-step-button']");
+  }
+  async verifyPickUp(){
+    await this.pickUp.click();
+    await expect(this.pickUp).toBeChecked();
   }
 
   async gotoShoppingCart(){
@@ -133,12 +149,16 @@ class Checkout {
   }
   async acceptTermsAndCondition(){
     await this.termsAndCondition.click();
+    await expect(this.termsAndCondition).toBeChecked();
   }
   async proceedToCheckOut(){
     await this.checkOut.click();
   }
   async selectAddNewAddress() {
     await this.billingAddressDropdown.selectOption({ label: 'New Address' });
+  }
+  async selectAddNewAddressShipping() {
+    await this.shippingAddressDropdown.selectOption({ label: 'New Address' });
   }
   async fillBillingAddress(data) {
     await this.firstNameField.fill(data.firstName);
@@ -153,6 +173,20 @@ class Checkout {
     await this.address1Field.fill(data.address1);
     await this.zipField.fill(data.zip);
     await this.phoneField.fill(data.phone);
+  }
+  async fillShippingAddress(data) {
+    await this.ShippingfirstNameField.fill(data.firstName);
+    await this.ShippinglastNameField.fill(data.lastName);
+    await this.ShippingemailField.fill(data.email);
+    await this.ShippingcountryDropdownB.selectOption({ label: data.country });
+    
+    if (await this.ShippingstateDropdownB.isVisible()) {
+        await this.ShippingstateDropdownB.selectOption({ label: data.state });
+    }
+    await this.ShippingcityField.fill(data.city);
+    await this.Shippingaddress1Field.fill(data.address1);
+    await this.ShippingzipField.fill(data.zip);
+    await this.ShippingphoneField.fill(data.phone);
   }
   async clickContinue() {
     await this.continueButton.click();
@@ -180,7 +214,7 @@ class Checkout {
     }else if (method === 'Credit Card'){
         await this.creditCard.check();
     }else if (method === 'Purchase Order'){
-        await this.purchaseOrder.check();
+        await this.purchaseOrderBtn.check();
     }
   }
   async clickContinuePaymentMethod(){
@@ -189,6 +223,19 @@ class Checkout {
   async COD_confirmationText(){
     await expect(this.paymentConfirmationText_COD).toHaveText('You will pay by COD');
   }
+  async MoneyOrderConfirmation(){
+    await expect(this.moneyOrder).toContainText(`Mail Personal or Business Check, Cashier's Check or money order to:`)
+  }
+  async clickContinueWithMoneyOrder(){
+    await this.continueMoneyOrder.click();
+  }
+  async addPurchaseOrderNo(){
+    await this.purchaseOrder.fill('21213');
+  }
+  async clickOnContinueWithPurchaseOrder(){
+    await this.continueWithPurchaseOrder.click();
+  }
+
   async ContinuePayment(){
     await this.continuePaymentInfo.click();
   }
