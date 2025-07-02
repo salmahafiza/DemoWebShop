@@ -15,6 +15,10 @@ class MyAccountPage {
             "input[class='button-1 save-customer-info-button']"
         );
         this.pageTitle = page.locator("div[class='page-title'] h1");
+        this.field_LastName = page.locator("input#LastName");
+        this.field_registrationEmail = page.locator("input#Email");
+        this.radioButtonGenderMale = page.locator('input#gender-male');
+        this.radioButtonGenderFemale = page.locator('input#gender-female');
 
 
     }
@@ -37,9 +41,6 @@ class MyAccountPage {
             .locator(`[href="/customer/${myAccountCategory}"]`)
             .first();
         await menuItem.click();
-    }
-    async verifyMyAccountPagesTitle(title) {
-        await expect(this.myAccountPageTitle).toHaveText(`My account - ${title}`);
     }
     async verifyNoOrders() {
         await expect(this.noOrderText).toHaveText("No orders");
@@ -85,7 +86,43 @@ class MyAccountPage {
     async clickOnSaveBtn() {
         await this.saveBtn.click();
     }
+    async selectGender(gender = "male") {
+        if (gender.toLowerCase() === "female") {
+            await this.radioButtonGenderFemale.check();
+        } else {
+            await this.radioButtonGenderMale.check();
+        }
+    }
+    async verifyInputFirstNameField(firstName) {
+        await expect(this.field_firstName).toHaveValue(firstName);
+    }
 
+    async verifyInputLastNameField(lastName) {
+        await expect(this.field_LastName).toHaveValue(lastName);
+    }
+
+    async verifyInputEmailField(email) {
+        await expect(this.field_registrationEmail).toHaveValue(email);
+    }
+    async enterRegistrationEmail(email) {
+
+        console.log(email);
+        if (email == '' || !email) {
+            const randomNumber = Math.floor(Math.random() * 100000);
+            const email = `dummy${randomNumber}@test.com`;
+            await this.field_registrationEmail.fill(email);
+            console.log(email);
+        } else {
+            await this.field_registrationEmail.fill(email);
+            console.log(email);
+        }
+
+
+    }
+    async enterLastName(lastName = "Tester") {
+        await this.field_LastName.fill(lastName);
+        console.log(lastName)
+    }
 }
 module.exports = { MyAccountPage };
 
