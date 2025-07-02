@@ -44,3 +44,9 @@ test("TC_MyAccount_003: Verify that each order on the page displays Order Number
   await myAccount.verifyOderDetails("Order Date");
   await myAccount.verifyOderDetails("Order Total");
 });
+test("TC_MyAccount_004: Verify that clicking on the Details button for an order redirects to a new page displaying detailed information about the selected order, including items ordered, shipping address, billing address", async () => {
+  await myAccount.navigateMyAccountMenuItems("orders");
+  await myAccount.verifyMyAccountPagesTitle("Orders");
+  await myAccount.clickOnOrderDetails();
+  await myAccount.verifyOrderDetailsPageTitle("Order information");
+});
