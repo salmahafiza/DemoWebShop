@@ -73,3 +73,13 @@ test('TC_ShoppingCart_011 : Verify error message appears for wrong coupon code',
     await atc.assertingWithDiscountCoupon();
 
 });
+test.only('TC_ShoppingCart_009 : verify that user can able to continue shopping from shipping stage ', async () => {
+    await dashboard.navigateToLoginPage();
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await atc.clickOnAddToCartButton();
+    await atc.navigateToShoppingCart();
+    await atc.acceptTermsAndConditions();
+    await atc.continueShopping();
+});
