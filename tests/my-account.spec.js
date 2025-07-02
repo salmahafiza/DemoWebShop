@@ -22,7 +22,17 @@ test.beforeEach(async ({ page }) => {
   await myAccount.clikcOnMyAccount();
 });
 
-test.only("TC_MyAccount_001: Verify that the webpage title matches exactly with My account - Orders", async () => {
+test("TC_MyAccount_001: Verify that the webpage title matches exactly with My account - Orders", async () => {
   await myAccount.navigateMyAccountMenuItems("orders");
   await myAccount.verifyMyAccountPagesTitle("Orders");
+});
+test('TC_MyAccount_002: Verify that if there are no orders associated with the account, the message "No orders" is dsplayed clearnly on the page.', async () => {
+  await myAccount.clickOnLogout();
+  await dashboard.navigateToLoginPage();
+  await login.enterUsername(Users.emailNoOrders);
+  await login.enterPassword(Users.passwordNoOrder);
+  await login.clickLoginButton();
+  await myAccount.navigateMyAccountMenuItems("orders");
+  await myAccount.verifyMyAccountPagesTitle("Orders");
+  await myAccount.verifyNoOrders();
 });

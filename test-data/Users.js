@@ -14,6 +14,8 @@ module.exports = {
         EmptyPassword: '',
         UnRegEmail: 't+e+s+t+1+2+3@gmail.com',
         InvalidEmail: 'abc1234gmail.com',
+        emailNoOrders: "alitester123@gmail.com",
+        passwordNoOrder: "abc123",
     },
     ResgisterData: {
         FirstName: 'Test',
@@ -162,9 +164,9 @@ module.exports = {
         displayPageValue: '4',
         giftSearchText: 'gift',
     },
-    pdpData:{
-        email:'sam123@gmail.com',
-        friendEmail : 'sana123@gmail.com',
+    pdpData: {
+        email: 'sam123@gmail.com',
+        friendEmail: 'sana123@gmail.com',
         message: 'recomended',
     }
 };
