@@ -15,6 +15,16 @@ module.exports = {
         UnRegEmail: 't+e+s+t+1+2+3@gmail.com',
         InvalidEmail: 'abc1234gmail.com',
     },
+    UsersDummy: {
+        username: 'MahHas123@randonm.com',
+        password: '123456',
+        invalidUser: 'invalid@gmail.com',
+        invalidPassword: '1nvalidP@word',
+        EmptyEmail: '',
+        EmptyPassword: '',
+        UnRegEmail: 't+e+s+t+1+2+3@gmail.com',
+        InvalidEmail: 'abc1234gmail.com',
+    },
     ResgisterData: {
         FirstName: 'Test',
         LastName: 'User',

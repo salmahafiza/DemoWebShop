@@ -1,4 +1,5 @@
 import { expect } from "@playwright/test";
+const { UsersDummy } = require('../test-data/Users');
 class MyAccountPage {
     constructor(page) {
         this.page = page;
@@ -19,9 +20,6 @@ class MyAccountPage {
         this.field_registrationEmail = page.locator("input#Email");
         this.radioButtonGenderMale = page.locator('#gender-male');
         this.radioButtonGenderFemale = page.locator('#gender-female');
-
- 
- 
     }
  
     async navigateMyAccountMenuItems(myAccountCategory) {
@@ -36,6 +34,9 @@ class MyAccountPage {
     async clikcOnMyAccount() {
         await this.hyperLinkMyAccount.click();
     }
+    async verifyUserInfoVisible() {
+    await expect(this.page.locator('a.account').nth(0)).toHaveText(UsersDummy.username);
+  }
  
    /* async navigateMyAccountMenuItems(myAccountCategory) {
         const menuItem = this.page
@@ -150,6 +151,20 @@ class MyAccountPage {
     async saveButton(){
         await expect(this.saveBtn).toBeVisible();
         await expect(this.saveBtn).toBeEnabled();
+    }
+    async updateFirstName(name) {
+        await this.field_firstName.fill(name);
+    }
+
+    async updateLastName(name) {
+        await this.field_LastName.fill(name);
+    }
+
+    async updateEmail(email) {
+        await this.field_registrationEmail.fill(email);
+    }
+    async clickSave(){
+        await this.saveBtn.click();
     }
 
 }
