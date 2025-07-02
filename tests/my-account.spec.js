@@ -36,3 +36,11 @@ test('TC_MyAccount_002: Verify that if there are no orders associated with the a
   await myAccount.verifyMyAccountPagesTitle("Orders");
   await myAccount.verifyNoOrders();
 });
+
+test("TC_MyAccount_003: Verify that each order on the page displays Order Number, Order Status, Order Date, and Order Total Amount information clearly and concisely", async () => {
+  await myAccount.navigateMyAccountMenuItems("orders");
+  await myAccount.verifyMyAccountPagesTitle("Orders");
+  await myAccount.verifyOderDetails("Order status");
+  await myAccount.verifyOderDetails("Order Date");
+  await myAccount.verifyOderDetails("Order Total");
+});

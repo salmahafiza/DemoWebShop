@@ -40,6 +40,24 @@ class MyAccountPage {
     async clickOnLogout() {
         await this.logoutHyperLink.click();
     }
+    async verifyOderDetails(orderDetailTitle) {
+    let num;
+    let expectedText;
+    if (orderDetailTitle === "Order status") {
+      num = 1;
+      expectedText = "Order status: Pending";
+    } else if (orderDetailTitle === "Order Date") {
+      num = 2;
+      expectedText = "Order Date:  7/1/2025 11:28:35 AM";
+    } else if (orderDetailTitle === "Order Total") {
+      num = 3;
+      expectedText = "Order Total: 200.00";
+    }
+    const orderDetails = this.page.locator(
+      `body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(${num})`
+    );
+    expect(orderDetails).toHaveText(expectedText);
+  }
 }
 module.exports = { MyAccountPage };
 
