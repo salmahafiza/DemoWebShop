@@ -20,6 +20,7 @@ class MyAccountPage {
         this.field_registrationEmail = page.locator("input#Email");
         this.radioButtonGenderMale = page.locator('#gender-male');
         this.radioButtonGenderFemale = page.locator('#gender-female');
+        this.emailError = page.locator(".field-validation-error[data-valmsg-for='Email']");
     }
  
     async navigateMyAccountMenuItems(myAccountCategory) {

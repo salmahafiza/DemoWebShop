@@ -41,3 +41,10 @@ test('TC_MyAccount_010: Verify Updating Personal Information', async () => {
     await expect(myAccount.field_registrationEmail).toHaveValue('hassan.mehmood@gmail.com');
 });
 
+test('TC_MyAccount_011: Verify Email Field Validation with Invalid Email', async () => {
+    await myAccount.updateEmail('invalid-email.com');
+    await myAccount.clickSave();
+    await expect(myAccount.emailError).toContainText('Wrong email');
+});
+
+
