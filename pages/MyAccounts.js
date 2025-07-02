@@ -21,6 +21,8 @@ class MyAccountPage {
         this.radioButtonGenderMale = page.locator('#gender-male');
         this.radioButtonGenderFemale = page.locator('#gender-female');
         this.emailError = page.locator(".field-validation-error[data-valmsg-for='Email']");
+        this.firstNameError = page.locator(".field-validation-error[data-valmsg-for='FirstName']");
+        this.lastNameError = page.locator(".field-validation-error[data-valmsg-for='LastName']");
     }
  
     async navigateMyAccountMenuItems(myAccountCategory) {
@@ -166,6 +168,13 @@ class MyAccountPage {
     }
     async clickSave(){
         await this.saveBtn.click();
+    }
+    async clearFirstName() {
+        await this.field_firstName.fill('');
+    }
+
+    async clearLastName() {
+        await this.field_LastName.fill('');
     }
 
 }

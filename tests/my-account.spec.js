@@ -47,4 +47,14 @@ test('TC_MyAccount_011: Verify Email Field Validation with Invalid Email', async
     await expect(myAccount.emailError).toContainText('Wrong email');
 });
 
+test('TC_MyAccount_012: Verify Required Fields Validation for Blank Mandatory Fields', async () => {
+    await myAccount.clearFirstName();
+    await myAccount.clearLastName();
+    await myAccount.clickSave();
+
+    await expect(myAccount.firstNameError).toContainText('First name is required.');
+    await expect(myAccount.lastNameError).toContainText('Last name is required.');
+});
+
+
 
