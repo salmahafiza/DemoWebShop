@@ -13,7 +13,7 @@ class ATC {
         this.quantityInput = page.locator('input.qty-input');
         this.checkTermsConditions = page.locator('input#termsofservice');
         this.checkoutButton = page.locator('button#checkout');
-        this.continueShoppingButton = page.locator('button.button-2 continue-shopping-button');
+        this.continueShoppingButton = page.locator("//input[@class = 'button-2 continue-shopping-button']");
         this.discountCopun =page.locator('input.discount-coupon-code');
         this.errorOnWrongCoupon = page.locator('.message');
         this.discountCopunButton = page.locator("//input[@class='button-2 apply-discount-coupon-code-button']");
