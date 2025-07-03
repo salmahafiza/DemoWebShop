@@ -19,6 +19,7 @@ class MyAccountPage {
         this.field_registrationEmail = page.locator("input#Email");
         this.radioButtonGenderMale = page.locator('input#gender-male');
         this.radioButtonGenderFemale = page.locator('input#gender-female');
+        this.pdfInvoice = page.locator(".button-2.pdf-order-button");
 
 
     }
@@ -122,6 +123,10 @@ class MyAccountPage {
     async enterLastName(lastName = "Tester") {
         await this.field_LastName.fill(lastName);
         console.log(lastName)
+    }
+
+    async clickOnPdfInvoice() {
+        await this.pdfInvoice.click();
     }
 }
 module.exports = { MyAccountPage };

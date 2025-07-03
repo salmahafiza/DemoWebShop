@@ -16,7 +16,7 @@ test.beforeEach(async ({ page }) => {
     login = new LoginPage(page);
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
-     await login.enterPassword(Users.password);
+    await login.enterPassword(Users.password);
     await login.clickLoginButton();
     await dashboard.verifyUserInfoVisible();
     await myAccount.clikcOnMyAccount();
@@ -69,4 +69,12 @@ test("TC_MyAccount_014: Verify Cross-Browser Compatibility", async () => {
     await myAccount.enterLastName("123");
     await myAccount.enterRegistrationEmail("test123+1@gmail.com");
     await myAccount.clickOnSaveBtn();
+});
+
+test.only("TC_MyAccount_005: Verify that clicking on the PDF Invoice button generates a PDF invoice for the selected order and downloads it automatically to the user's device", async () => {
+    await myAccount.navigateMyAccountMenuItems("orders");
+    await myAccount.verifyMyAccountPagesTitle("Orders");
+    await myAccount.clickOnOrderDetails();
+    await myAccount.verifyOrderDetailsPageTitle("Order information");
+    await myAccount.clickOnPdfInvoice();
 });
