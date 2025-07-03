@@ -22,6 +22,7 @@ class MyAccountPage {
         this.pdfInvoice = page.locator(".button-2.pdf-order-button");
         this.printPDF = page.locator(".button-2.print-order-button");
         this.newTab2;
+        this.reorderBtn = page.locator("input[class='button-1 re-order-button']");
 
     }
 
@@ -140,8 +141,12 @@ class MyAccountPage {
 
     async verifyPrintDialogBox() {
         expect(await this.newTab2).toBe(
-            "https://demowebshop.tricentis.com/orderdetails/print/2021444"
+            "https://demowebshop.tricentis.com/orderdetails/print/2033331"
         );
+    }
+
+    async clickOnReOrderBtn() {
+        await this.reorderBtn.click();
     }
 }
 module.exports = { MyAccountPage };
