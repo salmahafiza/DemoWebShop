@@ -3,7 +3,7 @@ const { DashboardPage } = require("../pages/DashboardPage");
 const { MyAccountPage } = require("../pages/MyAccounts");
 const { LoginPage } = require("../pages/LoginPage");
 const { RegisterPage } = require("../pages/RegisterPage");
-const { UsersDummy} = require("../test-data/Users");
+const {Users} = require("../test-data/Users");
 let dashboard;
 let myAccount;
 let login;
@@ -15,9 +15,10 @@ test.beforeEach(async ({ page }) => {
   register = new RegisterPage(page);
   login = new LoginPage(page);
   await dashboard.navigateToLoginPage();
-  await login.enterUsername(UsersDummy.username);
-  await login.enterPassword(UsersDummy.password);
+  await login.enterUsername(Users.username);
+  await login.enterPassword(Users.password);
   await login.clickLoginButton();
+  await dashboard.verifyUserInfoVisible();
   await myAccount.clikcOnMyAccount();
 });
 
