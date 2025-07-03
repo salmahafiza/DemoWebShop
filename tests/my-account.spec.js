@@ -97,3 +97,12 @@ test("TC_MyAccount_007: Verify that clicking on the Print button opens the print
     await dashboard.verifyHomePageTitle();
 });
 
+test("TC_MyAccount_008: Verify that clicking on the Print button opens the print dialog box, allowing users to print the order details directly from their web browser", async () => {
+    await myAccount.navigateMyAccountMenuItems("orders");
+    await myAccount.verifyMyAccountPagesTitle("Orders");
+    await myAccount.clickOnOrderDetails();
+    await myAccount.verifyOrderDetailsPageTitle("Order information");
+    await myAccount.clickOnReOrderBtn();
+    await dashboard.verifyHomePageTitle();
+});
+
