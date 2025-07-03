@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-const { UsersDummy } = require('../test-data/Users');
+
 class MyAccountPage {
     constructor(page) {
         this.page = page;
@@ -37,10 +37,7 @@ class MyAccountPage {
     async clikcOnMyAccount() {
         await this.hyperLinkMyAccount.click();
     }
-    async verifyUserInfoVisible() {
-    await expect(this.page.locator('a.account').nth(0)).toHaveText(UsersDummy.username);
-  }
- 
+
    /* async navigateMyAccountMenuItems(myAccountCategory) {
         const menuItem = this.page
             .locator(`[href="/customer/${myAccountCategory}"]`)
