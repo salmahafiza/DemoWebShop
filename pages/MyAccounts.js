@@ -19,7 +19,10 @@ class MyAccountPage {
         this.field_registrationEmail = page.locator("input#Email");
         this.radioButtonGenderMale = page.locator('input#gender-male');
         this.radioButtonGenderFemale = page.locator('input#gender-female');
-
+        this.pdfInvoice = page.locator(".button-2.pdf-order-button");
+        this.printPDF = page.locator(".button-2.print-order-button");
+        this.newTab2;
+        this.reorderBtn = page.locator("input[class='button-1 re-order-button']");
 
     }
 
@@ -122,6 +125,28 @@ class MyAccountPage {
     async enterLastName(lastName = "Tester") {
         await this.field_LastName.fill(lastName);
         console.log(lastName)
+    }
+
+    async clickOnPdfInvoice() {
+        await this.pdfInvoice.click();
+    }
+
+    async clickOnPrintPDF() {
+        const [newTab] = await Promise.all([
+            this.page.waitForEvent("popup"),
+            this.printPDF.click(),
+        ]);
+        this.newTab2 = await newTab.url();
+    }
+
+    async verifyPrintDialogBox() {
+        expect(await this.newTab2).toBe(
+            "https://demowebshop.tricentis.com/orderdetails/print/2033331"
+        );
+    }
+
+    async clickOnReOrderBtn() {
+        await this.reorderBtn.click();
     }
 }
 module.exports = { MyAccountPage };

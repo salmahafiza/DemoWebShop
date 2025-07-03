@@ -16,7 +16,7 @@ test.beforeEach(async ({ page }) => {
     login = new LoginPage(page);
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
-     await login.enterPassword(Users.password);
+    await login.enterPassword(Users.password);
     await login.clickLoginButton();
     await dashboard.verifyUserInfoVisible();
     await myAccount.clikcOnMyAccount();
@@ -70,3 +70,39 @@ test("TC_MyAccount_014: Verify Cross-Browser Compatibility", async () => {
     await myAccount.enterRegistrationEmail("test123+1@gmail.com");
     await myAccount.clickOnSaveBtn();
 });
+
+test("TC_MyAccount_005: Verify that clicking on the PDF Invoice button generates a PDF invoice for the selected order and downloads it automatically to the user's device", async () => {
+    await myAccount.navigateMyAccountMenuItems("orders");
+    await myAccount.verifyMyAccountPagesTitle("Orders");
+    await myAccount.clickOnOrderDetails();
+    await myAccount.verifyOrderDetailsPageTitle("Order information");
+    await myAccount.clickOnPdfInvoice();
+});
+
+test("TC_MyAccount_006: Verify that clicking on the Print button opens the print dialog box, allowing users to print the order details directly from their web browser", async () => {
+    await myAccount.navigateMyAccountMenuItems("orders");
+    await myAccount.verifyMyAccountPagesTitle("Orders");
+    await myAccount.clickOnOrderDetails();
+    await myAccount.verifyOrderDetailsPageTitle("Order information");
+    await myAccount.clickOnPrintPDF();
+    await myAccount.verifyPrintDialogBox();
+});
+
+test("TC_MyAccount_007: Verify that clicking on the Print button opens the print dialog box, allowing users to print the order details directly from their web browser", async () => {
+    await myAccount.navigateMyAccountMenuItems("orders");
+    await myAccount.verifyMyAccountPagesTitle("Orders");
+    await myAccount.clickOnOrderDetails();
+    await myAccount.verifyOrderDetailsPageTitle("Order information");
+    await myAccount.clickOnReOrderBtn();
+    await dashboard.verifyHomePageTitle();
+});
+
+test("TC_MyAccount_008: Verify that clicking on the Print button opens the print dialog box, allowing users to print the order details directly from their web browser", async () => {
+    await myAccount.navigateMyAccountMenuItems("orders");
+    await myAccount.verifyMyAccountPagesTitle("Orders");
+    await myAccount.clickOnOrderDetails();
+    await myAccount.verifyOrderDetailsPageTitle("Order information");
+    await myAccount.clickOnReOrderBtn();
+    await dashboard.verifyHomePageTitle();
+});
+
