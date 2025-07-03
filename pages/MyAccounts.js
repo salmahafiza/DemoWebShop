@@ -23,6 +23,9 @@ class MyAccountPage {
         this.printPDF = page.locator(".button-2.print-order-button");
         this.newTab2;
         this.reorderBtn = page.locator("input[class='button-1 re-order-button']");
+        this.emailError = page.locator(".field-validation-error[data-valmsg-for='Email']");
+        this.firstNameError = page.locator(".field-validation-error[data-valmsg-for='FirstName']");
+        this.lastNameError = page.locator(".field-validation-error[data-valmsg-for='LastName']");
 
     }
 
@@ -39,12 +42,6 @@ class MyAccountPage {
         await this.hyperLinkMyAccount.click();
     }
 
-    async navigateMyAccountMenuItems(myAccountCategory) {
-        const menuItem = this.page
-            .locator(`[href="/customer/${myAccountCategory}"]`)
-            .first();
-        await menuItem.click();
-    }
     async verifyNoOrders() {
         await expect(this.noOrderText).toHaveText("No orders");
     }
@@ -110,7 +107,7 @@ class MyAccountPage {
     async enterRegistrationEmail(email) {
 
         console.log(email);
-        if (email == '' || !email) {
+        if (email === '' || !email) {
             const randomNumber = Math.floor(Math.random() * 100000);
             const email = `dummy${randomNumber}@test.com`;
             await this.field_registrationEmail.fill(email);
@@ -148,6 +145,53 @@ class MyAccountPage {
     async clickOnReOrderBtn() {
         await this.reorderBtn.click();
     }
+    /////////////////////////////////////////////////////
+
+    async genderMale(){
+        await expect(this.radioButtonGenderMale).toBeVisible();
+    }
+
+    async genderFemale(){
+        await expect(this.radioButtonGenderFemale).toBeVisible();
+    }
+
+    async firstNameField(){
+        await expect(this.field_firstName).toBeVisible();
+    }
+
+    async lastNameField(){
+        await expect(this.field_LastName).toBeVisible();
+    }
+
+    async emailField(){
+        await expect(this.field_registrationEmail).toBeVisible();
+    }
+
+    async saveButton(){
+        await expect(this.saveBtn).toBeVisible();
+        await expect(this.saveBtn).toBeEnabled();
+    }
+    async updateFirstName(name) {
+        await this.field_firstName.fill(name);
+    }
+
+    async updateLastName(name) {
+        await this.field_LastName.fill(name);
+    }
+
+    async updateEmail(email) {
+        await this.field_registrationEmail.fill(email);
+    }
+    async clickSave(){
+        await this.saveBtn.click();
+    }
+    async clearFirstName() {
+        await this.field_firstName.fill('');
+    }
+
+    async clearLastName() {
+        await this.field_LastName.fill('');
+    }
+
 }
 module.exports = { MyAccountPage };
-

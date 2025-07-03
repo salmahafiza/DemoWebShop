@@ -50,26 +50,6 @@ test("TC_MyAccount_004: Verify that clicking on the Details button for an order 
     await myAccount.clickOnOrderDetails();
     await myAccount.verifyOrderDetailsPageTitle("Order information");
 });
-test("TC_MyAccount_013: Ensure the user remains on the same page after saving changes", async () => {
-    await myAccount.assertPageTitle("My account - Customer info");
-    await myAccount.enterFirstName("Dummy");
-    await myAccount.clickOnSaveBtn();
-    await myAccount.assertPageTitle("My account - Customer info");
-});
-
-test("TC_MyAccount_014: Verify Cross-Browser Compatibility", async () => {
-    await myAccount.enterLastName("Data");
-    await myAccount.enterRegistrationEmail("jellyfish124@gmail.com");
-    await myAccount.clickOnSaveBtn();
-    await myAccount.verifyInputFirstNameField("Dummy");
-    await myAccount.verifyInputLastNameField("Data");
-    await myAccount.verifyInputEmailField("jellyfish124@gmail.com");
-    await myAccount.selectGender("male");
-    await myAccount.enterFirstName("test");
-    await myAccount.enterLastName("123");
-    await myAccount.enterRegistrationEmail("test123+1@gmail.com");
-    await myAccount.clickOnSaveBtn();
-});
 
 test("TC_MyAccount_005: Verify that clicking on the PDF Invoice button generates a PDF invoice for the selected order and downloads it automatically to the user's device", async () => {
     await myAccount.navigateMyAccountMenuItems("orders");
@@ -104,5 +84,60 @@ test("TC_MyAccount_008: Verify that clicking on the Print button opens the print
     await myAccount.verifyOrderDetailsPageTitle("Order information");
     await myAccount.clickOnReOrderBtn();
     await dashboard.verifyHomePageTitle();
+});
+
+test("TC_MyAccount_09: Verify UI Elements on the Address Page", async () => {
+    await myAccount.genderMale();
+    await myAccount.genderFemale();
+    await myAccount.firstNameField();
+    await myAccount.lastNameField();
+    await myAccount.emailField();
+    await myAccount.saveButton();
+});
+
+test('TC_MyAccount_010: Verify Updating Personal Information', async () => {
+    await myAccount.updateFirstName('Hassan');
+    await myAccount.updateLastName('Ali');
+    await myAccount.updateEmail('hassan.mehmood@gmail.com');
+    await myAccount.clickSave();
+    //await page.reload();
+    await expect(myAccount.field_firstName).toHaveValue('Hassan');
+    await expect(myAccount.field_LastName).toHaveValue('Ali');
+    await expect(myAccount.field_registrationEmail).toHaveValue('hassan.mehmood@gmail.com');
+});
+
+test('TC_MyAccount_011: Verify Email Field Validation with Invalid Email', async () => {
+    await myAccount.updateEmail('invalid-email.com');
+    await myAccount.clickSave();
+    await expect(myAccount.emailError).toContainText('Wrong email');
+});
+
+test('TC_MyAccount_012: Verify Required Fields Validation for Blank Mandatory Fields', async () => {
+    await myAccount.clearFirstName();
+    await myAccount.clearLastName();
+    await myAccount.clickSave();
+    await expect(myAccount.firstNameError).toContainText('First name is required.');
+    await expect(myAccount.lastNameError).toContainText('Last name is required.');
+});
+
+test("TC_MyAccount_013: Ensure the user remains on the same page after saving changes", async () => {
+    await myAccount.assertPageTitle("My account - Customer info");
+    await myAccount.enterFirstName("Dummy");
+    await myAccount.clickOnSaveBtn();
+    await myAccount.assertPageTitle("My account - Customer info");
+});
+
+test("TC_MyAccount_014: Verify Cross-Browser Compatibility", async () => {
+    await myAccount.enterLastName("Data");
+    await myAccount.enterRegistrationEmail("jellyfish124@gmail.com");
+    await myAccount.clickOnSaveBtn();
+    await myAccount.verifyInputFirstNameField("Dummy");
+    await myAccount.verifyInputLastNameField("Data");
+    await myAccount.verifyInputEmailField("jellyfish124@gmail.com");
+    await myAccount.selectGender("male");
+    await myAccount.enterFirstName("test");
+    await myAccount.enterLastName("123");
+    await myAccount.enterRegistrationEmail("test123+1@gmail.com");
+    await myAccount.clickOnSaveBtn();
 });
 

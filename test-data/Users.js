@@ -17,6 +17,16 @@ module.exports = {
         emailNoOrders: "alitester123@gmail.com",
         passwordNoOrder: "abc123",
     },
+    UsersDummy: {
+        username: 'MahHas123@randonm.com',
+        password: '123456',
+        invalidUser: 'invalid@gmail.com',
+        invalidPassword: '1nvalidP@word',
+        EmptyEmail: '',
+        EmptyPassword: '',
+        UnRegEmail: 't+e+s+t+1+2+3@gmail.com',
+        InvalidEmail: 'abc1234gmail.com',
+    },
     ResgisterData: {
         FirstName: 'Test',
         LastName: 'User',

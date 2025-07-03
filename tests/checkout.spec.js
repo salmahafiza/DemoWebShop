@@ -288,12 +288,41 @@ test('TC_CHECKOUT_010: Verify that checkout process handles multiple items corre
     await checkout.ContinueViaCard();
     await checkout.confirm();
     await checkout.OrderDetails();
-    //await expect (page.locator("//h2[normalize-space()='Payment information']")).toBeVisible();
-    //await checkout.COD_confirmationText();
-    //await checkout. ContinuePayment();
     await checkout.clickConfirmOrder();
     await checkout.OrderConfirmationMsg();
     await checkout.clickContinueLastBtn();
+
+    //For Cash On Delivery (COD) (7.00)
+    /*await checkout.selectPaymentMethod('Cash On Delivery (COD) (7.00)');
+    await checkout.clickContinuePaymentMethod();
+    await checkout.COD_confirmationText();
+    await checkout. ContinuePayment();
+    await checkout.confirm();
+    await checkout.OrderDetails();
+    await checkout.clickConfirmOrder();
+    await checkout.OrderConfirmationMsg();
+    await checkout.clickContinueLastBtn();*/
+    
+    //For Check / Money Order (5.00)
+    /*await checkout.selectPaymentMethod('Check / Money Order (5.00)');
+    await checkout.clickContinuePaymentMethod();
+    await checkout.clickContinueWithMoneyOrder();
+    await checkout.confirm();
+    await checkout.OrderDetails();
+    await checkout.clickConfirmOrder();
+    await checkout.OrderConfirmationMsg();
+    await checkout.clickContinueLastBtn();*/
+    
+    //For Purchase Order
+    /*await checkout.selectPaymentMethod('Purchase Order');
+    await checkout.clickContinuePaymentMethod();
+    await checkout.addPurchaseOrderNo();
+    await checkout.clickOnContinueWithPurchaseOrder();
+    await checkout.confirm();
+    await checkout.OrderDetails();
+    await checkout.clickConfirmOrder();
+    await checkout.OrderConfirmationMsg();
+    await checkout.clickContinueLastBtn();*/
 });
 
 test('TC_CHECKOUT_011: Verify valid billing address entry',async () => {
