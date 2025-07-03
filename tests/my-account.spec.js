@@ -71,10 +71,20 @@ test("TC_MyAccount_014: Verify Cross-Browser Compatibility", async () => {
     await myAccount.clickOnSaveBtn();
 });
 
-test.only("TC_MyAccount_005: Verify that clicking on the PDF Invoice button generates a PDF invoice for the selected order and downloads it automatically to the user's device", async () => {
+test("TC_MyAccount_005: Verify that clicking on the PDF Invoice button generates a PDF invoice for the selected order and downloads it automatically to the user's device", async () => {
     await myAccount.navigateMyAccountMenuItems("orders");
     await myAccount.verifyMyAccountPagesTitle("Orders");
     await myAccount.clickOnOrderDetails();
     await myAccount.verifyOrderDetailsPageTitle("Order information");
     await myAccount.clickOnPdfInvoice();
 });
+
+test("TC_MyAccount_006: Verify that clicking on the Print button opens the print dialog box, allowing users to print the order details directly from their web browser", async () => {
+    await myAccount.navigateMyAccountMenuItems("orders");
+    await myAccount.verifyMyAccountPagesTitle("Orders");
+    await myAccount.clickOnOrderDetails();
+    await myAccount.verifyOrderDetailsPageTitle("Order information");
+    await myAccount.clickOnPrintPDF();
+    await myAccount.verifyPrintDialogBox();
+});
+

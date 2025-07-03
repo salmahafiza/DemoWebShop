@@ -20,7 +20,8 @@ class MyAccountPage {
         this.radioButtonGenderMale = page.locator('input#gender-male');
         this.radioButtonGenderFemale = page.locator('input#gender-female');
         this.pdfInvoice = page.locator(".button-2.pdf-order-button");
-
+        this.printPDF = page.locator(".button-2.print-order-button");
+        this.newTab2;
 
     }
 
@@ -127,6 +128,20 @@ class MyAccountPage {
 
     async clickOnPdfInvoice() {
         await this.pdfInvoice.click();
+    }
+
+    async clickOnPrintPDF() {
+        const [newTab] = await Promise.all([
+            this.page.waitForEvent("popup"),
+            this.printPDF.click(),
+        ]);
+        this.newTab2 = await newTab.url();
+    }
+
+    async verifyPrintDialogBox() {
+        expect(await this.newTab2).toBe(
+            "https://demowebshop.tricentis.com/orderdetails/print/2021444"
+        );
     }
 }
 module.exports = { MyAccountPage };
