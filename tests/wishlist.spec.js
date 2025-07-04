@@ -56,3 +56,16 @@ test('TC_Wishlist_007: Verify quantity value is updated when user enters any num
     await wishlist.assertWishlistPageUrl();
     await wishlist.updateProductQuantity(10);
 });
+
+test('TC_Wishlist_008: Verify that the wishlist count is updated according to the total quantity of all items in the wishlist', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await pdp.NavigateToDifferentCategoriesWithAssert('Digital downloads');
+    await pdp.ProductName();
+    await wishlist.clickAddToWishlistButton();
+    await wishlist.navigateToWishlist();
+    await wishlist.assertWishlistPageUrl();
+    await wishlist.updateProductQuantity(10);
+    await wishlist.priceUpdatedWithQty();
+});

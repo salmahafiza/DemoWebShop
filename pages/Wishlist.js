@@ -12,6 +12,8 @@ class WishlistPage {
         this.productTitleOnPDP = page.locator('div.product-name h1');
         this.inputQty = page.locator('input.qty-input');
         this.updateBtnonWishhlist = this.page.locator('input[name="updatecart"]');
+        this.pricePerItemElement = page.locator('span.product-unit-price');
+        this.totalPriceElement = page.locator('span.product-subtotal');
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
@@ -47,6 +49,23 @@ class WishlistPage {
         const expectedQtyText = `(${quantity})`;
         await expect(this.wishlist_Qty).toHaveText(expectedQtyText);
         console.log(`Updated product quantity to: ${quantity}`);
+    }
+    async priceUpdatedWithQty() {
+        const qty = await this.inputQty.first().inputValue();
+        console.log(`Quantity: ${qty}`);
+
+        const priceText = await this.pricePerItemElement.first().textContent();
+        const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+        console.log(`Price per item: ${price}`);
+
+        const expectedTotal = price * parseInt(qty);
+
+        const totalText = await this.totalPriceElement.textContent();
+        const total = parseFloat(totalText.replace(/[^0-9.]/g, ''));
+        console.log(`Total displayed: ${total}`);
+
+        expect(total).toBeCloseTo(expectedTotal, 2);
+        console.log(`Price updated with quantity: ${expectedTotal}`);
     }
 }
 module.exports = { WishlistPage };
