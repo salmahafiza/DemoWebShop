@@ -140,4 +140,20 @@ test("TC_MyAccount_014: Verify Cross-Browser Compatibility", async () => {
     await myAccount.enterRegistrationEmail("test123+1@gmail.com");
     await myAccount.clickOnSaveBtn();
 });
+test('TC_MyAccount_015 : Verify UI Elements on the Address Page ', async () => {
+    await myAccount.clikcOnMyAccount();
+    await myAccount.clickOnmenuItemAddress("Addresses");
+    await myAccount.verifyMyAccountPagesTitle("Addresses");
+    await myAccount.verifyEditButtonOnAddress();
+    await myAccount.verifyAddNewAddressButton();
+    await myAccount.verifyDeleteAddressButton();
+    await myAccount.checkVisibilityOfNameOnAddressPage();
+    await myAccount.checkVisibilityOfEmailOnAddressPage();
+    await myAccount.checkVisibilityOfPhoneOnAddressPage();
+    await myAccount.checkVisibilityOfFaxOnAddressPage();
+    await myAccount.checkVisibilityOfCountryOnAddressPage();
+    await myAccount.checkVisibilityOfAddress1OnAddressPage();
 
+    await myAccount.checkVisibilityOfCityZipCodeOnAddressPage();
+
+});

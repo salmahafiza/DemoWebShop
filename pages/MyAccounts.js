@@ -26,6 +26,16 @@ class MyAccountPage {
         this.emailError = page.locator(".field-validation-error[data-valmsg-for='Email']");
         this.firstNameError = page.locator(".field-validation-error[data-valmsg-for='FirstName']");
         this.lastNameError = page.locator(".field-validation-error[data-valmsg-for='LastName']");
+        this.editButtonOnAddress = page.locator('//input[@class ="button-2 edit-address-button"]');
+        this.addNewAddressButton = page.locator('//input[@class="button-1 add-address-button"]');
+        this.deleteAddressButton = page.locator('//input[@class="button-2 delete-address-button"]');
+        this.nameOnAddressPage = page.locator("//ul[@class='info']/li[@class='name']");
+        this.emailOnAddressPage = page.locator("//ul[@class='info']/li[@class='email']");
+        this.phoneOnAddressPage = page.locator("//ul[@class='info']/li[@class='phone']");
+        this.faxOnAddressPage = page.locator("//ul[@class='info']/li[@class='fax']");
+        this.countryOnAddressPage = page.locator("//ul[@class='info']/li[@class='country']");
+        this.address1OnAddressPage = page.locator("//ul[@class='info']/li[@class='address1']");
+        this.cityZipCodeOnAddressPage = page.locator("//ul[@class='info']/li[@class='city-state-zip']");
 
     }
 
@@ -147,27 +157,27 @@ class MyAccountPage {
     }
     /////////////////////////////////////////////////////
 
-    async genderMale(){
+    async genderMale() {
         await expect(this.radioButtonGenderMale).toBeVisible();
     }
 
-    async genderFemale(){
+    async genderFemale() {
         await expect(this.radioButtonGenderFemale).toBeVisible();
     }
 
-    async firstNameField(){
+    async firstNameField() {
         await expect(this.field_firstName).toBeVisible();
     }
 
-    async lastNameField(){
+    async lastNameField() {
         await expect(this.field_LastName).toBeVisible();
     }
 
-    async emailField(){
+    async emailField() {
         await expect(this.field_registrationEmail).toBeVisible();
     }
 
-    async saveButton(){
+    async saveButton() {
         await expect(this.saveBtn).toBeVisible();
         await expect(this.saveBtn).toBeEnabled();
     }
@@ -182,7 +192,7 @@ class MyAccountPage {
     async updateEmail(email) {
         await this.field_registrationEmail.fill(email);
     }
-    async clickSave(){
+    async clickSave() {
         await this.saveBtn.click();
     }
     async clearFirstName() {
@@ -191,6 +201,51 @@ class MyAccountPage {
 
     async clearLastName() {
         await this.field_LastName.fill('');
+    }
+    async clickOnEditButtonOnAddress() {
+        await this.editButtonOnAddress.click();
+    }
+
+    async verifyEditButtonOnAddress() {
+        await expect(this.editButtonOnAddress).toBeVisible();
+    }
+    async clickOnAddNewAddressButton() {
+        await this.addNewAddressButton.click();
+    }
+    async verifyAddNewAddressButton() {
+        await expect(this.addNewAddressButton).toBeVisible();
+    }
+    async clickOnDeleteAddressButton() {
+        await this.deleteAddressButton.click();
+    }
+    async verifyDeleteAddressButton() {
+        await expect(this.deleteAddressButton).toBeVisible();
+    }
+    async checkVisibilityOfNameOnAddressPage() {
+        await expect(this.nameOnAddressPage).toBeVisible();
+    }
+    async checkVisibilityOfEmailOnAddressPage() {
+        await expect(this.emailOnAddressPage).toBeVisible();
+    }
+    async checkVisibilityOfPhoneOnAddressPage() {
+        await expect(this.phoneOnAddressPage).toBeVisible();
+    }
+    async checkVisibilityOfFaxOnAddressPage() {
+        await expect(this.faxOnAddressPage).toBeVisible();
+    }
+
+    async checkVisibilityOfCountryOnAddressPage() {
+        await expect(this.countryOnAddressPage).toBeVisible();
+    }
+    async checkVisibilityOfAddress1OnAddressPage() {
+        await expect(this.address1OnAddressPage).toBeVisible();
+    }
+    async checkVisibilityOfCityZipCodeOnAddressPage() {
+        await expect(this.cityZipCodeOnAddressPage).toBeVisible();
+    }
+    async clickOnmenuItemAddress() {
+        await this.page.locator(`[href="/customer/addresses"]`).first().click();
+
     }
 
 }

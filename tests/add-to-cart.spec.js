@@ -90,7 +90,7 @@ test('TC_ShoppingCart_008: vVerify user is able to navigate to specific product 
     await atc.navigateToShoppingCart();
     await atc.navigateToProductFromCart();
 });
-test.only('TC_ShoppingCart_009 : verify that user can able to continue shopping from shipping stage ', async () => {
+test('TC_ShoppingCart_009 : verify that user can able to continue shopping from shipping stage ', async () => {
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
