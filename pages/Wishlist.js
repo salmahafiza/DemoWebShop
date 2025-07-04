@@ -8,6 +8,8 @@ class WishlistPage {
         this.wishlist_Btn = this.page.locator('#add-to-wishlist-button-53');
         this.wishlist_ShareLink = this.page.locator('.share-info');
         this.addToCartBtn = this.page.locator('input[value="Add to cart"]');
+        this.productLinkInWishlist = page.locator('.wishlist-content .product a');
+        this.productTitleOnPDP = page.locator('div.product-name h1');
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
@@ -29,6 +31,12 @@ class WishlistPage {
         await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/wishlist');
         await expect(this.addToCartBtn).toBeVisible();
         console.log("Verify WishList URL $ Add to Cart button is visible.");
+    }
+    async navigateToProductDetailsFromWishlist() {
+        const productName = await this.productLinkInWishlist.textContent();
+        await this.productLinkInWishlist.click();
+        await expect(this.productTitleOnPDP).toHaveText(productName.trim());
+        console.log(`Navigated to PDP for product: ${productName.trim()}`);
     }
 }
 module.exports = { WishlistPage };

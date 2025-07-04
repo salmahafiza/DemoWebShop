@@ -32,3 +32,15 @@ test('TC_Wishlist_005: User should be able to use the wishlist link to view the 
     await wishlist.clickSharedWishlistLink();
     await wishlist.assertWishlistURL();
 });
+
+test('TC_Wishlist_006: User should be able to click on the product name under "Product(s)" to review product details', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await pdp.NavigateToDifferentCategoriesWithAssert('Digital downloads');
+    await pdp.ProductName();
+    await wishlist.clickAddToWishlistButton();
+    await wishlist.navigateToWishlist();
+    await wishlist.assertWishlistPageUrl();
+    await wishlist.navigateToProductDetailsFromWishlist();
+});
