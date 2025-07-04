@@ -79,5 +79,20 @@ class WishlistPage {
         }
         console.log(`Price updated with quantity`);
     }
+    async verifyProductDetailsInWishlist(expectedName, expectedPrice, expectedQty, expectedTotal) {
+        const productRow = this.page.locator('tr.cart-item-row', { hasText: expectedName });
+        const name = productRow.locator('.product a');
+        const unitPrice = productRow.locator('.product-unit-price');
+        const quantity = productRow.locator('input.qty-input');
+        const total = productRow.locator('.product-subtotal');
+
+        await expect(name).toHaveText(expectedName);
+        await expect(unitPrice).toHaveText(expectedPrice);
+        await expect(quantity).toHaveValue(expectedQty.toString());
+        await expect(total).toHaveText(expectedTotal);
+
+        console.log(`Verified product: ${expectedName}`);
+        console.log(`Price: ${expectedPrice}, Qty: ${expectedQty}, Total: ${expectedTotal}`);
+    }
 }
 module.exports = { WishlistPage };
