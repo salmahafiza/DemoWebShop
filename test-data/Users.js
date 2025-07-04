@@ -200,5 +200,21 @@ module.exports = {
         email: 'sam123@gmail.com',
         friendEmail: 'sana123@gmail.com',
         message: 'recomended',
-    }
-};
+    },
+    myAccountAddressData: {
+        firstName: 'salma',
+        lastName: 'hafiza',
+        email: 'sam123@gmail.com',
+        country: 'Pakistan',
+        state: 'Other (Non US)',
+        city: 'Karachi',
+        address1: '123 Street',
+        address2: '456 Avenue',
+        stateProvince: 'Sindh',
+        zip: '74000',
+        phone: '03001234567',
+        fax: '123456',
+        company: 'Tech Company',
+    }}
+
+

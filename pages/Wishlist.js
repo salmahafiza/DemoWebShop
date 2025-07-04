@@ -85,7 +85,6 @@ class WishlistPage {
         const unitPrice = productRow.locator('.product-unit-price');
         const quantity = productRow.locator('input.qty-input');
         const total = productRow.locator('.product-subtotal');
-
         await expect(name).toHaveText(expectedName);
         await expect(unitPrice).toHaveText(expectedPrice);
         await expect(quantity).toHaveValue(expectedQty.toString());
