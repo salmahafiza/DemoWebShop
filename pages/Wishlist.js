@@ -60,7 +60,24 @@ class WishlistPage {
         await expect(this.wishlist_Qty).toHaveText(expectedQtyText);
         console.log(`Wishlist badge count (${expectedQtyText}) matches total quantity (${totalQty})`);
     }
-
-
+    async priceUpdatedWithQty() {
+        const count = await this.qtyInputs.count();
+        for (let i = 0; i < count; i++) {
+            const qty = parseInt(await this.qtyInputs.nth(i).inputValue(), 10);
+            const priceText = await this.pricePerItemElement.nth(i).textContent();
+            const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+            const totalText = await this.totalPriceElement.nth(i).textContent();
+            const total = parseFloat(totalText.replace(/[^0-9.]/g, ''));
+            const expected = price * qty;
+            console.log(`Item ${i + 1}:
+                        Quantity: ${qty}
+                        Price per item: ${price}
+                        Expected Total: ${expected}
+                        Displayed Total: ${total}
+                                `);
+            expect(total).toBeCloseTo(expected, 2);
+        }
+        console.log(`Price updated with quantity`);
+    }
 }
 module.exports = { WishlistPage };
