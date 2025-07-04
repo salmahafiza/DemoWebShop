@@ -10,6 +10,8 @@ class WishlistPage {
         this.addToCartBtn = this.page.locator('input[value="Add to cart"]');
         this.productLinkInWishlist = page.locator('.wishlist-content .product a');
         this.productTitleOnPDP = page.locator('div.product-name h1');
+        this.inputQty = page.locator('input.qty-input');
+        this.updateBtnonWishhlist = this.page.locator('input[name="updatecart"]');
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
@@ -37,6 +39,14 @@ class WishlistPage {
         await this.productLinkInWishlist.click();
         await expect(this.productTitleOnPDP).toHaveText(productName.trim());
         console.log(`Navigated to PDP for product: ${productName.trim()}`);
+    }
+    async updateProductQuantity(quantity) {
+        await this.inputQty.fill(quantity.toString());
+        await this.updateBtnonWishhlist.click();
+        await expect(this.inputQty).toHaveValue(quantity.toString());
+        const expectedQtyText = `(${quantity})`;
+        await expect(this.wishlist_Qty).toHaveText(expectedQtyText);
+        console.log(`Updated product quantity to: ${quantity}`);
     }
 }
 module.exports = { WishlistPage };

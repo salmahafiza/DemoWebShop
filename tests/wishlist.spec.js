@@ -44,3 +44,15 @@ test('TC_Wishlist_006: User should be able to click on the product name under "P
     await wishlist.assertWishlistPageUrl();
     await wishlist.navigateToProductDetailsFromWishlist();
 });
+
+test('TC_Wishlist_007: Verify quantity value is updated when user enters any number in the "Qty:" textbox which is within range of a particular item', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await pdp.NavigateToDifferentCategoriesWithAssert('Digital downloads');
+    await pdp.ProductName();
+    await wishlist.clickAddToWishlistButton();
+    await wishlist.navigateToWishlist();
+    await wishlist.assertWishlistPageUrl();
+    await wishlist.updateProductQuantity(10);
+});
