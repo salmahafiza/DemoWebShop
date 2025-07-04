@@ -32,6 +32,7 @@ class MyAccountPage {
         this.nameOnAddressPage = page.locator("//ul[@class='info']/li[@class='name']");
         this.emailOnAddressPage = page.locator("//ul[@class='info']/li[@class='email']");
         this.phoneOnAddressPage = page.locator("//ul[@class='info']/li[@class='phone']");
+        this.companyOnAddresspage = page.locator("//ul[@class='info']/li[@class='company']");
         this.faxOnAddressPage = page.locator("//ul[@class='info']/li[@class='fax']");
         this.countryOnAddressPage = page.locator("//ul[@class='info']/li[@class='country']");
         this.address1OnAddressPage = page.locator("//ul[@class='info']/li[@class='address1']");
@@ -263,42 +264,64 @@ class MyAccountPage {
     }
     async enterFirstNameForAddress(firstName) {
         await this.firstNameForAddress.fill(firstName);
+        console.log("FirstName : ", firstName);
     }
     async enterLastNameForAddress(lastName) {
         await this.lastNameForAddress.fill(lastName);
+        console.log(" Last Name ", lastName);
     }
     async enterEmailForAddress(email) {
         await this.emailForAddress.fill(email);
+        console.log("Email ", email);
     }
     async enterCompanyForAddress(company) {
         await this.companyForAddress.fill(company);
+        console.log("Company  Name ", company)
     }
     async selectCountryForAddress(country) {
         await this.contouryForAddress.selectOption({ label: country });
+        console.log("Country : ", country)
     }
     async selectStateForAddress(state) {
         await this.stateForAddress.selectOption({ label: state });
+        console.log(" State ", state)
     }
     async enterCityForAddress(city) {
         await this.cityForAddress.fill(city);
+        console.log("City ", city)
     }
     async enterAddress1ForAddress(address1) {
         await this.address1ForAddress.fill(address1);
+        console.log(" Address 1 : ", address1)
     }
     async enterAddress2ForAddress(address2) {
         await this.address2ForAddress.fill(address2);
+        console.log(" Address 1 : ", address2)
+
     }
     async enterZipCodeForAddress(zipCode) {
         await this.zipCodeForAddress.fill(zipCode);
+        console.log(" Zip Code : ", zipCode)
+
     }
     async enterPhoneNumberForAddress(phone) {
         await this.phoneNumberForAddress.fill(phone);
+        console.log("Phone  : ", phone)
+
     }
     async enterFaxNumberForAddress(faxNumber) {
         await this.faxNumberForAddress.fill(faxNumber);
     }
     async clickOnSaveAddressButton() {
         await this.saveAddressButton.click();
+    }
+    async verifyAndAssertEditedAddress(firstName, company, lastName) {
+        const fullName = `${firstName} ${lastName}`;
+        await expect(this.nameOnAddressPage).toHaveText(fullName, { normalizeWhitespace: true });
+
+        await expect(this.companyOnAddresspage).toHaveText("Tech Company");
+        console.log("Edited First Name :", firstName);
+        console.log("Edited Company : ", company)
     }
 
 

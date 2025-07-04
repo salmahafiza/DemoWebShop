@@ -3,7 +3,7 @@ const { DashboardPage } = require("../pages/DashboardPage");
 const { MyAccountPage } = require("../pages/MyAccounts");
 const { LoginPage } = require("../pages/LoginPage");
 const { RegisterPage } = require("../pages/RegisterPage");
-const { Users,myAccountAddressData } = require("../test-data/Users");
+const { Users, myAccountAddressData } = require("../test-data/Users");
 
 let dashboard;
 let myAccount;
@@ -176,4 +176,20 @@ test('TC_MyAccount_016 : Verify Adding a New Address ', async () => {
     await myAccount.enterPhoneNumberForAddress(myAccountAddressData.phone);
     await myAccount.enterFaxNumberForAddress(myAccountAddressData.fax);
     await myAccount.clickOnSaveAddressButton();
+});
+test.only('TC_MyAccount_017 : Verify Editing an Existing Address', async () => {
+    await myAccount.clikcOnMyAccount();
+    await myAccount.clickOnmenuItemAddress("Addresses");
+    await myAccount.verifyMyAccountPagesTitle("Addresses");
+    await myAccount.clickOnEditButtonOnAddress();
+    await myAccount.enterFirstNameForAddress(myAccountAddressData.firstName);
+    await myAccount.enterLastNameForAddress(myAccountAddressData.lastName);
+    await myAccount.enterCompanyForAddress(myAccountAddressData.company);
+    await myAccount.clickOnSaveAddressButton();
+    await myAccount.verifyAndAssertEditedAddress(
+        myAccountAddressData.firstName,
+        myAccountAddressData.company,
+        myAccountAddressData.lastName
+    );
+
 });
