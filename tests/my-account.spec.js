@@ -3,7 +3,8 @@ const { DashboardPage } = require("../pages/DashboardPage");
 const { MyAccountPage } = require("../pages/MyAccounts");
 const { LoginPage } = require("../pages/LoginPage");
 const { RegisterPage } = require("../pages/RegisterPage");
-const { Users } = require("../test-data/Users");
+const { Users,myAccountAddressData } = require("../test-data/Users");
+
 let dashboard;
 let myAccount;
 let login;
@@ -156,4 +157,23 @@ test('TC_MyAccount_015 : Verify UI Elements on the Address Page ', async () => {
 
     await myAccount.checkVisibilityOfCityZipCodeOnAddressPage();
 
+});
+test('TC_MyAccount_016 : Verify Adding a New Address ', async () => {
+    await myAccount.clikcOnMyAccount();
+    await myAccount.clickOnmenuItemAddress("Addresses");
+    await myAccount.verifyMyAccountPagesTitle("Addresses");
+    await myAccount.clickOnAddNewAddressButton();
+    await myAccount.enterFirstNameForAddress(myAccountAddressData.firstName);
+    await myAccount.enterLastNameForAddress(myAccountAddressData.lastName);
+    await myAccount.enterEmailForAddress(myAccountAddressData.email);
+    await myAccount.enterCompanyForAddress(myAccountAddressData.company);
+    await myAccount.selectCountryForAddress(myAccountAddressData.country);
+    await myAccount.selectStateForAddress(myAccountAddressData.state);
+    await myAccount.enterCityForAddress(myAccountAddressData.city);
+    await myAccount.enterAddress1ForAddress(myAccountAddressData.address1);
+    await myAccount.enterAddress2ForAddress(myAccountAddressData.address2);
+    await myAccount.enterZipCodeForAddress(myAccountAddressData.zip);
+    await myAccount.enterPhoneNumberForAddress(myAccountAddressData.phone);
+    await myAccount.enterFaxNumberForAddress(myAccountAddressData.fax);
+    await myAccount.clickOnSaveAddressButton();
 });

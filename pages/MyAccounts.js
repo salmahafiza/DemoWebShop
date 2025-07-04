@@ -36,6 +36,20 @@ class MyAccountPage {
         this.countryOnAddressPage = page.locator("//ul[@class='info']/li[@class='country']");
         this.address1OnAddressPage = page.locator("//ul[@class='info']/li[@class='address1']");
         this.cityZipCodeOnAddressPage = page.locator("//ul[@class='info']/li[@class='city-state-zip']");
+        this.firstNameForAddress = page.locator('input#Address_FirstName');
+        this.lastNameForAddress = page.locator('input#Address_LastName');
+        this.emailForAddress = page.locator('input#Address_Email');
+        this.companyForAddress = page.locator('input#Address_Company');
+        this.contouryForAddress = page.locator('select#Address_CountryId');
+        this.stateForAddress = page.locator('select#Address_StateProvinceId');
+        this.cityForAddress = page.locator('input#Address_City');
+        this.address1ForAddress = page.locator('input#Address_Address1');
+        this.address2ForAddress = page.locator('input#Address_Address2');
+        this.zipCodeForAddress = page.locator('input#Address_ZipPostalCode');
+        this.phoneNumberForAddress = page.locator('input#Address_PhoneNumber');
+        this.faxNumberForAddress = page.locator('input#Address_FaxNumber');
+        this.saveAddressButton = page.locator('//input[@class = "button-1 save-address-button"]');
+
 
     }
 
@@ -247,6 +261,46 @@ class MyAccountPage {
         await this.page.locator(`[href="/customer/addresses"]`).first().click();
 
     }
+    async enterFirstNameForAddress(firstName) {
+        await this.firstNameForAddress.fill(firstName);
+    }
+    async enterLastNameForAddress(lastName) {
+        await this.lastNameForAddress.fill(lastName);
+    }
+    async enterEmailForAddress(email) {
+        await this.emailForAddress.fill(email);
+    }
+    async enterCompanyForAddress(company) {
+        await this.companyForAddress.fill(company);
+    }
+    async selectCountryForAddress(country) {
+        await this.contouryForAddress.selectOption({ label: country });
+    }
+    async selectStateForAddress(state) {
+        await this.stateForAddress.selectOption({ label: state });
+    }
+    async enterCityForAddress(city) {
+        await this.cityForAddress.fill(city);
+    }
+    async enterAddress1ForAddress(address1) {
+        await this.address1ForAddress.fill(address1);
+    }
+    async enterAddress2ForAddress(address2) {
+        await this.address2ForAddress.fill(address2);
+    }
+    async enterZipCodeForAddress(zipCode) {
+        await this.zipCodeForAddress.fill(zipCode);
+    }
+    async enterPhoneNumberForAddress(phone) {
+        await this.phoneNumberForAddress.fill(phone);
+    }
+    async enterFaxNumberForAddress(faxNumber) {
+        await this.faxNumberForAddress.fill(faxNumber);
+    }
+    async clickOnSaveAddressButton() {
+        await this.saveAddressButton.click();
+    }
+
 
 }
 module.exports = { MyAccountPage };
