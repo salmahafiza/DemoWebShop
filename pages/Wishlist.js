@@ -8,7 +8,6 @@ class WishlistPage {
         this.wishlist_Btn = this.page.locator('#add-to-wishlist-button-53');
         this.wishlist_ShareLink = this.page.locator('.share-info');
         this.addToCartBtn = this.page.locator('input[value="Add to cart"]');
-
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
