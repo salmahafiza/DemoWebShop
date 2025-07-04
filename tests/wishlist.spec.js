@@ -64,8 +64,13 @@ test('TC_Wishlist_008: Verify that the wishlist count is updated according to th
     await pdp.NavigateToDifferentCategoriesWithAssert('Digital downloads');
     await pdp.ProductName();
     await wishlist.clickAddToWishlistButton();
+    await pdp.NavigateToDifferentCategoriesWithAssert('Apparel & Shoes');
+    await pdp.ProductName();
+    await wishlist.clickAddToWishlistButton();
     await wishlist.navigateToWishlist();
     await wishlist.assertWishlistPageUrl();
-    await wishlist.updateProductQuantity(10);
-    await wishlist.priceUpdatedWithQty();
+    await wishlist.updateProductQuantityByIndex(0, 8);
+    await wishlist.updateProductQuantityByIndex(1, 9);
+    await wishlist.assertWishlistCountMatchesTotalQty();
+
 });
