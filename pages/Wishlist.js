@@ -14,6 +14,8 @@ class WishlistPage {
         this.updateBtnonWishhlist = this.page.locator('input[name="updatecart"]');
         this.pricePerItemElement = page.locator('span.product-unit-price');
         this.totalPriceElement = page.locator('span.product-subtotal');
+        this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
+        this.removeCheckboxes = this.page.locator('input[name="removefromcart"]');
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
@@ -93,5 +95,31 @@ class WishlistPage {
         console.log(`Verified product: ${expectedName}`);
         console.log(`Price: ${expectedPrice}, Qty: ${expectedQty}, Total: ${expectedTotal}`);
     }
+    async verifyProductInWishlist(productName) {
+        const productRow = this.page.locator('tr.cart-item-row', {
+            has: this.page.locator('td.product', { hasText: productName })
+        });
+        await expect(productRow).toBeVisible();
+        console.log(`Item "${productName}" is visible in wishlist`);
+    }
+    async clearWishlist() {
+        await this.navigateToWishlist();
+        const count = await this.removeCheckboxes.count();
+        if (count > 0) {
+            for (let i = 0; i < count; i++) {
+                await this.removeCheckboxes.nth(i).check();
+            }
+            await this.updateBtnonWishhlist.click();
+            console.log(`Cleared ${count} items from wishlist`);
+        } else {
+            console.log(`Wishlist already empty`);
+        }
+    }
+    async verifyWishlistEmpty() {
+        await expect(this.wishlist_emptyMessage).toBeVisible();
+        console.log("Verify Wishlist is empty");
+
+    }
+
 }
 module.exports = { WishlistPage };

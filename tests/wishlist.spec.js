@@ -98,3 +98,24 @@ test('TC_Wishlist_010: Verify all the data under each heading i.e. Product detai
     await wishlist.assertWishlistURL();
     await wishlist.verifyProductDetailsInWishlist('3rd Album', '1.00', 10, '5.00');
 });
+
+test('TC_Wishlist_015: User should be able to add items to the Wishlist screen by clicking the Add to Wishlist button under each product', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await pdp.NavigateToDifferentCategoriesWithAssert('Digital downloads');
+    await pdp.ProductName();
+    await wishlist.clickAddToWishlistButton();
+    await wishlist.navigateToWishlist();
+    await wishlist.verifyProductInWishlist('3rd Album');
+});
+
+test('TC_Wishlist_016: Verify an appropriate message is displayed when there are no items added to the wishlist', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await wishlist.navigateToWishlist();
+    await wishlist.assertWishlistPageUrl();
+    await wishlist.clearWishlist();
+    await wishlist.verifyWishlistEmpty();
+});
