@@ -53,8 +53,13 @@ class MyAccountPage {
         this.NoAddressExist = page.locator('.address-list');
         this.nthElementNum = 0;
         this.addressListChildCount = 0;
-
-
+        this.firstNameValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.FirstName']");
+        this.lastNameValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.LastName']");
+        this.emailValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.Email']");
+        this.cityValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.City']");
+        this.streetValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.Address1']");
+        this.zipValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.ZipPostalCode']");
+        this.phoneValidationError = this.page.locator("span[for='Address_PhoneNumber']");
 
     }
 
@@ -357,6 +362,29 @@ class MyAccountPage {
        // await this.page.locator('.delete-address-button').click({ timeout: 5000 });
 
         await nthDelBtn.click();
+    }
+    async verifyRequiredFieldValidation(field) {
+        if (field === "FirstName") {
+            await expect(this.firstNameValidationError).toHaveText("First name is required.");
+        }
+        else if (field === "LastName") {
+            await expect(this.lastNameValidationError).toHaveText("Last name is required.");
+        }
+        else if (field === "Email") {
+            await expect(this.emailValidationError).toHaveText("Email is required.");
+        }
+        else if (field === "City") {
+            await expect(this.cityValidationError).toHaveText("City is required");
+        }
+        else if (field === "Street") {
+            await expect(this.streetValidationError).toHaveText("Street address is required");
+        }
+        else if (field === "Zip") {
+            await expect(this.zipValidationError).toHaveText("Zip / postal code is required");
+        }
+        else if (field === "Phone") {
+            await expect(this.phoneValidationError).toHaveText("Phone is required");
+        }
     }
 
 }
