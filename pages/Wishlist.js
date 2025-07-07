@@ -93,5 +93,13 @@ class WishlistPage {
         console.log(`Verified product: ${expectedName}`);
         console.log(`Price: ${expectedPrice}, Qty: ${expectedQty}, Total: ${expectedTotal}`);
     }
+    async verifyProductInWishlist(productName) {
+        const productRow = this.page.locator('tr.cart-item-row', {
+            has: this.page.locator('td.product', { hasText: productName })
+        });
+        await expect(productRow).toBeVisible();
+        console.log(`Item "${productName}" is visible in wishlist`);
+    }
+
 }
 module.exports = { WishlistPage };
