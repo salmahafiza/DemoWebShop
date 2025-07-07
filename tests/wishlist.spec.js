@@ -99,7 +99,7 @@ test('TC_Wishlist_010: Verify all the data under each heading i.e. Product detai
     await wishlist.verifyProductDetailsInWishlist('3rd Album', '1.00', 10, '5.00');
 });
 
-test('TC_Wishlist_011: User should be able to add items to the Wishlist screen by clicking the Add to Wishlist button under each product', async () => {
+test('TC_Wishlist_015: User should be able to add items to the Wishlist screen by clicking the Add to Wishlist button under each product', async () => {
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -110,7 +110,7 @@ test('TC_Wishlist_011: User should be able to add items to the Wishlist screen b
     await wishlist.verifyProductInWishlist('3rd Album');
 });
 
-test('TC_Wishlist_012: Verify an appropriate message is displayed when there are no items added to the wishlist', async () => {
+test('TC_Wishlist_016: Verify an appropriate message is displayed when there are no items added to the wishlist', async () => {
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
