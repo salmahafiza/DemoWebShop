@@ -110,7 +110,7 @@ test('TC_Wishlist_011: User should be able to add items to the Wishlist screen b
     await wishlist.verifyProductInWishlist('3rd Album');
 });
 
-test.only('TC_Wishlist_012: Verify an appropriate message is displayed when there are no items added to the wishlist', async () => {
+test('TC_Wishlist_012: Verify an appropriate message is displayed when there are no items added to the wishlist', async () => {
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
