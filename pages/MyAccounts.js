@@ -50,7 +50,13 @@ class MyAccountPage {
         this.phoneNumberForAddress = page.locator('input#Address_PhoneNumber');
         this.faxNumberForAddress = page.locator('input#Address_FaxNumber');
         this.saveAddressButton = page.locator('//input[@class = "button-1 save-address-button"]');
-
+        this.firstNameValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.FirstName']");
+        this.lastNameValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.LastName']");
+        this.emailValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.Email']");
+        this.cityValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.City']");
+        this.streetValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.Address1']");
+        this.zipValidationError = page.locator(".field-validation-error[data-valmsg-for='Address.ZipPostalCode']");
+        this.phoneValidationError = this.page.locator("span[for='Address_PhoneNumber']");
 
     }
 
@@ -323,7 +329,29 @@ class MyAccountPage {
         console.log("Edited First Name :", firstName);
         console.log("Edited Company : ", company)
     }
-
+    async verifyRequiredFieldValidation(field) {
+        if (field === "FirstName") {
+            await expect(this.firstNameValidationError).toHaveText("First name is required.");
+        }
+        else if (field === "LastName") {
+            await expect(this.lastNameValidationError).toHaveText("Last name is required.");
+        }
+        else if (field === "Email") {
+            await expect(this.emailValidationError).toHaveText("Email is required.");
+        }
+        else if (field === "City") {
+            await expect(this.cityValidationError).toHaveText("City is required");
+        }
+        else if (field === "Street") {
+            await expect(this.streetValidationError).toHaveText("Street address is required");
+        }
+        else if (field === "Zip") {
+            await expect(this.zipValidationError).toHaveText("Zip / postal code is required");
+        }
+        else if (field === "Phone") {
+            await expect(this.phoneValidationError).toHaveText("Phone is required");
+        }
+    }
 
 }
 module.exports = { MyAccountPage };
