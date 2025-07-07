@@ -177,7 +177,7 @@ test('TC_MyAccount_016 : Verify Adding a New Address ', async () => {
     await myAccount.enterFaxNumberForAddress(myAccountAddressData.fax);
     await myAccount.clickOnSaveAddressButton();
 });
-test.only('TC_MyAccount_017 : Verify Editing an Existing Address', async () => {
+test('TC_MyAccount_017 : Verify Editing an Existing Address', async () => {
     await myAccount.clikcOnMyAccount();
     await myAccount.clickOnmenuItemAddress("Addresses");
     await myAccount.verifyMyAccountPagesTitle("Addresses");
@@ -192,4 +192,14 @@ test.only('TC_MyAccount_017 : Verify Editing an Existing Address', async () => {
         myAccountAddressData.lastName
     );
 
+});
+test.only("TC_MyAccount_018: Verify Deleting an Address", async () => {
+    await myAccount.clikcOnMyAccount();
+    await myAccount.clickOnmenuItemAddress("Addresses");
+    await myAccount.verifyMyAccountPagesTitle("Addresses");
+    await myAccount.clickOnDeleteAddressButton();
+    const initialCount = await myAccount.getAddressListCount();
+    await myAccount.clickonNthDeleteAddressButton(20);
+    const newCount = await myAccount.getAddressListCount();
+    await myAccount.verifyAddressDeleted(initialCount, newCount);
 });

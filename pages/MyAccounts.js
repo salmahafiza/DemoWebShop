@@ -50,6 +50,10 @@ class MyAccountPage {
         this.phoneNumberForAddress = page.locator('input#Address_PhoneNumber');
         this.faxNumberForAddress = page.locator('input#Address_FaxNumber');
         this.saveAddressButton = page.locator('//input[@class = "button-1 save-address-button"]');
+        this.NoAddressExist = page.locator('.address-list');
+        this.nthElementNum = 0;
+        this.addressListChildCount = 0;
+
 
 
     }
@@ -323,7 +327,37 @@ class MyAccountPage {
         console.log("Edited First Name :", firstName);
         console.log("Edited Company : ", company)
     }
+    async noAddressExist() {
+        await expect(this.NoAddressExist).toHaveText("No addresses");
+    }
+    async getAddressListCount() {
+        const count = await this.NoAddressExist
+            .locator(".section.address-item")
+            .count();
+        console.log("Address list count:", count);
+        return count;
+    }
 
+    async verifyAddressDeleted(initialCount, newCount) {
+        console.log("Initial count:", initialCount, "New count:", newCount);
+        expect(newCount).toBe(initialCount - 1);
+    }
+    async clickonNthDeleteAddressButton(delAdresssNum) {
+        this.nthElementNum = delAdresssNum;
+        console.log("Nth element number:", this.nthElementNum);
+        const nthDelBtn = await this.page
+            .locator(".delete-address-button")
+            .nth(delAdresssNum - 1);
+        // confirmation dialog box handler
+        this.page.once("dialog", async (dialog) => {
+            await expect(dialog.message()).toContain("Are you sure?");
+            await dialog.accept();
+            console.log("Address deleted successfully");
+        });
+       // await this.page.locator('.delete-address-button').click({ timeout: 5000 });
+
+        await nthDelBtn.click();
+    }
 
 }
 module.exports = { MyAccountPage };
