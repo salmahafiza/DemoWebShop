@@ -14,8 +14,18 @@ class WishlistPage {
         this.updateBtnonWishhlist = this.page.locator('input[name="updatecart"]');
         this.pricePerItemElement = page.locator('span.product-unit-price');
         this.totalPriceElement = page.locator('span.product-subtotal');
+        this.jewelryMenuLink = page.locator('a[href="/jewelry"]').first();
+        this.lengthTextbox = this.page.locator('.textbox');
+        this.addToWishlistBtn = page.locator('.add-to-wishlist-button');
+        this.successMsg = page.locator('#bar-notification .content', { hasText: 'The product has been added to your' });
+        this.updateCartBtn = this.page.locator('input[name="updatecart"]');
+        this.emailFriendBtn = this.page.locator('.email-a-friend-wishlist-button');
         this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
         this.removeCheckboxes = this.page.locator('input[name="removefromcart"]');
+        this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
+        this.cartCheckboxes = this.page.locator('input[type="checkbox"]');
+        this.removeCheckboxes = this.page.locator('input[name="removefromcart"]');
+
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
@@ -25,9 +35,47 @@ class WishlistPage {
         await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/wishlist');
         console.log("Wishlist URL is correct");
     }
+    async verifyPageTitle(expectedTitle) {
+        await expect(this.pageTitle).toHaveText(expectedTitle);
+    }
+    async navigateToJewelryCategory() {
+        await this.jewelryMenuLink.click();
+    }
+    async clickProduct(productName) {
+        const product = this.page.locator('.product-title a', { hasText: productName });
+        await product.click();
+    }
+    async enterLength(expectedLength) {
+        await this.lengthTextbox.fill(expectedLength.toString());
+    }
     async clickAddToWishlistButton() {
         await this.wishlist_Btn.click();
         console.log("Clicked on Add to Wishlist button");
+    }
+    async verifyWishlistAddSuccessMsg() {
+        await expect(this.successMsg).toBeVisible();
+    }
+    async verifyItemOnWishlistScreen(productName) {
+        const productLink = this.page.locator('.product a', { hasText: productName });
+        await expect(productLink).toHaveText(productName);
+        await expect(productLink).toBeVisible();
+    }
+    async removeItemFromWishlist(productName) {
+        const productRow = this.page.locator('tr', { hasText: productName });
+        const removeCheckbox = productRow.locator('input[name="removefromcart"]');
+        await removeCheckbox.check();
+    }
+    async clickUpdateCartBtn() {
+        await this.updateCartBtn.click();
+    }
+    async addItemToCartFromWishlist(productName) {
+        const productRow = this.page.locator('tr', { hasText: productName });
+        const addToCartCheckbox = productRow.locator('input[name="addtocart"]');
+        await addToCartCheckbox.check();
+        await this.addToCartBtn.click();
+    }
+    async shareWishlistItemViaEmail() {
+        await this.emailFriendBtn.click();
     }
     async clickSharedWishlistLink() {
         await this.wishlist_ShareLink.click();
@@ -51,16 +99,13 @@ class WishlistPage {
         await expect(this.qtyInputs.nth(index)).toHaveValue(quantity.toString());
         console.log(`Updated product ${index + 1} quantity to: ${quantity}`);
     }
-    async assertWishlistCountMatchesTotalQty() {
-        const count = await this.qtyInputs.count();
-        let totalQty = 0;
-        for (let i = 0; i < count; i++) {
-            const value = await this.qtyInputs.nth(i).inputValue();
-            totalQty += parseInt(value, 10);
-        }
-        const expectedQtyText = `(${totalQty})`;
+    async updateProductQuantity(quantity) {
+        await this.inputQty.fill(quantity.toString());
+        await this.updateBtnonWishhlist.click();
+        await expect(this.inputQty).toHaveValue(quantity.toString());
+        const expectedQtyText = `(${quantity})`;
         await expect(this.wishlist_Qty).toHaveText(expectedQtyText);
-        console.log(`Wishlist badge count (${expectedQtyText}) matches total quantity (${totalQty})`);
+        console.log(`Updated product quantity to: ${quantity}`);
     }
     async priceUpdatedWithQty() {
         const count = await this.qtyInputs.count();
@@ -95,6 +140,38 @@ class WishlistPage {
         console.log(`Verified product: ${expectedName}`);
         console.log(`Price: ${expectedPrice}, Qty: ${expectedQty}, Total: ${expectedTotal}`);
     }
+    async assertWishlistCountMatchesTotalQty() {
+        const count = await this.qtyInputs.count();
+        let totalQty = 0;
+        for (let i = 0; i < count; i++) {
+            const value = await this.qtyInputs.nth(i).inputValue();
+            totalQty += parseInt(value, 10);
+        }
+        const expectedQtyText = `(${totalQty})`;
+        await expect(this.wishlist_Qty).toHaveText(expectedQtyText);
+        console.log(`Wishlist badge count (${expectedQtyText}) matches total quantity (${totalQty})`);
+    }
+    async verifyQuantityLimitExceeded(index, limit = 50) {
+        await expect(this.qtyInputs.nth(index)).toBeVisible();
+        const value = await this.qtyInputs.nth(index).inputValue();
+        const numericValue = parseInt(value, 10);
+
+        if (numericValue > limit) {
+            console.log(` Product ${index + 1} quantity (${numericValue}) exceeds the limit of ${limit}.`);
+        } else {
+            console.log(` Product ${index + 1} quantity (${numericValue}) is within the limit of ${limit}.`);
+        }
+    }
+    async reloadPage() {
+        await this.page.reload();
+        console.log(" Page reloaded successfully.");
+    }
+    async updateQtywithEnterkey(index, quantity) {
+        await expect(this.qtyInputs.nth(index)).toBeVisible();
+        await this.qtyInputs.nth(index).fill(quantity.toString());
+        await this.qtyInputs.nth(index).press('Enter');
+        await expect(this.qtyInputs.nth(index)).toHaveValue(quantity.toString());
+        console.log(`Updated product ${index + 1} quantity to: ${quantity}`);
     async verifyProductInWishlist(productName) {
         const productRow = this.page.locator('tr.cart-item-row', {
             has: this.page.locator('td.product', { hasText: productName })
@@ -115,6 +192,37 @@ class WishlistPage {
             console.log(`Wishlist already empty`);
         }
     }
+
+    async verifyProductInWishlist(productName) {
+        const productRow = this.page.locator('tr.cart-item-row', {
+            has: this.page.locator('td.product', { hasText: productName })
+        });
+        await expect(productRow).toBeVisible();
+        console.log(`Item "${productName}" is visible in wishlist`);
+    }
+    async removeMultipleItemsFromWishlist() {
+        const checkboxes = this.page.locator('input.remove-from-cart');
+        const checkboxCount = await checkboxes.count();
+
+        console.log(`Found ${checkboxCount} items in wishlist.`);
+
+        for (let i = 0; i < checkboxCount; i++) {
+            await checkboxes.nth(i).check();
+            console.log(` Checked item ${i + 1}`);
+        }
+    }
+
+    async addMultipleItemsToCart() {
+        const count = await this.cartCheckboxes.count();
+        for (let i = 0; i < count; i++) {
+            await this.cartCheckboxes.nth(i).check();
+        }
+        await this.addToCartBtn.click();
+        console.log("Added multiple items to cart");
+        await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/cart');
+        console.log("Navigated to cart after adding items");
+    }
+
     async verifyWishlistEmpty() {
         await expect(this.wishlist_emptyMessage).toBeVisible();
         console.log("Verify Wishlist is empty");
