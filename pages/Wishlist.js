@@ -23,8 +23,9 @@ class WishlistPage {
         this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
         this.removeCheckboxes = this.page.locator('input[name="removefromcart"]');
         this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
-        this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
         this.cartCheckboxes = this.page.locator('input[type="checkbox"]');
+        this.removeCheckboxes = this.page.locator('input[name="removefromcart"]');
+
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
@@ -139,11 +140,6 @@ class WishlistPage {
         console.log(`Verified product: ${expectedName}`);
         console.log(`Price: ${expectedPrice}, Qty: ${expectedQty}, Total: ${expectedTotal}`);
     }
-    async verifyWishlistEmpty() {
-        await expect(this.wishlist_emptyMessage).toBeVisible();
-        console.log("Verified Wishlist is empty");
-
-    }
     async assertWishlistCountMatchesTotalQty() {
         const count = await this.qtyInputs.count();
         let totalQty = 0;
@@ -176,6 +172,12 @@ class WishlistPage {
         await this.qtyInputs.nth(index).press('Enter');
         await expect(this.qtyInputs.nth(index)).toHaveValue(quantity.toString());
         console.log(`Updated product ${index + 1} quantity to: ${quantity}`);
+    async verifyProductInWishlist(productName) {
+        const productRow = this.page.locator('tr.cart-item-row', {
+            has: this.page.locator('td.product', { hasText: productName })
+        });
+        await expect(productRow).toBeVisible();
+        console.log(`Item "${productName}" is visible in wishlist`);
     }
     async clearWishlist() {
         await this.navigateToWishlist();
@@ -190,6 +192,7 @@ class WishlistPage {
             console.log(`Wishlist already empty`);
         }
     }
+
     async verifyProductInWishlist(productName) {
         const productRow = this.page.locator('tr.cart-item-row', {
             has: this.page.locator('td.product', { hasText: productName })
@@ -209,28 +212,6 @@ class WishlistPage {
         }
     }
 
-    async verifyWishlistEmpty() {
-        await expect(this.wishlist_emptyMessage).toBeVisible();
-        console.log("Verified Wishlist is empty");
-
-    }
-    async removeMultipleItemsFromWishlist() {
-        const checkboxes = this.page.locator('input.remove-from-cart');
-        const checkboxCount = await checkboxes.count();
-
-        console.log(`Found ${checkboxCount} items in wishlist.`);
-
-        for (let i = 0; i < checkboxCount; i++) {
-            await checkboxes.nth(i).check();
-            console.log(` Checked item ${i + 1}`);
-        }
-    }
-
-    async verifyWishlistEmpty() {
-        await expect(this.wishlist_emptyMessage).toBeVisible();
-        console.log("Verified Wishlist is empty");
-
-    }
     async addMultipleItemsToCart() {
         const count = await this.cartCheckboxes.count();
         for (let i = 0; i < count; i++) {
@@ -241,5 +222,12 @@ class WishlistPage {
         await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/cart');
         console.log("Navigated to cart after adding items");
     }
+
+    async verifyWishlistEmpty() {
+        await expect(this.wishlist_emptyMessage).toBeVisible();
+        console.log("Verify Wishlist is empty");
+
+    }
+
 }
 module.exports = { WishlistPage };

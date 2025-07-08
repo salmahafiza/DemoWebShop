@@ -177,7 +177,7 @@ test('TC_MyAccount_016 : Verify Adding a New Address ', async () => {
     await myAccount.enterFaxNumberForAddress(myAccountAddressData.fax);
     await myAccount.clickOnSaveAddressButton();
 });
-test.only('TC_MyAccount_017 : Verify Editing an Existing Address', async () => {
+test('TC_MyAccount_017 : Verify Editing an Existing Address', async () => {
     await myAccount.clikcOnMyAccount();
     await myAccount.clickOnmenuItemAddress("Addresses");
     await myAccount.verifyMyAccountPagesTitle("Addresses");
@@ -192,4 +192,38 @@ test.only('TC_MyAccount_017 : Verify Editing an Existing Address', async () => {
         myAccountAddressData.lastName
     );
 
+});
+test("TC_MyAccount_018: Verify Deleting an Address", async () => {
+    await myAccount.clikcOnMyAccount();
+    await myAccount.clickOnmenuItemAddress("Addresses");
+    await myAccount.verifyMyAccountPagesTitle("Addresses");
+    await myAccount.clickOnDeleteAddressButton();
+    const initialCount = await myAccount.getAddressListCount();
+    await myAccount.clickonNthDeleteAddressButton(20);
+    const newCount = await myAccount.getAddressListCount();
+    await myAccount.verifyAddressDeleted(initialCount, newCount);
+});
+
+test('TC_MyAccount_019: Verify Required Field Validations While Adding an Address', async () => {
+    await myAccount.clikcOnMyAccount();
+    await myAccount.clickOnmenuItemAddress("Addresses");
+    await myAccount.verifyMyAccountPagesTitle("Addresses");
+    await myAccount.clickOnAddNewAddressButton();
+    await myAccount.clickOnSaveAddressButton();
+    await myAccount.verifyRequiredFieldValidation("FirstName");
+    await myAccount.verifyRequiredFieldValidation("LastName");
+    await myAccount.verifyRequiredFieldValidation("Email");
+    await myAccount.verifyRequiredFieldValidation("City");
+    await myAccount.verifyRequiredFieldValidation("Street");
+    await myAccount.verifyRequiredFieldValidation("Zip");
+    await myAccount.verifyRequiredFieldValidation("Phone");
+});
+
+test("TC_MyAccount_020: Verify Cross-Browser Compatibility", async () => {
+    await myAccount.clikcOnMyAccount();
+    await myAccount.clickOnmenuItemAddress("Addresses");
+    await myAccount.verifyMyAccountPagesTitle("Addresses");
+    //run Command: npx playwright test my-account.spec.js --project=chromium
+    //run Command: npx playwright test my-account.spec.js --project=firefox
+    //run Command: npx playwright test my-account.spec.js --project=webkit
 });
