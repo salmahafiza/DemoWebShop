@@ -22,6 +22,8 @@ class WishlistPage {
         this.emailFriendBtn = this.page.locator('.email-a-friend-wishlist-button');
         this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
         this.removeCheckboxes = this.page.locator('input[name="removefromcart"]');
+        this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
+        this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
@@ -193,6 +195,40 @@ class WishlistPage {
         });
         await expect(productRow).toBeVisible();
         console.log(`Item "${productName}" is visible in wishlist`);
+    }
+    async removeMultipleItemsFromWishlist() {
+        const checkboxes = this.page.locator('input.remove-from-cart');
+        const checkboxCount = await checkboxes.count();
+
+        console.log(`Found ${checkboxCount} items in wishlist.`);
+
+        for (let i = 0; i < checkboxCount; i++) {
+            await checkboxes.nth(i).check();
+            console.log(` Checked item ${i + 1}`);
+        }
+    }
+
+    async verifyWishlistEmpty() {
+        await expect(this.wishlist_emptyMessage).toBeVisible();
+        console.log("Verified Wishlist is empty");
+
+    }
+    async removeMultipleItemsFromWishlist() {
+        const checkboxes = this.page.locator('input.remove-from-cart');
+        const checkboxCount = await checkboxes.count();
+
+        console.log(`Found ${checkboxCount} items in wishlist.`);
+
+        for (let i = 0; i < checkboxCount; i++) {
+            await checkboxes.nth(i).check();
+            console.log(` Checked item ${i + 1}`);
+        }
+    }
+
+    async verifyWishlistEmpty() {
+        await expect(this.wishlist_emptyMessage).toBeVisible();
+        console.log("Verified Wishlist is empty");
+
     }
 }
 module.exports = { WishlistPage };

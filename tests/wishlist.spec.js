@@ -246,3 +246,15 @@ test('TC_Wishlist_018: Update Wishlist Count and Item Quantity using Enter Key',
     await wishlist.updateQtywithEnterkey(0, 3);
     await wishlist.assertWishlistCountMatchesTotalQty();
 });
+test("TC_Wishlist_020 : Remove multiple items from Wishlist ", async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await pdp.NavigateToDifferentCategoriesWithAssert('Digital downloads');
+    await pdp.ProductName();
+    await wishlist.clickAddToWishlistButton();
+    await wishlist.navigateToWishlist();
+    await wishlist.removeMultipleItemsFromWishlist();
+    await wishlist.verifyWishlistEmpty();
+ 
+});
