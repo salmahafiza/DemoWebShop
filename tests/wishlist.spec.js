@@ -246,6 +246,22 @@ test('TC_Wishlist_018: Update Wishlist Count and Item Quantity using Enter Key',
     await wishlist.updateQtywithEnterkey(0, 3);
     await wishlist.assertWishlistCountMatchesTotalQty();
 });
+
+test('TC_Wishlist_019 : User should be able to select multiple items and add them to cart at the same time using the Add to Cart button and checkbox', async () => {
+    await login.enterUsername(Users.username);
+    await login.enterPassword(Users.password);
+    await login.clickLoginButton();
+    await pdp.NavigateToDifferentCategoriesWithAssert('Digital downloads');
+    await pdp.ProductName();
+    await wishlist.clickAddToWishlistButton();
+    await pdp.NavigateToDifferentCategoriesWithAssert('Apparel & Shoes');
+    await pdp.ProductName();
+    await wishlist.clickAddToWishlistButton();
+    await wishlist.navigateToWishlist();
+    await wishlist.assertWishlistPageUrl();
+    await wishlist.addMultipleItemsToCart();
+});
+
 test("TC_Wishlist_020 : Remove multiple items from Wishlist ", async () => {
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);

@@ -24,6 +24,7 @@ class WishlistPage {
         this.removeCheckboxes = this.page.locator('input[name="removefromcart"]');
         this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
         this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
+        this.cartCheckboxes = this.page.locator('input[type="checkbox"]');
     }
     async navigateToWishlist() {
         await this.wishlist_Link.click();
@@ -229,6 +230,16 @@ class WishlistPage {
         await expect(this.wishlist_emptyMessage).toBeVisible();
         console.log("Verified Wishlist is empty");
 
+    }
+    async addMultipleItemsToCart() {
+        const count = await this.cartCheckboxes.count();
+        for (let i = 0; i < count; i++) {
+            await this.cartCheckboxes.nth(i).check();
+        }
+        await this.addToCartBtn.click();
+        console.log("Added multiple items to cart");
+        await expect(this.page).toHaveURL('https://demowebshop.tricentis.com/cart');
+        console.log("Navigated to cart after adding items");
     }
 }
 module.exports = { WishlistPage };
