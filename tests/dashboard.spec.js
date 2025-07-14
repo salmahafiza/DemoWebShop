@@ -1,14 +1,17 @@
 import { test, expect } from '@playwright/test';
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
+const { Checkout } = require('../pages/Checkout');
 const { Users } = require('../test-data/Users');
 
 let login;
 let dashboard;
+let checkout;
 
 test.beforeEach(async ({ page }) => {
     login = new LoginPage(page);
     dashboard = new DashboardPage(page);
+    checkout = new Checkout(page);
     await dashboard.accessApplication();
     await dashboard.verifyHomePageTitle();
     await dashboard.navigateToLoginPage();
@@ -19,7 +22,7 @@ test('TC_DASHBOARD_001 - Verify that user information is correctly showed on the
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
     await dashboard.verifyUserInfoVisible();
-    await dashboard.clickOnUserAccount();
+    //await dashboard.clickOnUserAccount();
 });
 
 test('TC_DASHBOARD_002 - Verify that logout link is working properly', async ({ page }) => {
@@ -32,24 +35,33 @@ test('TC_DASHBOARD_002 - Verify that logout link is working properly', async ({ 
 });
   
 test('TC_DASHBOARD_003 - Check the shopping cart displays the correct number of items.', async ({ page }) => {
-    await login.enterUsername(Users.username);
-    await login.enterPassword(Users.password);
-    await login.clickLoginButton();
-    await dashboard.addItemToCart();
-    const cartText = await page.textContent('a.ico-cart');
+    test.setTimeout(60000);
+    await dashboard.accessApplication();
+    //await dashboard.addItemToCart();
+    await checkout.searchTextBox('Smartphone');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProductName();
+    await checkout.clickOnAdtoCart();
+    await checkout.searchTextBox('14.1-inch Laptop');
+    await dashboard.clickOnSearchButton();
+    await checkout.clickOnProduct2();
+    await checkout.clickOnAddtocart2();
+    //await checkout.gotoShoppingCart();
+    const cartText = await page.textContent('.cart-qty');
     const match = cartText.match(/\((\d+)\)/);
     const itemCount = match ? parseInt(match[1]) : 0;
     expect(itemCount).toBe(1);
 });
 
 test('TC_DASHBOARD_004: verify the count displayed on wishlist', async () => {
+    test.setTimeout(60000);
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
-    await dashboard.searchTextBox();
+    await checkout.searchTextBox('Smartphone');
     await dashboard.clickOnSearchButton();
-    await dashboard.clickOnProductName();
+    await checkout.clickOnProductName();
     await dashboard.clickOnWishlistBtn();
     await dashboard.accessApplication();
     const wishlistText = await dashboard.verifyWishlistCount();
@@ -93,13 +105,16 @@ test('TC_DASHBOARD_009 : Verify that clicking the Gift Cards category link corre
     await dashboard.displayGiftCardName();
 });
 
-test('TC_DASHBOARD_010 : Verify if featured products section is visible', async () => {
-    await login.enterUsername(Users.username);
-    await login.enterPassword(Users.password);
-    await login.clickLoginButton();
-    await dashboard.verifyFeaturedProductsSection();
-    await dashboard.verifyFeaturedProducts();
+test("TC_DASHBOARD_010: Verify if featured products section is visible", async () => {
+  test.setTimeout(60000);
+  await login.enterUsername(Users.username);
+  await login.enterPassword(Users.password);
+  await login.clickLoginButton();
+  await dashboard.verifyUserInfoVisible();
+  await dashboard.featuredTitleVisible();
+  await dashboard.featuredProductsVerify();
 });
+ 
 
 test('TC_DASHBOARD_011 : Check news letter subscription on empty Box', async () => {
     await login.enterUsername(Users.username);

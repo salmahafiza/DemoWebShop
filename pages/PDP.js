@@ -12,11 +12,11 @@ class PDP {
     this.availabilityStatus = page.locator('.stock .value');
     this.addtoCompare = page.locator("input[value='Add to compare list']");
     this.QtyUpdate = page.locator("#addtocart_43_EnteredQuantity");
-    this.addToCart = page.locator("#add-to-cart-button-43");
+    //this.addToCart = page.locator("#add-to-cart-button-43");
     this.assertProduct2 = page.locator("img[title='Show details for Used phone']");
     this.emailAFriendButton = page.locator('input[value="Email a friend"]');
     this.friendEmailField = page.locator('#FriendEmail');
-    this.yourEmailField = page.locator('#YourEmailAddress');
+    this.yourEmailFieldForSmartPhone = page.locator('#YourEmailAddress');
     this.personalMessageField = page.locator('#PersonalMessage');
     this.sendEmailButton = page.locator('input[name="send-email"]');
     this.successMessage = page.locator('.result');
@@ -71,7 +71,7 @@ class PDP {
     this.recipientEmailField = page.locator('#giftcard_1_RecipientEmail');
     this.yourNameField = page.locator('#giftcard_1_SenderName');
     this.yourEmailField = page.locator('#giftcard_1_SenderEmail');
-    this.addToCart = page.locator('#add-to-cart-button-1');
+    this.addToCart1 = page.locator('#add-to-cart-button-1');
     this.errorMessage = page.locator('#bar-notification');
   }
 
@@ -116,9 +116,9 @@ class PDP {
     expect(pdpProductPrice).toBe(plpProductPrice);
   }
 
-  async addToCart() {
+  async addsmartPhoneToCart() {
     await this.addToCartButton.click();
-  }
+ }
 
   // async verifyProductAddedToCart() {
   //   const cartNotification = this.page.locator(".bar-notification.success");
@@ -175,7 +175,7 @@ class PDP {
 
   async fillEmailForm(friendEmail, yourEmail, message) {
     await this.friendEmailField.fill(friendEmail);
-    await this.yourEmailField.fill(yourEmail);
+    await this.yourEmailFieldForSmartPhone.fill(yourEmail);
     await this.personalMessageField.fill(message);
   }
 
@@ -183,9 +183,9 @@ class PDP {
     await this.sendEmailButton.click();
   }
 
-  // async verifySuccessMessage() {
-  //   await expect(this.successMessage).toHaveText("Your message has been sent.");
-  // }
+   async verifySuccessMessageForEmailaFriend() {
+     await expect(this.successMessage).toHaveText("Your message has been sent.");
+ }
 
   async VerifyProductImageGallery() {
     let GalleryCount = await this.PDPImageGallery.count();
@@ -367,7 +367,7 @@ class PDP {
   }
 
   async clickAddToCart() {
-    await this.addToCart.click();
+    await this.addToCart1.click();
   }
 
   async verifyGiftCardErrorMessagesForName() {

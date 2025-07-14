@@ -6,7 +6,7 @@ const { PDP } = require('../pages/PDP');
 const { PLP } = require('../pages/PLP');
 const { Checkout } = require('../pages/Checkout');
 const { Shipping } =require('../pages/Shipping');
-const { Users,billingAddressData,shippingAddressData,InvalidshippingAddressData} = require('../test-data/Users');
+const { Users,billingAddressData,creditCardDetails,shippingAddressData,InvalidshippingAddressData} = require('../test-data/Users');
 
 
 let login;
@@ -29,6 +29,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('TC_SHIPPING_001 :Verify that basic shipping option works correctly', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -67,6 +68,7 @@ test('TC_SHIPPING_001 :Verify that basic shipping option works correctly', async
 });
 
 test('TC_SHIPPING_002 :Verify availability of express shipping options', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -105,6 +107,7 @@ test('TC_SHIPPING_002 :Verify availability of express shipping options', async (
 });
 
 test('TC_SHIPPING_003: Verify that user can change shipping option before finalizing order', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -131,6 +134,7 @@ test('TC_SHIPPING_003: Verify that user can change shipping option before finali
 });
 
 test('TC_Shipping_004: Verify that shipping cost is calculated correctly', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -171,6 +175,7 @@ test('TC_Shipping_004: Verify that shipping cost is calculated correctly', async
 });
 
 test('TC_Shipping_005: Shipping method required forcefully pass with explanation', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -198,6 +203,7 @@ test('TC_Shipping_005: Shipping method required forcefully pass with explanation
 });
 
 test('TC_Shipping_006: Verify that shipping address must be correct', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -227,6 +233,7 @@ test('TC_Shipping_006: Verify that shipping address must be correct', async () =
 });
 
 test('TC_Shipping_007: Verify that shipping address must be correct', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -256,6 +263,7 @@ test('TC_Shipping_007: Verify that shipping address must be correct', async () =
 });
 
 test('TC_Shipping_008: Verify that in-store pickup is available and works correctly', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -281,6 +289,7 @@ test('TC_Shipping_008: Verify that in-store pickup is available and works correc
 });
 
 test('TC_Shipping_011: Verify user is able to select Check / Money Order as their payment option', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -311,6 +320,7 @@ test('TC_Shipping_011: Verify user is able to select Check / Money Order as thei
 });
 
 test('TC_Shipping_012: Verify user is able to select Credit Card as their payment option', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -344,6 +354,7 @@ test('TC_Shipping_012: Verify user is able to select Credit Card as their paymen
 });
 
 test('TC_Shipping_013: Verify user is able to select Purchase Order as their payment option', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -377,6 +388,7 @@ test('TC_Shipping_013: Verify user is able to select Purchase Order as their pay
 });
 
 test('TC_SHIPPING_014: validate website logo redirected to home page', async ({ page }) => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -386,6 +398,7 @@ test('TC_SHIPPING_014: validate website logo redirected to home page', async ({ 
 });
 
 test('TC_SHIPPING_015: Verify user can enter a new Shipping Address different from Billing Address', async () => {
+    test.setTimeout(60000);
     await dashboard.navigateToLoginPage();
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);

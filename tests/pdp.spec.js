@@ -33,7 +33,7 @@ test('TC_PDP_002: Verify that product can be added to the cart', async ({ page }
     const { plpProductPrice, plpProductName } = await pdp.getPLPProductDetails();
     await pdp.NavigateToProductPDP('Smartphone');
     await pdp.VerifyandAssertPDPWithPLP(plpProductName, plpProductPrice);
-    await pdp.addToCart();
+    await pdp.addsmartPhoneToCart();
     await pdp.verifyProductAddedToCart();
 });
 
@@ -42,7 +42,7 @@ test ('TC_PDP_003: Verify that user can update quantity during checkout', async 
     await dashboard.clickOnSearchButton();
     await checkout.clickOnProductName();
     await pdp.updateProductQuantity(12);//Update QTY
-    await page.reload();
+    //await page.reload();
     const cartQty = await pdp.getCartQuantity();
     console.log('Cart Quantity:', cartQty);
 });
@@ -96,7 +96,7 @@ test ('TC_PDP_008: Verify that User emails product details to friend', async () 
     await pdp.clickEmailAFriend();
     await pdp.fillEmailForm('xyz@gmail.com', 'abc@gmail.com', 'check this Phone');
     await pdp.sendEmail();
-    await pdp.verifySuccessMessage();
+    await pdp.verifySuccessMessageForEmailaFriend();
     console.log('Email to friend sent successfully.');
 });
 

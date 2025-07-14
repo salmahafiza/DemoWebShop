@@ -26,17 +26,17 @@ class MyAccountPage {
         this.emailError = page.locator(".field-validation-error[data-valmsg-for='Email']");
         this.firstNameError = page.locator(".field-validation-error[data-valmsg-for='FirstName']");
         this.lastNameError = page.locator(".field-validation-error[data-valmsg-for='LastName']");
-        this.editButtonOnAddress = page.locator('//input[@class ="button-2 edit-address-button"]');
+        this.editButtonOnAddress = page.locator('body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > input:nth-child(1)');
         this.addNewAddressButton = page.locator('//input[@class="button-1 add-address-button"]');
-        this.deleteAddressButton = page.locator('//input[@class="button-2 delete-address-button"]');
-        this.nameOnAddressPage = page.locator("//ul[@class='info']/li[@class='name']");
-        this.emailOnAddressPage = page.locator("//ul[@class='info']/li[@class='email']");
-        this.phoneOnAddressPage = page.locator("//ul[@class='info']/li[@class='phone']");
-        this.companyOnAddresspage = page.locator("//ul[@class='info']/li[@class='company']");
-        this.faxOnAddressPage = page.locator("//ul[@class='info']/li[@class='fax']");
-        this.countryOnAddressPage = page.locator("//ul[@class='info']/li[@class='country']");
-        this.address1OnAddressPage = page.locator("//ul[@class='info']/li[@class='address1']");
-        this.cityZipCodeOnAddressPage = page.locator("//ul[@class='info']/li[@class='city-state-zip']");
+        this.deleteAddressButton = page.locator('body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > input:nth-child(2)');
+        this.nameOnAddressPage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(1)");
+        this.emailOnAddressPage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(2)");
+        this.phoneOnAddressPage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(3)");
+        this.companyOnAddresspage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(5)");
+        this.faxOnAddressPage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(5)");
+        this.countryOnAddressPage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(6)");
+        this.address1OnAddressPage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(6)");
+        this.cityZipCodeOnAddressPage = page.locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(7)");
         this.firstNameForAddress = page.locator('input#Address_FirstName');
         this.lastNameForAddress = page.locator('input#Address_LastName');
         this.emailForAddress = page.locator('input#Address_Email');
@@ -100,6 +100,8 @@ class MyAccountPage {
         );
         expect(orderDetails).toHaveText(expectedText);
     }
+    
+
     async verifyOrderDetailsPageTitle(title) {
         await expect(this.orderDetailsPageTitle).toHaveText(title);
     }
@@ -351,7 +353,7 @@ class MyAccountPage {
         this.nthElementNum = delAdresssNum;
         console.log("Nth element number:", this.nthElementNum);
         const nthDelBtn = await this.page
-            .locator(".delete-address-button")
+            .locator("body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > input:nth-child(2)")
             .nth(delAdresssNum - 1);
         // confirmation dialog box handler
         this.page.once("dialog", async (dialog) => {

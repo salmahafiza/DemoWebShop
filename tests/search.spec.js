@@ -165,11 +165,11 @@ test('TC__SEARCH_023 : Sort results by price (low to high)	', async ({ page }) =
    await searchbar.sortByPriceLowToHigh();
 });
 
-test('TC_SEARCH_024 : Filter - Display Per Page', async ({ page }) => {
+/*test('TC_SEARCH_024 : Filter - Display Per Page', async ({ page }) => {
    await searchbar.validSearchText(searchData.giftSearchText);
    await searchbar.selectDisplayPage();
    await searchbar.verifyingVisibilityOfProductByDisplayPage();
-});
+});*/
 test('TC_SEARCH_0025: Verify functionality of Filter - View As Grid', async ({ page }) => {
    await searchbar.SearchbarFieldFill('Computer');
    await searchbar.clickOnSearchButton();

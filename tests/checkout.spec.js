@@ -8,12 +8,13 @@ let login;
 let dashboard;
 let checkout;
 
+
 test.beforeEach(async ({ page }) => {
     login = new LoginPage(page);
     dashboard = new DashboardPage(page);
     checkout = new Checkout(page);
     await dashboard.navigateToLoginPage();
-});
+    });
 
 test('TC_CHECKOUT_001: Verify that a user can complete the checkout process successfully', async ({ page }) => {
     test.setTimeout(60000);

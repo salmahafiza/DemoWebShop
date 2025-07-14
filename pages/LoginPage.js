@@ -19,6 +19,7 @@ class LoginPage {
         this.recovery_sent = page.locator(".result");
         this.invalidEmailError = page.locator("span[for='Email']");
         this.errorMessage = page.locator('.field-validation-error');
+        this.link_forgotPassword = page.locator('.forgot-password');
     }
 
     async enterUsername(username) {
@@ -108,6 +109,9 @@ class LoginPage {
 
     async EmptyPassword(EmptyPassword){
         await this.passwordField.fill(EmptyPassword);
+    }
+    async forgetpasswordClicked(){
+        await this.forget_password.click();
     }
 
 }
