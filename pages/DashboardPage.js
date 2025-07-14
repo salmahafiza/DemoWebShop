@@ -63,6 +63,13 @@ class DashboardPage {
     this.tricentisManufacturer = page.locator("a[href='/tricentis']");
     this.tricentisPageTitle = page.locator("div[class='page-title'] h1");
     this.AddsOnDashboard = page.locator("#nivo-slider");
+     this.logoutButton = page.locator("[href='/logout']");
+     this.featuredProducts_title = page.locator(
+      "div[class='product-grid home-page-product-grid'] strong"
+    );
+    this.parentFeaturedProducts = page.locator(
+      "body > div:nth-child(4) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(4)"
+    );
 
     //TEST DATA//
     let recipientsName = "saba";
@@ -93,7 +100,7 @@ class DashboardPage {
   }
 
   async verifyToLogout() {
-    await this.page.logoutButton.click();
+    await this.logoutButton.click();
   }
 
   async clickHyperlinkShoppingCart() {
@@ -212,12 +219,38 @@ class DashboardPage {
       await this.page.locator(this.voteBtn).click();
     }
   }
+  async addItemToCart() {
+        await this.selectproduct1FromDashboard.click();
+        await this.addToCartButtonProduct2.click();
+        await expect(this.addToCartSuccesMsg).toHaveText(
+            "The product has been added to your shopping cart");
+    }
+  
 
   async verifyPollSubmission(page) {
     const resultsText = await this.page.locator(this.pollResults).textContent();
     expect(resultsText?.trim().length).toBeGreaterThan(0);
     const results = this.page.locator('.poll-results li');
     await expect(results.first()).toBeVisible();
+  }
+  async featuredTitleVisible() {
+    await expect(this.featuredProducts_title).toBeVisible();
+  }
+  async featuredProductsVerify() {
+    //storing the last preceding child element  direct children divs nth (from heading to featured products)
+    const productItems = this.parentFeaturedProducts.locator("> div");
+    //storing the total count of child elements
+    const count = await productItems.count();
+    console.log(`Total featured product items found: ${count}`);
+ 
+    for (let i = 0; i < count; i++) {
+      //iterating between elements
+      const item = productItems.nth(i);
+      await expect(item).toBeVisible();
+      console.log(item);
+      const className = await item.getAttribute("class");
+      console.log(`Item ${i + 1} class: ${className}`);
+    }
   }
 
   async clickOnProductName() {

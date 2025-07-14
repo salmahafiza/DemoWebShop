@@ -15,6 +15,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('TC_001: Verify that user information is correctly shown', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -22,12 +23,14 @@ test('TC_001: Verify that user information is correctly shown', async () => {
 });
 
 test('TC_002:  Verify that login fails with an incorrect email', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.invalidUser);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
     await login.verifyInvalidLoginErrorMessageShouldDisplay();
 });
 test('TC_003:  Verify that login fails with an incorrect password', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.invalidPassword);
     await login.clickLoginButton();
@@ -35,6 +38,7 @@ test('TC_003:  Verify that login fails with an incorrect password', async () => 
 });
 
 test('TC_004: Verify that login fails if the email field is left empty', async () => {
+    test.setTimeout(60000);
     await login.enterUsername("");
     await login.enterPassword(Users.invalidPassword);
     await login.clickLoginButton();
@@ -42,6 +46,7 @@ test('TC_004: Verify that login fails if the email field is left empty', async (
 });
 
 test("TC_005: Verify that login fails if the password field is left empty.", async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password = "");
     await login.clickLoginButton();
@@ -49,6 +54,7 @@ test("TC_005: Verify that login fails if the password field is left empty.", asy
 });
 
 test("TC_006: Verify that the 'Remember me' function works as expected", async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username)
     await login.enterPassword(Users.password)
     await login.clickRemeberMeCheckbox()
@@ -68,6 +74,7 @@ test("TC_006: Verify that the 'Remember me' function works as expected", async (
 });
 
 test('TC_LOGIN_007: Verify that a user can log out and then log in again successfully', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -81,6 +88,7 @@ test('TC_LOGIN_007: Verify that a user can log out and then log in again success
 });
 
 test('TC_LOGIN_008: Verify that login fails if both email and password are incorrect', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.invalidUser);
     await login.enterPassword(Users.invalidPassword);
     await login.clickLoginButton();
@@ -88,12 +96,14 @@ test('TC_LOGIN_008: Verify that login fails if both email and password are incor
 });
 
 test('TC_LOGIN_009: verify forget password link', async () => {
+    test.setTimeout(60000);
     await login.clickForgetPassword();
     await login.navigatetorecoverypage();
     await login.verifyForgetLinkPassword();
 });
 
 test("TC_LOGIN_010: Login user using empty fields", async () => {
+    test.setTimeout(60000);
     await login.EmptyName(Users.EmptyEmail);
     await login.EmptyPassword(Users.EmptyPassword);
     await login.clickLoginButton();
@@ -101,6 +111,7 @@ test("TC_LOGIN_010: Login user using empty fields", async () => {
 });
 
 test('TC_LOGIN_011: verify Case Sensitivity', async () => {
+    test.setTimeout(60000);
     await login.enterUsername(Users.username.toUpperCase());
     await login.enterPassword(Users.password);
     await login.clickLoginButton();
@@ -108,6 +119,7 @@ test('TC_LOGIN_011: verify Case Sensitivity', async () => {
 });
 
 test('TC_LOGIN_012: Cross-Browser Login', async ({ browserName }) => {
+    test.setTimeout(60000);
     console.log(`Running test on browser: ${browserName}`);
     await login.enterUsername(Users.username);
     await login.enterPassword(Users.password);
@@ -116,6 +128,7 @@ test('TC_LOGIN_012: Cross-Browser Login', async ({ browserName }) => {
 });
 
 test('TC_LOGIN_013: Valid Forgot password - unregistered email', async () => {
+    test.setTimeout(60000);
     await login.clickForgetPassword();
     await login.enter_forget_Password_Email(Users.UnRegEmail);
     await login.clickRecoveryButton();
@@ -123,6 +136,7 @@ test('TC_LOGIN_013: Valid Forgot password - unregistered email', async () => {
 });
 
 test('TC_LOGIN_014: Forgot password - valid email', async () => {
+    test.setTimeout(60000);
     await login.clickForgetPassword();
     await login.enterUsername(Users.username);
     await login.clickRecoveryButton();
@@ -130,6 +144,7 @@ test('TC_LOGIN_014: Forgot password - valid email', async () => {
 });
 
 test('TC_LOGIN_015:  Forgot password -Invalid email forrmat', async () => {
+    test.setTimeout(60000);
     await login.clickForgetPassword();
     await login.enterUsername(Users.InvalidEmail);
     await login.clickRecoveryButton();

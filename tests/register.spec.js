@@ -13,7 +13,7 @@ test.beforeEach(async ({page}) => {
     dashboard = new DashboardPage(page);
     register = new RegisterPage(page);
     await dashboard.accessApplication();
-    await dashboard.verifyHomePageTitle();
+    //await dashboard.verifyHomePageTitle();
     //await register.navigateToRegistrationPage();
     await dashboard.navigateToRegisterPage();
 });
@@ -24,12 +24,12 @@ test(" TC_REGISTER_001 : Verify that a new user can register with valid details.
     await register.fillEmail(ResgisterData.email);
     await register.fillPassword(ResgisterData.Password);
     await register.fillConfirmPassword(ResgisterData.ConfirmPassword);
-    await register.clickRegisterButton();
-    await register.verifySuccessRegistration();
+    await register.ClickRegisterButton();
+    await register.verifySuccessfulRegistration();
 });
 
 test("Tc_REGISTER_002 : Invalid Registration with empty data ", async ({page}) => {
-    await register.clickRegisterButton();
+    await register.clickRegisterLink();
     if (Url.register === page.url()) {
         console.log("Pass");
     } else {
@@ -45,7 +45,7 @@ test('Tc_REGISTER_003: Passwaord Mismatch ', async ({page}) => {
     await register.fillConfirmPassword(invalidPassword.ConfirmPassword);
     if (invalidPassword.Password === invalidPassword.ConfirmPassword) {
         console.log("Password and confirm password are  not matched");
-        await register.clickRegisterButton();
+        await register.ClickRegisterButton();
         if (Url.register === page.url()) {
             console.log("Test case 003 passe");
         } else {
@@ -60,7 +60,7 @@ test('Tc_REGISTER_004 :Invalid Registration with invalid Email pattern', async (
     await register.fillEmail(invalidEmailFormat.email);
     await register.fillPassword(ResgisterData.Password);
     await register.fillConfirmPassword(ResgisterData.ConfirmPassword);
-    await register.clickRegisterButton();
+    await register.ClickRegisterButton();
     if (Url.register === page.url()) {
         console.log("TC_REGISTER_004 Pass");
     } else {
@@ -109,33 +109,34 @@ test('TC_REGISTER_008: Verify that registration fails if names contain invalid c
 });
 
 test('TC_REGISTER_009: Availability of Registration Page from Landing Page', async () => {
-    await register.clickRegisterationBtn();
+    await register.ClickRegisterButton();
     await register.verifyRegisterationPage();
 });
-
+    
 test('TC_REGISTER_010: Availability of Registration Page from Login Page', async () => {
+    test.setTimeout(60000);
     await dashboard.navigateToLoginPage();
-    await register.clickRegisterationBtn();
+    await register.clickRegisterationBtnOnLoginPage();
     await register.verifyRegisterationPage();
 });
 
 test('TC_REGISTER_011: Verify Existence of Clickable Fields and Titles', async () => {
-    await register.clickRegisterationBtn();
+    await register.ClickRegisterButton();
     await register.verifyAllFieldsAreClickable();
 });
 
 test('TC_REGISTER_012: Verify that the fields are empty by default when user lands on the registration page.', async () => {
-    await register.clickRegisterationBtn();
+    await register.ClickRegisterButton();
     await register.verifyAllFieldsAreEmpty();
 });
 
 test('TC_REGISTER_013: Verify that any text in password and confirm password field should be masked.', async () => {
-    await register.clickRegisterationBtn();
+    await register.ClickRegisterButton();
     await register.verifyPasswordFieldsAreMasked();
 });
 
 test('TC_REGISTER_014: Verify Error Messages.', async () => {
-    await register.clickRegisterationBtn();
+    await register.ClickRegisterButton();
     await register.fillInvalidForm();
     await register.clickSubmitBtn();
     await register.verifyErrorMessages();

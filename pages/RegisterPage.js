@@ -26,7 +26,7 @@ class RegisterPage {
         this.ConfirmPasswordError = page.locator('span[for="ConfirmPassword"]');
 
         //this.firstNameError = page.locator("span[for='FirstName']");
-        this.registerBtn = page.locator('.ico-register')
+        this.registerLink = page.locator('.ico-register')
         this.firstNameError = page.locator("span[for='FirstName']");
         this.lastNameError = page.locator("span[for='LastName']");
         this.emailError = page.locator('span[for="Email"]');
@@ -35,6 +35,7 @@ class RegisterPage {
         this.error_alreadyexistsEmail = page.locator(".message-error");
         this.field_LastName = page.locator("input#LastName");
         this.field_firstName = page.locator("input#FirstName");
+        this.registerBtnOnLogin = page.locator('//input[@class="button-1 register-button"]');
     }
 
     async EnterFirstName(firstname) {
@@ -43,6 +44,12 @@ class RegisterPage {
 
     async EnterLastName(lastname) {
         await this.field_LastName.fill(lastname);
+    }
+    async clickRegisterLink() {
+        await this.registerLink.click();
+    }
+    async clickRegisterationBtnOnLoginPage() {
+        await this.registerBtnOnLogin.click();
     }
 
     async EnterEmail(email) {

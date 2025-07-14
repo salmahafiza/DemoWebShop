@@ -25,6 +25,7 @@ class WishlistPage {
         this.wishlist_emptyMessage = this.page.locator('.wishlist-content');
         this.cartCheckboxes = this.page.locator('input[type="checkbox"]');
         this.removeCheckboxes = this.page.locator('input[name="removefromcart"]');
+        this.pageTitle = this.page.locator('.page-title')
 
     }
     async navigateToWishlist() {
@@ -99,10 +100,17 @@ class WishlistPage {
         await expect(this.qtyInputs.nth(index)).toHaveValue(quantity.toString());
         console.log(`Updated product ${index + 1} quantity to: ${quantity}`);
     }
-    async updateProductQuantity(quantity) {
-        await this.inputQty.fill(quantity.toString());
+    async updateProductByQuantityByIndex(index, quantity) {
+        await expect(this.qtyInputs.nth(index)).toBeVisible();
+        await this.qtyInputs.nth(index).fill(quantity.toString());
         await this.updateBtnonWishhlist.click();
-        await expect(this.inputQty).toHaveValue(quantity.toString());
+ 
+        console.log(`Updated product ${index + 1} quantity to: ${quantity}`);
+    }
+    async updateProductQuantity(quantity) {
+        await this.qtyInputs.fill(quantity.toString());
+        await this.updateBtnonWishhlist.click();
+        await expect(this.qtyInputs).toHaveValue(quantity.toString());
         const expectedQtyText = `(${quantity})`;
         await expect(this.wishlist_Qty).toHaveText(expectedQtyText);
         console.log(`Updated product quantity to: ${quantity}`);
@@ -140,6 +148,7 @@ class WishlistPage {
         console.log(`Verified product: ${expectedName}`);
         console.log(`Price: ${expectedPrice}, Qty: ${expectedQty}, Total: ${expectedTotal}`);
     }
+    
     async assertWishlistCountMatchesTotalQty() {
         const count = await this.qtyInputs.count();
         let totalQty = 0;
@@ -172,6 +181,7 @@ class WishlistPage {
         await this.qtyInputs.nth(index).press('Enter');
         await expect(this.qtyInputs.nth(index)).toHaveValue(quantity.toString());
         console.log(`Updated product ${index + 1} quantity to: ${quantity}`);
+    }
     async verifyProductInWishlist(productName) {
         const productRow = this.page.locator('tr.cart-item-row', {
             has: this.page.locator('td.product', { hasText: productName })
