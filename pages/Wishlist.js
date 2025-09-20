@@ -3,6 +3,7 @@ const { expect } = require("@playwright/test");
 class WishlistPage {
     constructor(page) {
         this.page = page;
+        // Locators
         this.wishlist_Link = this.page.getByRole('link', { name: /Wishlist/i }).first();
         this.wishlist_Qty = this.page.locator("//a[@href='/wishlist']//span[@class='wishlist-qty']");
         this.wishlist_Btn = this.page.getByRole('button', { name: 'Add to wishlist' });
